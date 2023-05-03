@@ -1,11 +1,23 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from '@inertiajs/vue3';
+import {Head, useForm} from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import MasterTable from "@/Components/MasterTable.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import MasterATab from "@/Components/MasterATab.vue";
+import InputError from "@/Components/InputError.vue";
+import TextInput from "@/Components/TextInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+
+const form = useForm({
+    category:''
+})
+const submit = () => {
+    form.post(route('category.store'), {
+        onFinish: () => form.reset('category'),
+    });
+};
 
 </script>
 
@@ -15,11 +27,6 @@ import MasterATab from "@/Components/MasterATab.vue";
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Categories Settings</h1>
         </template>
-        <div class="flex mb-2 ">
-            <MasterATab :href="route('category.create')">
-                Add Category
-            </MasterATab>
-        </div>
         <template #sidebar>
             <Sidebar>
                 <SidebarLink class="font-bold" :href="route('category.index')"
@@ -37,8 +44,33 @@ import MasterATab from "@/Components/MasterATab.vue";
             <div class="flex items-center justify-between">
                 <h5 class="bominsoe-h5 text-gray-400">Category List</h5>
             </div>
+            <form @submit.prevent="submit" method="post">
+                <div class="mt-4 pl-2">
+                    <InputLabel for="category" value="Category Name"/>
+                    <div class="mt-1">
+                        <div class="my-2">
+                            <TextInput
+                                id="category"
+                                v-model="form.category"
+                                type="text"
+                                class="mt-1 block w-full"
+                                autocomplete="category"
+                            />
+                            <InputError class="mt-2"/>
+                        </div>
+                        <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            Add Category
+                        </primary-button>
+                    </div>
+                </div>
+            </form>
             <MasterTable :table_head="['ID','Name','Slug','When','Upload By','Control']">
-
+                <tr v-for="category in categories">
+                    <td>{{category.uuid}}</td>
+                    <td>{{category.name}}</td>
+                    <td>{{category.slug}}</td>
+                    <td>{{category.created_at}}</td>
+                </tr>
             </MasterTable>
         </div>
     </AuthenticatedLayout>

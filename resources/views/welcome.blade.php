@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-        <link rel="shortcut icon" href="{{asset('Images/Icon/SHARING.svg')}}" type="image/x-icon">
+        <title >{{ config('app.name', 'SHARING') }}</title>
+        <link rel="shortcut icon" href="{{asset('Images/Icon/S.svg')}}" type="image/x-icon">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />

@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     //Categories Route
     Route::get('/session/categories', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/session/categories/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/session/categories/store', [CategoryController::class, 'store'])->name('category.store');
 });
 
 require __DIR__.'/auth.php';

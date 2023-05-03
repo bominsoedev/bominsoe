@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Service\CategoriesService;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesRepository implements CategoriesInterface
 {
@@ -19,9 +20,16 @@ class CategoriesRepository implements CategoriesInterface
     {
         // TODO: Implement create() method.
     }
-    public function store()
+    public function store($request, $category)
     {
-        // TODO: Implement store() method.
+        $result = $this->categoriesService->store($request, $category);
+       if (!is_null($result)){
+           DB::commit();
+           return redirect()->back();
+       }else{
+           DB::rollBack();
+           return redirect()->back();
+       }
     }
     public function show()
     {
