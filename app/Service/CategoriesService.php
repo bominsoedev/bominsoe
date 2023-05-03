@@ -3,6 +3,9 @@
 namespace App\Service;
 
 use App\Models\Category;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CategoriesService
@@ -10,30 +13,49 @@ class CategoriesService
     public function index()
     {
         $categories = Category::all();
-        return Inertia::render('Categories/Index',[
+        return Inertia::render('Categories/Index', [
             'categories' => $categories
         ]);
     }
+
     public function create()
     {
 
     }
-    public function store()
-    {
 
+    public function store($request, $category)
+    {
+        try {
+            DB::beginTransaction();
+            $category_param = [
+                'uuid' => Str::uuid()->toString(),
+                'name' => $request->category,
+                'slug' => Str::slug($request->category),
+                'user_id' => auth()->id()
+            ];
+            $category->create($category_param);
+            return 'success';
+
+        } catch (QueryException $queryException) {
+            return null;
+        }
     }
+
     public function show()
     {
 
     }
+
     public function edit()
     {
 
     }
+
     public function update()
     {
 
     }
+
     public function destroy()
     {
 

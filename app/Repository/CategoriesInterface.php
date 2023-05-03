@@ -6,7 +6,7 @@ interface CategoriesInterface
 {
     public function index();
     public function create();
-    public function store();
+    public function store($request, $category);
     public function show();
     public function edit();
     public function update();
