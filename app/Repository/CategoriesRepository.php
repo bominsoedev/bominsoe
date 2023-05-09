@@ -68,11 +68,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($destroy)) {
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->route('category.index');
         } else {
             DB::rollBack();
 
-            return redirect()->back();
+            return redirect()->route('category.index');
         }
     }
 }
