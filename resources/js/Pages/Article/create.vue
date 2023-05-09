@@ -36,27 +36,25 @@
                     </div>
                 </div>
                 <div class="mt-4 flex w-1/2 flex-col pl-2">
-                    <InputLabel for="category" value="Category"/>
+                    <InputLabel for="article_title" value="Category"/>
                     <div class="mt-1 flex flex-col">
-                        <TextInput
-                            id="category"
-                            v-model="form.category"
-                            type="text"
-                            class="mt-1 block w-full"
-                            autocomplete="category"
-                        />
-                        <InputError :message="form.errors.category" class="mt-2"/>
+                        <multiselect v-model="value" :options="options" :multiple="true" :close-on-select="false"
+                                     :clear-on-select="false" :preserve-search="true" placeholder="Pick some"
+                                     label="name" track-by="name" :preselect-first="true">
+                        </multiselect>
                     </div>
                 </div>
             </div>
             <div class="mt-3 p-3">
-                <textarea class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md shadow-sm" name="" id="" cols="115" rows="10"></textarea>
+                <textarea
+                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md shadow-sm"
+                    name="" id="" cols="115" rows="10"></textarea>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
 
-<script setup>
+<script>
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import SidebarLink from "@/Components/SidebarLink.vue";
@@ -65,13 +63,47 @@ import {Head, useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import Multiselect from "vue-multiselect";
 
-const form = useForm({
-    article_title: '',
-    category:[],
-});
+export default {
+    name: 'App',
+    components: {
+        AuthenticatedLayout,
+        SidebarLink,
+        Sidebar,
+        InputError,
+        Head,
+        TextInput,
+        InputLabel,
+        "ejs-multiselect": Multiselect
+    },
+    data() {
+        return {
+            form: this.$inertia.form({
+                article_title: '',
+                article_category_id: '',
+                article_body: '',
+            }),
+            value: [],
+            options: [
+                {name: 'Vue.js', language: 'JavaScript'},
+                {name: 'Adonis', language: 'JavaScript'},
+                {name: 'Rails', language: 'Ruby'},
+                {name: 'Sinatra', language: 'Ruby'},
+                {name: 'Laravel', language: 'PHP'},
+                {name: 'Phoenix', language: 'Elixir'}
+            ]
+        }
+    },
+    computed: {},
+    methods: {}
+}
+
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+@import "node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+@import "node_modules/@syncfusion/ej2-buttons/styles/material.css";
 </style>

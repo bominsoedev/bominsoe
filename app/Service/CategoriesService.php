@@ -12,7 +12,8 @@ class CategoriesService
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with(['user'])->get();
+
         return Inertia::render('Categories/Index', [
             'categories' => $categories
         ]);
@@ -34,8 +35,8 @@ class CategoriesService
                 'user_id' => auth()->id()
             ];
             $category->create($category_param);
-            return 'success';
 
+            return 'success';
         } catch (QueryException $queryException) {
             return null;
         }
@@ -46,19 +47,37 @@ class CategoriesService
 
     }
 
-    public function edit()
+    public function edit($category)
     {
 
     }
 
-    public function update()
+    public function update($request, $category)
     {
+        try {
+            DB::beginTransaction();
+            $category_param = [
+                'name' => $request->category,
+                'slug' => Str::slug($request->category),
+            ];
+            $category->update($category_param);
 
+            return 'success';
+        } catch (QueryException $queryException) {
+            return null;
+        }
     }
 
-    public function destroy()
+    public function destroy($category)
     {
+        try {
+            DB::beginTransaction();
+            $category->delete();
 
+            return 'success';
+        } catch (QueryException $queryException) {
+            return null;
+        }
     }
 
 }

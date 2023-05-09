@@ -8,7 +8,7 @@ interface CategoriesInterface
     public function create();
     public function store($request, $category);
     public function show();
-    public function edit();
-    public function update();
-    public function destroy();
+    public function edit($category);
+    public function update($request, $category);
+    public function destroy($category);
 }

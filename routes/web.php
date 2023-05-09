@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     //Categories Route
     Route::get('/session/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/session/categories/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::put('/session/categories/update{category:uuid}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/session/categories/destroy{category:uuid}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });
 
 require __DIR__.'/auth.php';
