@@ -8,43 +8,71 @@ use Illuminate\Support\Facades\DB;
 class CategoriesRepository implements CategoriesInterface
 {
     public $categoriesService;
+
     public function __construct(CategoriesService $categoriesService)
     {
         $this->categoriesService = $categoriesService;
     }
+
     public function index()
     {
         return $this->categoriesService->index();
     }
+
     public function create()
     {
         // TODO: Implement create() method.
     }
+
     public function store($request, $category)
     {
         $result = $this->categoriesService->store($request, $category);
-       if (!is_null($result)){
-           DB::commit();
-           return redirect()->back();
-       }else{
-           DB::rollBack();
-           return redirect()->back();
-       }
+        if (!is_null($result)) {
+            DB::commit();
+
+            return redirect()->back();
+        } else {
+            DB::rollBack();
+
+            return redirect()->back();
+        }
     }
+
     public function show()
     {
         // TODO: Implement show() method.
     }
-    public function edit()
+
+    public function edit($category)
     {
-        // TODO: Implement edit() method.
+        return $this->categoriesService->edit($category);
     }
-    public function update()
+
+    public function update($request, $category)
     {
-        // TODO: Implement update() method.
+        $result = $this->categoriesService->update($request, $category);
+        if (!is_null($result)) {
+            DB::commit();
+
+            return redirect()->back();
+        } else {
+            DB::rollBack();
+
+            return redirect()->back();
+        }
     }
-    public function destroy()
+
+    public function destroy($category)
     {
-        // TODO: Implement destroy() method.
+        $destroy = $this->categoriesService->destroy($category);
+        if (!is_null($destroy)) {
+            DB::commit();
+
+            return redirect()->back();
+        } else {
+            DB::rollBack();
+
+            return redirect()->back();
+        }
     }
 }
