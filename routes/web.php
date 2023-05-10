@@ -37,8 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Article Route
-    Route::get('/session/articles', [ArticleController::class, 'index'])->name('article.index');
+    Route::get('/session/articles/my_articles', [ArticleController::class, 'index'])->name('article.index');
+    Route::get('/session/articles/lists', [ArticleController::class, 'lists'])->name('article.lists');
     Route::get('/session/articles/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('/session/articles/store', [ArticleController::class, 'store'])->name('article.store');
+    Route::get('/session/articles/edit{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::put('/session/articles/edit', [ArticleController::class, 'update'])->name('article.update');
 
     //Categories Route
     Route::get('/session/categories', [CategoryController::class, 'index'])->name('category.index');

@@ -16,12 +16,10 @@ import DangerButton from "@/Components/DangerButton.vue";
 
 const props = defineProps({
     categories: [],
-    category: {}
 })
 
 const form = useForm({
     category: '',
-    categoryName: props.category
 })
 onMounted(() => {
     initFlowbite();

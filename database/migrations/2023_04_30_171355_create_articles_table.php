@@ -14,12 +14,11 @@ return new class extends Migration {
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('title');
-            $table->string('slug')->nullable();
+            $table->string('slug');
             $table->longText('body');
+            $table->string('excerpt');
             $table->foreignId('user_id');
-            $table->foreignId('category_id')->nullable();
             $table->integer('is_public')->nullable();
-            $table->foreignId('tag_id')->nullable();
             $table->integer('visit_count')->nullable();
             $table->timestamps();
         });

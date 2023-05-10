@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Models\ArticleCategories;
 use App\Models\Category;
 use App\Repository\ArticleInterface;
 
 class ArticleController extends Controller
 {
     public $articleInterface;
+
     public function __construct(ArticleInterface $articleInterface)
     {
         $this->articleInterface = $articleInterface;
@@ -24,6 +26,11 @@ class ArticleController extends Controller
         return $this->articleInterface->index();
     }
 
+    public function lists()
+    {
+        return $this->articleInterface->lists();
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -35,9 +42,9 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request)
+    public function store(StoreArticleRequest $request, Article $article, ArticleCategories $articleCategories)
     {
-        //
+        return $this->articleInterface->store($request, $article, $articleCategories);
     }
 
     /**
@@ -51,9 +58,9 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $article, Category $category)
     {
-        //
+        return $this->articleInterface->edit($article, $category);
     }
 
     /**
