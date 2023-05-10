@@ -17,7 +17,7 @@ const showingNavigationDropdown = ref(false);
         <div class="fixed inset-0 bg-gray-100 dark:bg-gray-900"></div>
         <div class="relative">
             <nav
-                class="flex h-20 w-full min-w-screen-xl justify-center bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-700">
+                class="flex h-16 w-full min-w-screen-xl justify-center bg-white dark:bg-slate-900/75 border-b border-gray-100 dark:border-gray-700">
                 <div class="grid w-full max-w-nav grid-cols-8 items-center gap-x-4 px-5">
                     <div class="flex h-10 w-auto items-center">
                         <Link :href="route('home')">

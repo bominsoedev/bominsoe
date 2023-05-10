@@ -12,7 +12,7 @@ class CategoriesService
 {
     public function index()
     {
-        $categories = Category::with(['user'])->get();
+        $categories = Category::where('user_id', auth()->id())->with(['user'])->get();
 
         return Inertia::render('Categories/Index', [
             'categories' => $categories

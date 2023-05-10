@@ -10,11 +10,13 @@ class ArticleCategories extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-      'article_id',
-      'category_id'
+    protected $fillable = [
+        'uuid',
+        'category_id',
+        'article_id',
     ];
-    public function Article():HasOne
+
+    public function Article(): HasOne
     {
         return $this->hasOne(Article::class);
     }

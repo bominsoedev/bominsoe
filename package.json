@@ -23,6 +23,7 @@
         "bootstrap-icons": "^1.10.5",
         "flowbite": "^1.6.5",
         "moment-timezone": "^0.5.43",
+        "view-ui-plus": "^1.3.12",
         "vue-multiselect": "^2.1.7",
         "vue3-select2-component": "^0.1.7",
         "vuex": "^4.1.0"

@@ -1,5 +1,27 @@
+<script setup>
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import {Head, router} from '@inertiajs/vue3';
+import SidebarLink from "@/Components/SidebarLink.vue";
+import Sidebar from "@/Components/Sidebar.vue";
+import MasterTable from "@/Components/MasterTable.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import MasterATab from "@/Components/MasterATab.vue";
+import ArticleCard from "@/Components/ArticleCard.vue";
+import ArticleGrid from "@/Components/ArticleGrid.vue";
+import moment from "moment-timezone";
+import {Links} from "view-ui-plus";
+import CategoryBotton from "@/Components/CategoryBotton.vue";
+
+const props = defineProps({
+    articles: []
+})
+const ths = [
+    '','ID', 'Title', 'Slug', 'Description', 'When', 'Upload By', 'Control'
+]
+</script>
+
 <template>
-    <Head title="Article Create"/>
+    <Head title="Articles"/>
     <AuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
@@ -35,90 +57,42 @@
                 </SidebarLink>
             </Sidebar>
         </template>
-        <form @submit.prevent="submit" method="post">
         <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
             <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Article Create</h5>
+                <h5 class="bominsoe-h5 text-gray-400">Article List</h5>
             </div>
-            <div class="flex">
-                <div class="mt-4 flex w-1/2 flex-col pl-2">
-                    <InputLabel for="article_title" value="Article Title"/>
-                    <div class="mt-1 flex flex-col">
-                        <TextInput
-                            id="article_title"
-                            v-model="form.article_title"
-                            type="text"
-                            class="mt-1 block w-full"
-                            autocomplete="article_title"
-                        />
-                        <InputError class="mt-2" :message="form.errors.article_title" />
-                    </div>
-                </div>
-                <div class="mt-4 flex w-1/2 flex-col pl-2">
-                    <InputLabel for="article_category" value="Category"/>
-                    <div class="mt-2 flex flex-col">
-                        <Select v-model="form.article_category_id" multiple>
-                            <Option v-for="(category, i) in categories" :value="category.id" :key="i">{{ category.name }}</Option>
-                        </Select>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-3 p-3">
-                <textarea
-                    v-model="form.article_body"
-                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md shadow-sm"
-                    name="" id="" cols="115" rows="10"></textarea>
-                <InputError class="mt-2" :message="form.errors.article_body" />
-            </div>
+            <main class="mx-auto mt-6 space-y-6">
+                <MasterTable :table_head="ths">
+                    <tr v-for="article in articles" class="divide-y divide-gray-100 dark:divide-gray-700">
+                        <td></td>
+                        <td>{{ article.id }}</td>
+                        <td>
+                            <span class="text-xs">{{ article.title }}</span>
+                            <br>
+                            <div class="space-x-2">
+                                <CategoryBotton :category="article.category"></CategoryBotton>
+                            </div>
+                        </td>
+                        <td>{{ article.slug }}</td>
+                        <td class="w-64">{{ article.excerpt }}</td>
+                        <td class="w-32">{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</td>
+                        <td>{{ article.author.username }}</td>
+                        <td>
+                            <a :href="route('article.edit',article)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil-square text-gray-400 hover:text-sky-500 duration-300"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                </MasterTable>
+            </main>
+
         </div>
-        <div class="">
-            <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Add Article
-            </primary-button>
-        </div>
-        </form>
     </AuthenticatedLayout>
 </template>
-
-<script setup>
-
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import SidebarLink from "@/Components/SidebarLink.vue";
-import Sidebar from "@/Components/Sidebar.vue";
-import {Head, useForm} from "@inertiajs/vue3";
-import InputError from "@/Components/InputError.vue";
-import TextInput from "@/Components/TextInput.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-
-const submit = () => {
-    form.post(route('article.store'), {
-        onFinish: () => form.reset('article'),
-    });
-};
-
-const props = defineProps({
-    categories: []
-})
-
-const form = useForm({
-    article_title: '',
-    article_category_id: [],
-    article_body: '',
-})
-
-</script>
-
-<style>
-.ivu-select-selection{
-    --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-.ivu-select-selection{
-    border: rgb(17 24 39 );
-}
-.ivu-select-dropdown{
-    --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-</style>

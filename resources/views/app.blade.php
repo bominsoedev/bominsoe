@@ -13,6 +13,9 @@
                 document.documentElement.classList.remove('dark')
             }
         </script>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/view-ui-plus/dist/styles/viewuiplus.css">
+        <script type="text/javascript" src="https://unpkg.com/vue@next"></script>
+        <script type="text/javascript" src="https://unpkg.com/view-ui-plus"></script>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
