@@ -6,6 +6,10 @@ use App\Repository\ArticleInterface;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoriesInterface;
 use App\Repository\CategoriesRepository;
+use App\Repository\CommentInterface;
+use App\Repository\CommentRepository;
+use App\Repository\DashboardInterface;
+use App\Repository\DashboardRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryProvider extends ServiceProvider
@@ -22,6 +26,14 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(
             CategoriesInterface::class,
             CategoriesRepository::class,
+        );
+        $this->app->bind(
+            DashboardInterface::class,
+            DashboardRepository::class,
+        );
+        $this->app->bind(
+            CommentInterface::class,
+            CommentRepository::class,
         );
     }
 

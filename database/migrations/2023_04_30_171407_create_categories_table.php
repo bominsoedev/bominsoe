@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name');
             $table->string('slug');
+            $table->string('icon');
             $table->foreignId('user_id');
             $table->timestamps();
         });

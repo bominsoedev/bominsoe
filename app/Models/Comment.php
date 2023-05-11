@@ -16,6 +16,7 @@ class Comment extends Model
         'user_id',
         'body'
     ];
+    protected $with = ['author'];
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);

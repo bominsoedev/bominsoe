@@ -48,8 +48,8 @@
                     </div>
                 </div>
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    <ArticleCommentForm :can-login="canLogin"></ArticleCommentForm>
-                    <ArticleComment v-for="comment in article.comment" :comment="comment"></ArticleComment>
+                    <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
+                    <ArticleComment v-for="comment in article.comments" :comment="comment"></ArticleComment>
                 </section>
             </article>
         </main>
@@ -63,7 +63,8 @@ import ArticleComment from "@/Components/ArticleComment.vue";
 import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
 import moment from "moment-timezone";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
+import {use} from "view-ui-plus/src/locale";
 
 const props = defineProps({
     article: [],
@@ -74,8 +75,6 @@ const props = defineProps({
         type: Boolean,
     },
 })
-
-
 </script>
 
 <style lang="scss" scoped>

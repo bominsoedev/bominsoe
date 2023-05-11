@@ -67,6 +67,7 @@ class ArticleService
 
     public function show($article)
     {
+//        dd($article);
         return Inertia::render('Article',[
             'article' => $article,
             'canLogin' => Route::has('login'),

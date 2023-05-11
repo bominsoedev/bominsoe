@@ -8,6 +8,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import MasterATab from "@/Components/MasterATab.vue";
 import ArticleCard from "@/Components/ArticleCard.vue";
 import ArticleGrid from "@/Components/ArticleGrid.vue";
+import {Breadcrumb, BreadcrumbItem} from "view-ui-plus";
 
 const props = defineProps({
     articles: []
@@ -19,6 +20,23 @@ const props = defineProps({
     <AuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
+            <Breadcrumb>
+                <BreadcrumbItem :to="route('dashboard')">
+                    <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
+                    Dashboard
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem :to="route('article.lists')">
+                    <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
+                    Articles
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                    <span class="text-gray-50 dark:text-white/75 duration-300">
+                    My Article
+                    </span>
+                </BreadcrumbItem>
+            </Breadcrumb>
         </template>
         <div class="flex mb-2 ">
             <MasterATab :href="route('article.create')">

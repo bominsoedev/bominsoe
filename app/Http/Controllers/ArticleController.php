@@ -55,6 +55,10 @@ class ArticleController extends Controller
         return $this->articleInterface->show($article);
     }
 
+    public function upload()
+    {
+
+    }
     /**
      * Show the form for editing the specified resource.
      */
