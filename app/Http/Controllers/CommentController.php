@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Article;
 use App\Models\Comment;
 use App\Repository\CommentInterface;
 
 class CommentController extends Controller
 {
     public $commentInterface;
+
     public function __construct(CommentInterface $commentInterface)
     {
-
+        $this->commentInterface = $commentInterface;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -33,9 +36,9 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request, Article $article)
     {
-        //
+       return $this->commentInterface->store($request, $article);
     }
 
     /**

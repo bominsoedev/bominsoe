@@ -9,7 +9,7 @@ import MasterATab from "@/Components/MasterATab.vue";
 import ArticleCard from "@/Components/ArticleCard.vue";
 import ArticleGrid from "@/Components/ArticleGrid.vue";
 import moment from "moment-timezone";
-import {Links} from "view-ui-plus";
+import {Breadcrumb, BreadcrumbItem, Links} from "view-ui-plus";
 import CategoryBotton from "@/Components/CategoryBotton.vue";
 
 const props = defineProps({
@@ -25,6 +25,23 @@ const ths = [
     <AuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
+            <Breadcrumb>
+                <BreadcrumbItem :to="route('dashboard')">
+                    <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
+                    Dashboard
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem :to="route('article.index')">
+                    <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
+                    Articles
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                    <span class="text-gray-50 dark:text-white/75 duration-300">
+                    Article Lists
+                    </span>
+                </BreadcrumbItem>
+            </Breadcrumb>
         </template>
         <template #sidebar>
             <Sidebar>
