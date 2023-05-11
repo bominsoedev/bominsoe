@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Article;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -12,27 +13,24 @@ class ArticleService
 {
     public function index()
     {
-        $articles = Article::where('user_id', auth()->id())->with(['category', 'author'])->orderBy('id', 'desc')->get();
+        $articles = Article::where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/Index', [
             'articles' => $articles
         ]);
     }
-
     public function lists()
     {
-        $articles = Article::where('user_id', auth()->id())->with(['category', 'author'])->orderBy('id', 'desc')->get();
+        $articles = Article::where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/ArticleList', [
             'articles' => $articles
         ]);
     }
-
     public function create($category)
     {
         return Inertia::render('Article/create', [
             'categories' => $category->where('user_id', auth()->id())->get()
         ])->with('message', 'Hello စမ်းကြည့်တာပါ');
     }
-
     public function store($request, $article, $articleCategories)
     {
         try {
@@ -59,12 +57,20 @@ class ArticleService
             dd($queryException);
         }
     }
-
     public function edit($article, $category)
     {
         return Inertia::render('Article/edit', [
             'article' => $article,
             'categories' => $category->where('user_id', auth()->id())->get()
+        ]);
+    }
+
+    public function show($article)
+    {
+        return Inertia::render('Article',[
+            'article' => $article,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
         ]);
     }
 }

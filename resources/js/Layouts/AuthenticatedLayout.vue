@@ -171,7 +171,7 @@ const showingNavigationDropdown = ref(false);
                         <!-- Page Content -->
                         <div class="flex">
                             <slot name="sidebar"/>
-                            <div class="w-5/6">
+                            <div class="w-full">
                                 <div class="">
                                     <slot/>
                                 </div>

@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="hidden lg:block">
-                        <a href="/posts/{{article.slug}}"
+                        <a :href="route('article.show',article)"
                            class="transition-colors duration-300 text-xs font-semibold bg-slate-800 hover:bg-slate-900 rounded py-2 px-8"
                         >Read More</a>
                     </div>

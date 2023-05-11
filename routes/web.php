@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/session/articles/store', [ArticleController::class, 'store'])->name('article.store');
     Route::get('/session/articles/edit{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::put('/session/articles/edit', [ArticleController::class, 'update'])->name('article.update');
+    Route::get('/session/articles/{article:slug}', [ArticleController::class, 'show'])->name('article.show');
+
+    //Article Comment
+    Route::post('/session/articles/{article:slug}/comment', [CommentController::class, 'store'])->name('comment.store');
+
 
     //Categories Route
     Route::get('/session/categories', [CategoryController::class, 'index'])->name('category.index');
