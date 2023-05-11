@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div>
-                        <a href="{{'/articles/'.article.slug}}"
+                        <a :href="route('article.show',article)"
                            class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8"
                         >Read More</a>
                     </div>

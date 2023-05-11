@@ -43,5 +43,9 @@ class ArticleRepository implements ArticleInterface
     {
         return $this->articleService->edit($article, $category);
     }
+    public function show($article)
+    {
+        return $this->articleService->show($article);
+    }
 
 }

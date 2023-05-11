@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
+use App\Repository\CommentInterface;
 
 class CommentController extends Controller
 {
+    public $commentInterface;
+    public function __construct(CommentInterface $commentInterface)
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */

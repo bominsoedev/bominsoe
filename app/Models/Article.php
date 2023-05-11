@@ -24,18 +24,26 @@ class Article extends Model
         'is_public',
         'visit_count',
     ];
+    protected $with = ['category', 'author', 'comments'];
 
     public function User(): HasOne
     {
         return $this->hasOne(User::class);
     }
+
     public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'article_categories');
     }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function Tag(): HasMany
