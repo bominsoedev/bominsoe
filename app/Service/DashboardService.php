@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 class DashboardService
 {
-    public function index($article, $category, $articleCategories, $user)
+    public function index($article, $category, $user)
     {
         $article_count = $article->where('user_id', auth()->id() )->get();
         $category_count = $category->where('user_id', auth()->id() )->get();

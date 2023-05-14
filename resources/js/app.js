@@ -7,6 +7,7 @@ import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import ViewUIPlus from 'view-ui-plus';
 import locale from 'view-ui-plus/dist/locale/en-US';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -19,6 +20,7 @@ createInertiaApp({
             .use(ViewUIPlus, {
                 locale
             })
+            .use(CKEditor)
             .mount(el);
     },
     progress: {

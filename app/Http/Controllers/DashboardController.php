@@ -18,8 +18,8 @@ class DashboardController extends Controller
         $this->dashboardInterface = $dashboardInterface;
     }
 
-    public function index(Article $article, Category $category, ArticleCategories $articleCategories, User $user)
+    public function index(Article $article, Category $category, User $user)
     {
-       return $this->dashboardInterface->index($article, $category, $articleCategories, $user);
+       return $this->dashboardInterface->index($article, $category, $user);
     }
 }

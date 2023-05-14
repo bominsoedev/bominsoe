@@ -1,16 +1,16 @@
 <template>
     <Head :title="article.title"/>
     <AuthenticatedLayout>
-        <main class="mx-auto mt-10 lg:mt-20 rounded-xl space-y-6 border border-gray-600 px-3 py-6">
+        <main class="mx-auto rounded-xl space-y-6 border border-gray-600 px-3 py-6">
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                 <div class="col-span-4 lg:text-center lg:pt-14 mb-10 border-r-2 border-r-gray-600 pr-3">
-                    <img src="/images/illustration-1.png" alt="Lary avatar " class="rounded-xl">
-                    <p class="mt-4 block text-gray-400 text-xs">
+                    <img src="https://i.pravatar.cc/100/?u={{article.author.username}}" alt="Lary avatar " class="rounded-xl">
+                    <p class="mt-4 block text-gray-400 text-xs text-center">
                         Published
                         <time>{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</time>
                     </p>
                     <div class="flex items-center lg:justify-center text-sm mt-4">
-                        <!--                    <img src="/images/lary-avatar.svg" alt="Lary avatar">-->
+                        <img src="https://i.pravatar.cc/100/?u={{article.author.username}}" alt="" width="60" height="60" class="rounded-xl">
                         <div class="ml-3 text-left">
                             <h5 class="font-bold">
                                 <a href="/?author={{ article.author.name }}">
@@ -43,8 +43,7 @@
                     <h1 class="font-bold text-3xl lg:text-4xl mb-10">
                         {{ article.title }}
                     </h1>
-                    <div class="space-y-4 lg:text-lg leading-loose">
-                        {{ article.body }}
+                    <div v-html="article.body" class="space-y-4 lg:text-lg leading-loose">
                     </div>
                 </div>
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
@@ -75,6 +74,7 @@ const props = defineProps({
         type: Boolean,
     },
 })
+
 </script>
 
 <style lang="scss" scoped>

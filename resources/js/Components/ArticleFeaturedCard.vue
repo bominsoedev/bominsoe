@@ -27,10 +27,8 @@
                     </div>
                 </header>
 
-                <div class="text-sm mt-2 text-white">
-                    <p>
-                        {{ article.excerpt }}
-                    </p>
+                <div v-html="article.excerpt" class="text-sm mt-2 text-white">
+
                 </div>
 
                 <footer class="flex justify-between items-center mt-8">

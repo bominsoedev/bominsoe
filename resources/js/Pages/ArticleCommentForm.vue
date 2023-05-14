@@ -2,8 +2,8 @@
     <x-pane v-if="canLogin">
         <form @submit.prevent="submit">
             <header class="flex items-center">
-                <!--                <img src="https://i.pravatar.cc/100/?u={{auth()->id()}}}" alt="" width="40" height="40"-->
-                <!--                     class="rounded-full">-->
+                                <img src="https://i.pravatar.cc/100/?u={{auth()->id()}}}" alt="" width="40" height="40"
+                                     class="rounded-full">
                 <h3 class="ml-4">Want to participate?</h3>
             </header>
             <div class="mt-6">
