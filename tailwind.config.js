@@ -10,7 +10,6 @@ module.exports = {
         './resources/js/**/*.vue',
         './node_modules/flowbite/**/*.js'
     ],
-
     theme: {
         extend: {
             fontFamily: {
@@ -18,6 +17,5 @@ module.exports = {
             },
         },
     },
-
     plugins: [require('@tailwindcss/forms'), require('flowbite/plugin')],
 };

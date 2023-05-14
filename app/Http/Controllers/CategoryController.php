@@ -61,7 +61,6 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        dd($request);
         return $this->categoriesInterface->update($request, $category);
     }
 

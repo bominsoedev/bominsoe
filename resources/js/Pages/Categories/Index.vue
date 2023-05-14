@@ -1,6 +1,6 @@
-<script >
+<script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head, useForm} from '@inertiajs/vue3';
+import {Head, router, useForm} from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import MasterTable from "@/Components/MasterTable.vue";
@@ -46,34 +46,16 @@ export default {
         }
     },
     methods: {
-        reset() {
-            form.category = null;
-        },
-        openModel() {
-            this.isOpen = true;
-        },
-        closModel() {
-            this.isOpen = false;
-            this.reset();
-            this.editMode = false;
-        },
         edit(category) {
-            this.form = Object.assign({}, category);
-            this.editMode = true;
-            this.openModel();
-        },
-        update(data) {
-            data._method = 'PATCH';
-            this.form.patch(route('category.update'), data)
-            this.reset();
-            this.closeModal();
+            this.form.get(route('category.edit', category))
         },
         submit() {
-            form.post(route('category.store'), {
+            this.form.post(route('category.store'), {
                 onFinish: () => form.reset('category'),
             });
         }
     }
+
 
 }
 onMounted(() => {
@@ -132,14 +114,11 @@ onMounted(() => {
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</td>
                     <td>{{ category.slug }}</td>
-<!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
+                    <!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
                     <td>{{ category.user.username }}</td>
                     <td class="text-center space-x-2">
-                        <button @click="edit(category)"
-                            :data-modal-target="category.uuid"
-                            :data-modal-toggle="category.uuid"
-                            class="inline-block text-white rounded-lg text-sm text-center"
-                            type="button">
+                        <a :href="route('category.edit',category)"
+                           class="inline-block text-white rounded-lg text-sm text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil-square text-gray-400 hover:text-sky-500 duration-300"
                                  viewBox="0 0 16 16">
@@ -148,7 +127,7 @@ onMounted(() => {
                                 <path fill-rule="evenodd"
                                       d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                             </svg>
-                        </button>
+                        </a>
                         <button :data-modal-target="category.slug"
                                 :data-modal-toggle="category.slug"
                                 class="inline-block text-white rounded-lg text-sm text-center"
@@ -181,22 +160,23 @@ onMounted(() => {
                                         <div class="flex items-center justify-between">
                                             <h5 class="bominsoe-h5 text-gray-400">Category Update</h5>
                                         </div>
-                                        <form >
+                                        <form>
                                             <div class="mt-4 pl-2">
-                                                <InputLabel for="category" value="Category Name"/>
                                                 <div class="mt-1">
                                                     <div class="my-2">
                                                         <TextInput
                                                             id="category"
-                                                            v-model="form.name"
+                                                            v-model="category.name"
                                                             type="text"
                                                             class="mt-1 block w-full"
                                                             autocomplete="category"
                                                         />
                                                         <InputError class="mt-2"/>
                                                     </div>
-                                                    <primary-button @click="update(category)" :class="{ 'opacity-25': form.processing }"
-                                                                    :disabled="form.processing">
+                                                    <primary-button
+                                                        @click.prevent="update(category)"
+                                                        :class="{ 'opacity-25': form.processing }"
+                                                        :disabled="form.processing">
                                                         Update Category
                                                     </primary-button>
                                                 </div>
