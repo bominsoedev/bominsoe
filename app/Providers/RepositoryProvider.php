@@ -10,6 +10,8 @@ use App\Repository\CommentInterface;
 use App\Repository\CommentRepository;
 use App\Repository\DashboardInterface;
 use App\Repository\DashboardRepository;
+use App\Repository\TagsInterface;
+use App\Repository\TagsRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryProvider extends ServiceProvider
@@ -34,6 +36,10 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(
             CommentInterface::class,
             CommentRepository::class,
+        );
+        $this->app->bind(
+            TagsInterface::class,
+            TagsRepository::class,
         );
     }
 

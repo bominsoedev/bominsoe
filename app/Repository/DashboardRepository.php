@@ -12,8 +12,8 @@ class DashboardRepository implements DashboardInterface
         $this->dashboardService = $dashboardService;
     }
 
-    public function index($article, $category, $articleCategories, $user)
+    public function index($article, $category, $user)
     {
-       return $this->dashboardService->index($article, $category, $articleCategories, $user);
+       return $this->dashboardService->index($article, $category, $user);
     }
 }

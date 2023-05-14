@@ -26,7 +26,7 @@ const ths = [
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
-                <BreadcrumbItem :to="route('dashboard')">
+                <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
                     Dashboard
                     </span>

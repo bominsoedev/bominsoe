@@ -21,7 +21,7 @@ const props = defineProps({
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
-                <BreadcrumbItem :to="route('dashboard')">
+                <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
                     Dashboard
                     </span>
@@ -76,7 +76,7 @@ const props = defineProps({
         </template>
         <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
             <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Article List</h5>
+                <h5 class="bominsoe-h5 text-gray-400">Article</h5>
             </div>
             <main class="mx-auto mt-6 space-y-6">
                 <article-grid :articles="articles">

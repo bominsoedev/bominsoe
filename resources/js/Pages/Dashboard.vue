@@ -4,7 +4,6 @@ import {Head} from '@inertiajs/vue3';
 import Sidebar from '@/Components/Sidebar.vue'
 import SidebarLink from "@/Components/SidebarLink.vue";
 import CardStats from "@/Components/CardStats.vue";
-import {c} from "../../../public/build/assets/app-66a084cc";
 import {Breadcrumb, BreadcrumbItem} from "view-ui-plus";
 
 const props = defineProps({
@@ -20,7 +19,7 @@ const props = defineProps({
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
             <Breadcrumb>
-                <BreadcrumbItem :to="route('dashboard')">
+                <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
                     Dashboard
                     </span>
@@ -34,7 +33,7 @@ const props = defineProps({
         </template>
         <template #sidebar>
             <Sidebar>
-                <SidebarLink class="font-bold" :href="route('dashboard')" :active="route().current('dashboard')">
+                <SidebarLink class="font-bold" :href="route('session.dashboard')" :active="route().current('session.dashboard')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="mr-4 h-4 w-4 text-gray-400 bi bi-sliders2-vertical" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"

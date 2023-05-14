@@ -4,7 +4,7 @@
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
-                <BreadcrumbItem :to="route('dashboard')">
+                <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
                     Dashboard
                     </span>
@@ -83,11 +83,12 @@
                     </div>
                 </div>
                 <div class="mt-3 p-3">
-                <textarea
-                    v-model="form.article_body"
-                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md shadow-sm"
-                    name="" id="" cols="115" rows="10"></textarea>
-                    <InputError class="mt-2" :message="form.errors.article_body"/>
+                    <ckeditor class="bg-red-500" :editor="form.editor" v-model="form.article_body" :config="form.editorConfig"></ckeditor>
+<!--                <textarea-->
+<!--                    v-model="form.article_body"-->
+<!--                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md shadow-sm"-->
+<!--                    name="" id="" cols="115" rows="10"></textarea>-->
+<!--                    <InputError class="mt-2" :message="form.errors.article_body"/>-->
                 </div>
                 <div class="mt-3 p-3">
                     <Upload
@@ -102,7 +103,7 @@
                     </Upload>
                 </div>
             </div>
-            <div class="">
+            <div class="mt-3">
                 <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Add Article
                 </primary-button>
@@ -111,7 +112,7 @@
     </AuthenticatedLayout>
 </template>
 
-<script setup>
+<script>
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import SidebarLink from "@/Components/SidebarLink.vue";
@@ -121,32 +122,58 @@ import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {Breadcrumb, BreadcrumbItem, Upload} from "view-ui-plus";
+import {Breadcrumb, BreadcrumbItem, Form, Upload} from "view-ui-plus";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {data} from "autoprefixer";
 
-const submit = () => {
-    form.post(route('article.store'), {
-        onFinish: () => form.reset('article'),
-    });
-};
-
-const props = defineProps({
-    categories: [],
-    token: '',
-
-    async created() {
-        this.token = this.$page.props.csrf_token;
+export default {
+    components:{
+        AuthenticatedLayout,
+        SidebarLink,
+        Sidebar,
+        Head,
+        InputError,
+        TextInput,
+        InputLabel,
+        PrimaryButton,
+        Breadcrumb,
+        BreadcrumbItem,
+        Upload
+    },
+    props: {
+        categories: [],
+    },
+    data: function () {
+        return {
+            form: new useForm({
+                article_title: '',
+                article_category_id: [],
+                article_body: '',
+                editor: ClassicEditor,
+                editorConfig: {}
+            }),
+        }
+    },
+    methods:{
+        submit() {
+            this.form.post(route('article.store'), {
+                onFinish: () => form.reset('article_title','article_category_id','article_body'),
+            });
+        },
     }
-})
-
-const form = useForm({
-    article_title: '',
-    article_category_id: [],
-    article_body: '',
-})
-
+}
 </script>
 
 <style>
+.ck-reset_all :not(.ck-reset_all-excluded *), .ck.ck-reset, .ck.ck-reset_all{
+    background-color: #101827;
+    color: white;
+}
+.ck.ck-editor__main>.ck-editor__editable{
+    background-color: #101827;
+    color: white;
+    height: 500px;
+}
 .ivu-upload-drag {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
