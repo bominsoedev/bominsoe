@@ -49,7 +49,11 @@ class CategoriesService
 
     public function edit($category)
     {
-
+        $categories = Category::where('user_id', auth()->id())->with(['user'])->get();
+        return Inertia::render('Categories/edit',[
+            'categories' => $categories,
+            'category' => $category
+        ]);
     }
 
     public function update($request, $category)

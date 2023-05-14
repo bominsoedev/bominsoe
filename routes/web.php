@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/session/articles/lists', [ArticleController::class, 'lists'])->name('article.lists');
     Route::get('/session/articles/create', [ArticleController::class, 'create'])->name('article.create');
     Route::post('/session/articles/store', [ArticleController::class, 'store'])->name('article.store');
-    Route::get('/session/articles/edit{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::get('/session/articles/edit/{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::put('/session/articles/edit', [ArticleController::class, 'update'])->name('article.update');
     Route::get('/session/articles/{article:slug}', [ArticleController::class, 'show'])->name('article.show');
     Route::post('/app/file_upload', [ArticleController::class, 'upload'])->name('article.upload');
@@ -52,14 +52,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Categories Route
     Route::get('/session/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/session/categories/store', [CategoryController::class, 'store'])->name('category.store');
-    Route::patch('/session/categories/update{category:uuid}', [CategoryController::class, 'update'])->name('category.update');
-    Route::delete('/session/categories/destroy{category:uuid}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/session/categories/edit/{category:uuid}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/session/categories/edit/{category:uuid}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/session/categories/destroy/{category:uuid}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     //Categories Route
     Route::get('/session/tags', [TagController::class, 'index'])->name('tag.index');
     Route::post('/session/tags/store', [TagController::class, 'store'])->name('tag.store');
-    Route::put('/session/tags/update{tag:uuid}', [TagController::class, 'update'])->name('tag.update');
-    Route::delete('/session/tags/destroy{tag:uuid}', [TagController::class, 'destroy'])->name('tag.destroy');
+    Route::put('/session/tags/update/{tag:uuid}', [TagController::class, 'update'])->name('tag.update');
+    Route::delete('/session/tags/destroy/{tag:uuid}', [TagController::class, 'destroy'])->name('tag.destroy');
 });
 
 require __DIR__.'/auth.php';

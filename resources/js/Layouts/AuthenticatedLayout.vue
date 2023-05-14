@@ -89,7 +89,7 @@ const showingNavigationDropdown = ref(false);
                         </NavLink>
                     </div>
                     <div
-                        class="relative z-30 col-span-2 flex flex h-10 w-full flex-grow items-center justify-end justify-self-end">
+                        class="relative z-30 col-span-2 flex h-10 w-full flex-grow items-center justify-end justify-self-end">
                         <Dropdown align="right" width="48">
                             <template #trigger>
                                         <span class="inline-flex rounded-md">
