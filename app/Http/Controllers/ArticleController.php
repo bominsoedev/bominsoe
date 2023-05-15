@@ -6,6 +6,7 @@ use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleCategories;
+use App\Models\Attachment;
 use App\Models\Category;
 use App\Repository\ArticleInterface;
 
@@ -42,9 +43,9 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request, Article $article, ArticleCategories $articleCategories)
+    public function store(StoreArticleRequest $request, Article $article, ArticleCategories $articleCategories, Attachment $attachment)
     {
-        return $this->articleInterface->store($request, $article, $articleCategories);
+        return $this->articleInterface->store($request, $article, $articleCategories, $attachment);
     }
 
     /**
@@ -57,7 +58,6 @@ class ArticleController extends Controller
 
     public function upload()
     {
-
     }
     /**
      * Show the form for editing the specified resource.

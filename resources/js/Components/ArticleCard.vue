@@ -1,9 +1,9 @@
 <template>
-    <article
-        class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
+    <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5">
             <div>
-                <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+                <img :src="'storage/Images/ArticleAttachment/' + article.photo.unique_name" alt="Blog Post illustration"
+                    class="rounded-xl">
             </div>
 
             <div class=" mt-8 flex flex-col justify-between">
@@ -20,11 +20,11 @@
                         </h1>
 
                         <span class="mt-2 block text-gray-400 text-xs text-white">
-                   Published
-                    <time>
-                        {{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}
-                    </time>
-                </span>
+                            Published
+                            <time>
+                                {{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}
+                            </time>
+                        </span>
                     </div>
                 </header>
 
@@ -44,9 +44,9 @@
                         </div>
                     </div>
                     <div>
-                        <a :href="route('article.show',article)"
-                           class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8"
-                        >Read More</a>
+                        <a :href="route('article.show', article)"
+                            class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8">Read
+                            More</a>
                     </div>
                 </footer>
             </div>
@@ -61,10 +61,8 @@ import CategoryBotton from "@/Components/CategoryBotton.vue";
 import moment from "moment-timezone";
 
 const props = defineProps({
-    article:{}
+    article: {}
 })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

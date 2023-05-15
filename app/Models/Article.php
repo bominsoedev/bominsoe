@@ -24,7 +24,7 @@ class Article extends Model
         'is_public',
         'visit_count',
     ];
-    protected $with = ['category', 'author', 'comments'];
+    protected $with = ['category', 'author', 'comments', 'photo'];
 
     public function User(): HasOne
     {
@@ -51,9 +51,8 @@ class Article extends Model
         return $this->hasMany(Tag::class);
     }
 
-    public function Photos(): HasMany
+    public function photo(): HasOne
     {
-        return $this->hasMany(Attachment::class);
+        return $this->hasOne(Attachment::class);
     }
-
 }

@@ -21,7 +21,6 @@ class CategoriesService
 
     public function create()
     {
-
     }
 
     public function store($request, $category)
@@ -38,19 +37,18 @@ class CategoriesService
 
             return 'success';
         } catch (QueryException $queryException) {
-            return null;
+            dd($queryException);
         }
     }
 
     public function show()
     {
-
     }
 
     public function edit($category)
     {
         $categories = Category::where('user_id', auth()->id())->with(['user'])->get();
-        return Inertia::render('Categories/edit',[
+        return Inertia::render('Categories/edit', [
             'categories' => $categories,
             'category' => $category
         ]);
@@ -83,5 +81,4 @@ class CategoriesService
             return null;
         }
     }
-
 }
