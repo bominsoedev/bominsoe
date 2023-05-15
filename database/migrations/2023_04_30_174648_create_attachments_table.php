@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->foreignId('article_id')->constrained()->cascadeOnDelete();
+            $table->string('org_name');
+            $table->string('unique_name');
+            $table->string('path');
+            $table->string('extension');
             $table->timestamps();
         });
     }

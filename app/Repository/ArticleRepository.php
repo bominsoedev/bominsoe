@@ -16,19 +16,18 @@ class ArticleRepository implements ArticleInterface
     public function index()
     {
         return $this->articleService->index();
-
-    }public function lists()
+    }
+    public function lists()
     {
         return $this->articleService->lists();
-
     }
     public function create($category)
     {
         return $this->articleService->create($category);
     }
-    public function store($request, $article, $articleCategories)
+    public function store($request, $article, $articleCategories, $attachment)
     {
-        $store = $this->articleService->store($request, $article, $articleCategories);
+        $store = $this->articleService->store($request, $article, $articleCategories, $attachment);
         if (!is_null($store)) {
             DB::commit();
 
@@ -47,5 +46,4 @@ class ArticleRepository implements ArticleInterface
     {
         return $this->articleService->show($article);
     }
-
 }

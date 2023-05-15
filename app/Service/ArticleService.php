@@ -31,7 +31,7 @@ class ArticleService
             'categories' => $category->where('user_id', auth()->id())->get()
         ])->with('message', 'Hello စမ်းကြည့်တာပါ');
     }
-    public function store($request, $article, $articleCategories)
+    public function store($request, $article, $articleCategories, $attachment)
     {
         try {
             DB::beginTransaction();
@@ -44,6 +44,27 @@ class ArticleService
                 'user_id' => auth()->id(),
             ];
             $articleStore = $article->create($article_param);
+            $attachment_file = $request->attachment;
+            if ($attachment_file) {
+                $request->validate([
+                    'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
+                ]);
+                $unique_name = uniqid() . "_articleAttachmentPhoto_" . $request->file('attachment')->getClientOriginalName();
+                $org_name = $request->file('attachment')->getClientOriginalName();
+                $extension = $request->file('attachment')->extension();
+                $path = 'public/Images/ArticleAttachment';
+                $attachment_param = [
+                    'uuid' => Str::uuid()->toString(),
+                    'article_id' => $articleStore->id,
+                    'org_name' => $org_name,
+                    'unique_name' => $unique_name,
+                    'extension' => $extension,
+                    'path' => $path
+
+                ];
+                $attachment_file->storeAs($path, $unique_name);
+                $attachment->create($attachment_param);
+            }
             $categories = $request->article_category_id;
             foreach ($categories as $c) {
                 $articleCategories->create([
@@ -67,8 +88,8 @@ class ArticleService
 
     public function show($article)
     {
-//        dd($article);
-        return Inertia::render('Article',[
+        //        dd($article);
+        return Inertia::render('Article', [
             'article' => $article,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

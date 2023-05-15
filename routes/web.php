@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/session/articles/edit/{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::put('/session/articles/edit', [ArticleController::class, 'update'])->name('article.update');
     Route::get('/session/articles/{article:slug}', [ArticleController::class, 'show'])->name('article.show');
-    Route::post('/app/file_upload', [ArticleController::class, 'upload'])->name('article.upload');
+
 
     //Article Comment
     Route::post('/session/articles/comment/{article:slug}', [CommentController::class, 'store'])->name('comment.store');
@@ -63,4 +63,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/session/tags/destroy/{tag:uuid}', [TagController::class, 'destroy'])->name('tag.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

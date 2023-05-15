@@ -1,9 +1,9 @@
 <template>
-    <article
-        class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
+    <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5 lg:flex">
             <div class="flex-1 lg:mr-8">
-                <img src="/images/illustration-1.png" alt="Blog Post illustration" class="rounded-xl">
+                <img :src="'storage/Images/ArticleAttachment/' + article.photo.unique_name" alt="Blog Post illustration"
+                    class="rounded-xl">
             </div>
             <div class="flex-1 flex flex-col justify-between">
                 <header class="mt-8 lg:mt-0">
@@ -19,7 +19,7 @@
                         </h1>
 
                         <span class="my-2 block text-white text-xs">
-                                        Published
+                            Published
                             <time>
                                 {{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}
                             </time>
@@ -44,9 +44,9 @@
                     </div>
 
                     <div class="hidden lg:block">
-                        <a :href="route('article.show',article)"
-                           class="transition-colors duration-300 text-xs font-semibold bg-slate-800 hover:bg-slate-900 rounded py-2 px-8"
-                        >Read More</a>
+                        <a :href="route('article.show', article)"
+                            class="transition-colors duration-300 text-xs font-semibold bg-slate-800 hover:bg-slate-900 rounded py-2 px-8">Read
+                            More</a>
                     </div>
                 </footer>
             </div>
@@ -64,6 +64,4 @@ const props = defineProps({
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
