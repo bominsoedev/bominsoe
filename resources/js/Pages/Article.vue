@@ -1,5 +1,5 @@
 <template>
-    <Head :title="article.title"/>
+    <Head :title="article.title" />
     <AuthenticatedLayout>
         <main class="container max-w-4xl" style="max-width: 1200px;">
             <article class="flex flex-col-reverse gap-x-12 text-white lg:flex-row lg:justify-center xl:gap-x-20">
@@ -41,7 +41,7 @@
                                     <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z">
                                     </path>
                                     <path class="fill-current"
-                                          d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
+                                        d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
                                     </path>
                                 </g>
                             </svg>
@@ -60,7 +60,8 @@
                 </div>
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
                     <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
-                    <ArticleComment v-for="comment in article.comments" :comment="comment"></ArticleComment>
+                    <ArticleComment v-for="comment in article.comments" :key="comment.uuid" :comment="comment">
+                    </ArticleComment>
                 </section>
             </article>
         </main>
@@ -90,6 +91,4 @@ const props = defineProps({
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
