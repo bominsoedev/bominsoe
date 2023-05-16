@@ -92,9 +92,11 @@ class ArticleService
 
     public function show($article)
     {
-        $article->update([
-           'visit_count'=>$article->visit_count + 1
-        ]);
+        if ($article->user_id != auth()->id()) {
+            $article->update([
+                'visit_count' => $article->visit_count + 1
+            ]);
+        }
         return Inertia::render('Article', [
             'article' => $article,
             'canLogin' => Route::has('login'),
