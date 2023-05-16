@@ -47,6 +47,7 @@ class TagsService
             'tag' => $tag
         ]);
     }
+
     public function update($request, $tag)
     {
         try {
@@ -56,6 +57,18 @@ class TagsService
                 'slug' => Str::slug($request->tag),
             ];
             $tag->update($tag_param);
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            return null;
+        }
+    }
+
+    public function destroy($tag)
+    {
+        try {
+            DB::beginTransaction();
+            $tag->delete();
 
             return 'success';
         } catch (QueryException $queryException) {

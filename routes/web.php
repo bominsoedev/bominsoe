@@ -45,6 +45,7 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('articles/article_edit/{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::put('articles/article_edit', [ArticleController::class, 'update'])->name('article.update');
     Route::get('articles/{article:slug}', [ArticleController::class, 'show'])->name('article.show');
+    Route::post('/editor/file/upload', [ArticleController::class, 'upload'])->name('article.upload');
 
 
     //Article Comment
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
 
     //Categories Route
     Route::get('tags', [TagController::class, 'index'])->name('tag.index');
+    Route::get('tags/edit/{tag:uuid}', [TagController::class, 'edit'])->name('tag.edit');
     Route::post('tags/store', [TagController::class, 'store'])->name('tag.store');
     Route::put('tags/update/{tag:uuid}', [TagController::class, 'update'])->name('tag.update');
     Route::delete('tags/destroy/{tag:uuid}', [TagController::class, 'destroy'])->name('tag.destroy');

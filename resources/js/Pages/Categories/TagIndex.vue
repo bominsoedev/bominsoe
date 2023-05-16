@@ -107,7 +107,7 @@ const ths = [
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                             </svg>
                         </a>
-                        <button :data-modal-target="tag.slug" :data-modal-toggle="tag.slug"
+                        <button :data-modal-target="tag.uuid" :data-modal-toggle="tag.uuid"
                             class="inline-block text-white rounded-lg text-sm text-center" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash hover:text-red-600 duration-300" viewBox="0 0 16 16">
@@ -119,7 +119,7 @@ const ths = [
                         </button>
 
 
-                        <div :id="tag.slug" tabindex="-1" aria-hidden="true"
+                        <div :id="tag.uuid" tabindex="-1" aria-hidden="true"
                             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative w-full max-w-2xl max-h-full">
                                 <!-- Modal content -->
@@ -132,7 +132,7 @@ const ths = [
                                         </h3>
                                         <button type="button"
                                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            :data-modal-hide="tag.slug">
+                                            :data-modal-hide="tag.uuid">
                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -156,7 +156,7 @@ const ths = [
                                                 Destroy
                                             </danger-button>
                                         </form>
-                                        <primary-button :data-modal-hide="tag.slug">
+                                        <primary-button :data-modal-hide="tag.uuid">
                                             Close
                                         </primary-button>
                                     </div>
