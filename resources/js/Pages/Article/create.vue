@@ -75,14 +75,11 @@
                     </div>
                 </div>
                 <div class="mt-3 p-3">
-                    <ckeditor class="bg-red-500" :editor="form.editor" v-model="form.article_body"
-                        :config="form.editorConfig"></ckeditor>
+                    <ckeditor :editor="form.editor" v-model="form.article_body"
+                        :config="form.editorConfig" tag-name="textarea"></ckeditor>
                 </div>
-
                 <!-- Article Image -->
-
                 <div class="mt-3 p-3">
-
                     <div class="flex items-center justify-center w-full">
                         <label for="attachment"
                             class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -126,7 +123,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { Breadcrumb, BreadcrumbItem, Form, Upload } from "view-ui-plus";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { data } from "autoprefixer";
+import UploadAdapter from "@/Components/UploadAdapter.vue";
 
 export default {
     components: {
@@ -140,7 +137,8 @@ export default {
         PrimaryButton,
         Breadcrumb,
         BreadcrumbItem,
-        Upload
+        Upload,
+        UploadAdapter
     },
     props: {
         categories: [],
@@ -152,7 +150,14 @@ export default {
                 article_category_id: [],
                 article_body: '',
                 editor: ClassicEditor,
-                editorConfig: {},
+                editorConfig: {
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'insertTable', '|', 'imageUpload', 'mediaEmbed', '|', 'undo', 'redo' ],
+                    table: {
+                        toolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
+                    },
+                    extraPlugins: [this.uploader],
+                    language: 'en',
+                },
                 attachment: null
             }),
         }
@@ -164,6 +169,11 @@ export default {
                     onFinish: () => this.form.reset('article_title', 'article_category_id', 'article_body', 'attachment'),
                 }
             );
+        },
+        uploader(editor) {
+            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+                return new UploadAdapter( loader );
+            };
         },
     }
 }
@@ -205,5 +215,10 @@ export default {
 .ivu-select-dropdown {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+.ck-editor__editable {
+    min-height: 300px;
+    border-bottom-left-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
 }
 </style>

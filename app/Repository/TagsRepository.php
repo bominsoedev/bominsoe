@@ -48,4 +48,17 @@ class TagsRepository implements TagsInterface
             return redirect()->route('tag.index');
         }
     }
+    public function destroy($tag)
+    {
+        $result = $this->tagsService->destroy($tag);
+        if (!is_null($result)) {
+            DB::commit();
+
+            return redirect()->route('tag.index');
+        } else {
+            DB::rollBack();
+
+            return redirect()->route('tag.index');
+        }
+    }
 }

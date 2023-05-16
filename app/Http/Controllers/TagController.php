@@ -68,6 +68,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        return $this->tagInterface->destroy($tag);
     }
 }
