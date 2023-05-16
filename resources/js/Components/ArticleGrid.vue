@@ -1,7 +1,6 @@
 <template>
-    <ArticleFeaturedCard v-if="articles.length" :article="articles[0]" />
-    <div class="lg:grid lg:grid-cols-6 space-x-2 space-y-3">
-
+    <ArticleFeaturedCard v-if="articles.length"  :article="articles[0]"/>
+    <div class="lg:grid lg:grid-cols-6">
         <article-card v-if="articles.length" v-for="article in arts" :article="article" :class="classes" />
     </div>
 </template>
@@ -20,8 +19,8 @@ arts.shift()
 
 const classes = computed(() =>
     props.articles.length < 3
-        ? 'col-span-3'
-        : 'col-span-2'
+        ? 'col-span-3 mr-3 mb-3'
+        : 'col-span-2 mr-3 mb-3'
 );
 
 </script>

@@ -1,11 +1,15 @@
 <template>
     <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
-        <div class="py-6 px-5">
-            <div>
-                <img :src="`/storage/ArticleAttachment/${article.photo.unique_name}`" alt="Blog Post illustration"
-                     class="rounded-xl">
-            </div>
-
+        <div class="py-4 px-3">
+            <figure v-if="article.photo">
+                <div class="relative overflow-hidden rounded-xl"
+                     style="width: 100%; height: 345px;">
+                    <img loading="lazy" :src="'/storage/ArticleAttachment/'+article.photo.unique_name"
+                         alt="Lary avatar "
+                         class="lazy h-full w-full object-cover lazyloaded"
+                         style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
+                </div>
+            </figure>
             <div class=" mt-8 flex flex-col justify-between">
                 <header>
                     <div class="space-x-1">
@@ -13,7 +17,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <h1 class="text-lg text-white">
+                        <h1 class="text-lg text-sky-500">
                             <a :href="article.slug">
                                 {{ article.title }}
                             </a>
@@ -27,14 +31,15 @@
                         </span>
                     </div>
                 </header>
-
                 <div v-html="article.excerpt" class="text-sm mt-4 text-white">
-
                 </div>
-
                 <footer class="flex justify-between items-center mt-8">
                     <div class="flex items-center text-sm">
-                        <!--                    <img src="/images/lary-avatar.svg" alt="Lary avatar">-->
+                        <div
+                            class="flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
+                            aria-hidden="true" height="30" width="30">
+                            {{ $page.props.auth.user.username.split("")[0] }}
+                        </div>
                         <div class="ml-3">
                             <h5 class="font-bold text-white">
                                 <a :href="'/?author=' + article.author.username ">

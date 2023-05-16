@@ -22,7 +22,9 @@ class StoreArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'article_title' => 'required',
+            'article_body' => 'required',
+            'article_category_id' => 'required',
         ];
     }
 }

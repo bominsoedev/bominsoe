@@ -1,17 +1,12 @@
 <template>
     <x-pane v-if="canLogin">
         <form @submit.prevent="submit">
-            <header class="flex items-center">
-                                <img src="https://i.pravatar.cc/100/?u={{auth()->id()}}}" alt="" width="40" height="40"
-                                     class="rounded-full">
-                <h3 class="ml-4">Want to participate?</h3>
-            </header>
-            <div class="mt-6">
+            <div class="">
                 <textarea
                     v-model="form.comment"
                     class="w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md"
                     id="comment"
-                    rows="5"
+                    rows="3"
                     placeholder="Aa"></textarea>
             </div>
             <div class="flex justify-end">
