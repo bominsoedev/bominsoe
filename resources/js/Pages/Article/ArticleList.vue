@@ -83,7 +83,7 @@ const ths = [
                                 <CategoryBotton :category="article.category"></CategoryBotton>
                             </div>
                         </td>
-                        <td>{{ article.slug }}</td>
+                        <td>{{ article }}</td>
                         <td class="w-64" v-html="article.excerpt"></td>
                         <td class="w-32">{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</td>
                         <td>{{ article.author.username }}</td>

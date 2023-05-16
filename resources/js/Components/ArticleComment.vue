@@ -1,20 +1,24 @@
 <template>
     <x-pane class="bg-gray-100 mt-3">
-        <article class="flex space-x-4">
-            <div class="flex-shrink-0">
-                <img :src="'https://i.pravatar.cc/100/?u=' + comment.author.username" alt="" width="60" height="60"
-                    class="rounded-xl">
-            </div>
-            <div class="w-full border border-gray-600 p-3 mt-3">
-                <header>
-                    <h3 class="font-bold">{{ comment.author.username }}</h3>
-                    <p class="text-xs mb-4">Comment
-                        <time>{{ moment.utc(comment.created_at).local().startOf('seconds').fromNow() }}</time>
-                    </p>
-                    <p>
-                        {{ comment.body }}
-                    </p>
-                </header>
+        <article class="mt-2">
+            <div class="flex items-center space-x-2">
+                <div class="mr-2">
+                    <img :src="'/storage/ArticleAttachment/'+comment.photo.unique_name" alt="" width="30"
+                         class="rounded-full" style="height: 30px">
+                </div>
+                <div class="bg-gray-800 p-3 rounded-lg w-full">
+                    <h3 class="text-lg font-bold">{{ comment.author.username }}</h3>
+                    <div class="">
+                        <p>
+                            {{ comment.body }}
+                        </p>
+                    </div>
+                    <div class="text-end">
+                        <p class="text-xs ">
+                            <time>{{ moment.utc(comment.created_at).local().startOf('seconds').fromNow() }}</time>
+                        </p>
+                    </div>
+                </div>
             </div>
         </article>
     </x-pane>

@@ -63,7 +63,6 @@ class ArticleService
                     'unique_name' => $unique_name,
                     'extension' => $extension,
                     'path' => $path
-
                 ];
                 $attachment_file->storeAs($path, $unique_name);
                 $attachment->create($attachment_param);
