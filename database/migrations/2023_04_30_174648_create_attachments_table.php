@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('unique_name');
             $table->string('path');
             $table->string('extension');
+            $table->string('status');
             $table->timestamps();
         });
     }

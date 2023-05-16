@@ -62,7 +62,8 @@ class ArticleService
                     'org_name' => $org_name,
                     'unique_name' => $unique_name,
                     'extension' => $extension,
-                    'path' => $path
+                    'path' => $path,
+                    'status' => 'article_photo'
 
                 ];
                 $attachment_file->storeAs($path, $unique_name);

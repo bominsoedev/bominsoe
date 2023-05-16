@@ -75,8 +75,7 @@
                     </div>
                 </div>
                 <div class="mt-3 p-3">
-                    <ckeditor :editor="form.editor" v-model="form.article_body"
-                        :config="form.editorConfig" tag-name="textarea"></ckeditor>
+                    <ckeditor :editor="form.editor" v-model="form.article_body" :config="form.editorConfig"></ckeditor>
                 </div>
                 <!-- Article Image -->
                 <div class="mt-3 p-3">
@@ -138,7 +137,7 @@ export default {
         Breadcrumb,
         BreadcrumbItem,
         Upload,
-        UploadAdapter
+
     },
     props: {
         categories: [],
@@ -151,12 +150,7 @@ export default {
                 article_body: '',
                 editor: ClassicEditor,
                 editorConfig: {
-                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'insertTable', '|', 'imageUpload', 'mediaEmbed', '|', 'undo', 'redo' ],
-                    table: {
-                        toolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-                    },
-                    extraPlugins: [this.uploader],
-                    language: 'en',
+
                 },
                 attachment: null
             }),
@@ -170,11 +164,7 @@ export default {
                 }
             );
         },
-        uploader(editor) {
-            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-                return new UploadAdapter( loader );
-            };
-        },
+
     }
 }
 </script>
@@ -216,6 +206,7 @@ export default {
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
+
 .ck-editor__editable {
     min-height: 300px;
     border-bottom-left-radius: 0.375rem !important;
