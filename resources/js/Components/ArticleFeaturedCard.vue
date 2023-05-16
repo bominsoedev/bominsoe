@@ -2,7 +2,7 @@
     <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5 lg:flex">
             <div class="flex-1 lg:mr-8">
-                <img :src="'storage/Images/ArticleAttachment/' + article.photo.unique_name" alt="Blog Post illustration"
+                <img :src="`storage/Images/ArticleAttachment/${article.photo.unique_name}`" alt="Blog Post illustration"
                     class="rounded-xl">
             </div>
             <div class="flex-1 flex flex-col justify-between">

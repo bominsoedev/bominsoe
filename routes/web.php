@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Article Route
-    Route::get('/session/articles/my_articles', [ArticleController::class, 'index'])->name('article.index');
+    Route::get('my_articles', [ArticleController::class, 'index'])->name('article.index');
     Route::get('/session/articles/lists', [ArticleController::class, 'lists'])->name('article.lists');
     Route::get('/session/articles/create', [ArticleController::class, 'create'])->name('article.create');
     Route::post('/session/articles/store', [ArticleController::class, 'store'])->name('article.store');
@@ -59,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Categories Route
     Route::get('/session/tags', [TagController::class, 'index'])->name('tag.index');
     Route::post('/session/tags/store', [TagController::class, 'store'])->name('tag.store');
+    Route::get('/session/tag/edit/{tag:uuid}', [TagController::class, 'edit'])->name('tag.edit');
     Route::put('/session/tags/update/{tag:uuid}', [TagController::class, 'update'])->name('tag.update');
     Route::delete('/session/tags/destroy/{tag:uuid}', [TagController::class, 'destroy'])->name('tag.destroy');
 });
