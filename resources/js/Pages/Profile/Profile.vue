@@ -1,25 +1,4 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import {Head} from '@inertiajs/vue3';
-import SidebarLink from "@/Components/SidebarLink.vue";
-import Sidebar from "@/Components/Sidebar.vue";
-
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
-</script>
-
 <template>
-    <Head title="Profile"/>
-
     <AuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
@@ -45,20 +24,21 @@ defineProps({
             </Sidebar>
         </template>
         <div class="">
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-                <UpdateProfileInformationForm
-                    :must-verify-email="mustVerifyEmail"
-                    :status="status"
-                />
-            </div>
-
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white mt-4">
-                <UpdatePasswordForm/>
-            </div>
-
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white mt-4">
-                <DeleteUserForm/>
-            </div>
+            HIHIHIHI
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script setup>
+
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import UpdateProfileInformationForm from "@/Pages/Profile/Partials/UpdateProfileInformationForm.vue";
+import Sidebar from "@/Components/Sidebar.vue";
+import SidebarLink from "@/Components/SidebarLink.vue";
+import DeleteUserForm from "@/Pages/Profile/Partials/DeleteUserForm.vue";
+import UpdatePasswordForm from "@/Pages/Profile/Partials/UpdatePasswordForm.vue";
+</script>
+
+<style lang="scss" scoped>
+
+</style>

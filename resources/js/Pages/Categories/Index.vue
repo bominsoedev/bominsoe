@@ -111,15 +111,15 @@ onMounted(() => {
                     </div>
                 </div>
             </form>
-            <MasterTable :table_head="ths">
+            <MasterTable :table_head="ths" classes="text-center item-center">
                 <tr v-for="category in categories" :key="category.id"
                     class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>{{ category.slug }}</td>
+                    <td class="text-center">{{ category.id }}</td>
+                    <td class="text-center">{{ category.name }}</td>
+                    <td class="text-center">{{ category.slug }}</td>
                     <!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
-                    <td>{{ category.user.username }}</td>
-                    <td class="text-center space-x-2">
+                    <td class="text-center">{{ category.user.username }}</td>
+                    <td class="text-center items-center space-x-2">
                         <a :href="route('category.edit', category)"
                             class="inline-block text-white rounded-lg text-sm text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -132,37 +132,18 @@ onMounted(() => {
                             </svg>
                         </a>
 
-
-                        <div :id="category.uuid" tabindex="-1" aria-hidden="true"
-                            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-
-                                    <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-                                        <div class="flex items-center justify-between">
-                                            <h5 class="bominsoe-h5 text-gray-400">Category Update</h5>
-                                        </div>
-                                        <form>
-                                            <div class="mt-4 pl-2">
-                                                <div class="mt-1">
-                                                    <div class="my-2">
-                                                        <TextInput id="category" v-model="category.name" type="text"
-                                                            class="mt-1 block w-full" autocomplete="category" />
-                                                        <InputError class="mt-2" />
-                                                    </div>
-                                                    <primary-button @click.prevent="update(category)"
-                                                        :class="{ 'opacity-25': form.processing }"
-                                                        :disabled="form.processing">
-                                                        Update Category
-                                                    </primary-button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button :data-modal-target="category.uuid"
+                                :data-modal-toggle="category.uuid"
+                                class="inline-block text-white rounded-lg text-sm text-center"
+                                type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash hover:text-red-600 duration-300" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </button>
                         <div :id="category.uuid" tabindex="-1" aria-hidden="true"
                             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative w-full max-w-2xl max-h-full">
@@ -176,7 +157,7 @@ onMounted(() => {
                                         </h3>
                                         <button type="button"
                                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            :data-modal-hide="category.slug">
+                                            :data-modal-hide="category.uuid">
                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -201,7 +182,7 @@ onMounted(() => {
                                                 Destroy
                                             </danger-button>
                                         </form>
-                                        <primary-button :data-modal-hide="category.slug">
+                                        <primary-button :data-modal-hide="category.uuid">
                                             Close
                                         </primary-button>
                                     </div>

@@ -24,6 +24,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function information()
+    {
+        return Inertia::render('Profile/Profile');
+    }
     /**
      * Update the user's profile information.
      */

@@ -32,9 +32,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('session.dashboard');
-    Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('profile/edit/{user:uuid}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('profile/information/{user:uuid}', [ProfileController::class, 'information'])->name('profile.information');
+    Route::patch('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Article Route
     Route::get('articles/my_articles', [ArticleController::class, 'index'])->name('article.index');

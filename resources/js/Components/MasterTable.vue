@@ -3,7 +3,7 @@
         <table class="w-full text-left mt-3" >
             <thead v-if="table_head" class="text-gray-500">
             <tr class="h-10">
-                <th v-for="th in table_head" scope="col" class="pr-4 font-normal">
+                <th v-for="th in table_head" scope="col" :class="classes">
                    {{th}}
                 </th>
             </tr>
@@ -20,7 +20,8 @@ import {computed} from "vue";
 
 const props = defineProps( {
     table_head:[],
-    name: "MasterTable"
+    name: "MasterTable",
+    classes:"pr-4 font-normal"
 })
 
 </script>
