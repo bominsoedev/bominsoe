@@ -11,7 +11,7 @@ class Attachment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'uuid', 'article_id', 'org_name', 'unique_name', 'extension', 'path'
+        'uuid', 'article_id', 'org_name', 'unique_name', 'extension', 'path', 'status'
     ];
     protected $appends = ['full_image_path'];
 

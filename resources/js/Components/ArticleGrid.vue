@@ -1,16 +1,14 @@
 <template>
     <ArticleFeaturedCard v-if="articles.length"  :article="articles[0]"/>
     <div class="lg:grid lg:grid-cols-6">
-
-        <article-card v-if="articles.length" v-for="article in arts" :article="article"
-                      :class="classes"/>
+        <article-card v-if="articles.length" v-for="article in arts" :article="article" :class="classes" />
     </div>
 </template>
 
 <script setup>
 import ArticleCard from "@/Components/ArticleCard.vue";
 import ArticleFeaturedCard from "@/Components/ArticleFeaturedCard.vue";
-import {computed} from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
     articles: []
@@ -27,6 +25,4 @@ const classes = computed(() =>
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
