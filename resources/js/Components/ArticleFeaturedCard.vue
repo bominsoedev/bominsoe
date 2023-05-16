@@ -1,9 +1,10 @@
 <template>
     <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5 lg:flex">
-            <div class="flex-1 lg:mr-8">
-                <img :src="'storage/Images/ArticleAttachment/' + article.photo.unique_name" alt="Blog Post illustration"
-                    class="rounded-xl">
+            <div class="flex-1 lg:mr-8" style="width: 100%; height: 300px;">
+                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.photo.unique_name}`" alt="Blog Post illustration"
+                     class="lazy h-full w-full object-cover lazyloaded"
+                     style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
             </div>
             <div class="flex-1 flex flex-col justify-between">
                 <header class="mt-8 lg:mt-0">
@@ -13,7 +14,7 @@
 
                     <div class="mt-4">
                         <h1 class="text-3xl text-white">
-                            <a href="{{'/articles/'.article.slug}}">
+                            <a :href="article.slug">
                                 {{ article.title }}
                             </a>
                         </h1>
@@ -45,7 +46,7 @@
 
                     <div class="hidden lg:block">
                         <a :href="route('article.show', article)"
-                            class="transition-colors duration-300 text-xs font-semibold bg-slate-800 hover:bg-slate-900 rounded py-2 px-8">Read
+                           class="transition-colors duration-300 text-xs font-semibold bg-slate-800 hover:bg-slate-900 rounded py-2 px-8">Read
                             More</a>
                     </div>
                 </footer>

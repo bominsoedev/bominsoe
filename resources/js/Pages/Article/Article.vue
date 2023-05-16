@@ -1,21 +1,11 @@
 <template>
     <Head :title="article.title"/>
     <AuthenticatedLayout>
-        <main class="container max-w-4xl" style="max-width: 1200px;">
-            <article class="flex flex-col-reverse gap-x-12 text-white lg:flex-row lg:justify-center xl:gap-x-20">
-                <div
-                    class="mx-auto mt-6 max-w-[500px] flex-shrink-0 lg:sticky lg:top-[40px] lg:mt-0 lg:w-[270px] lg:self-start xl:w-[315px]">
-                    <figure>
-                        <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 445px;">
-                            <img loading="lazy" :src="'/storage/ArticleAttachment/'+article.photo.unique_name"
-                                 alt="Lary avatar "
-                                 class="lazy h-full w-full object-cover lazyloaded"
-                                 style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
-                        </div>
-                    </figure>
-                    <figcaption class="mt-4 px-8">
-                        <h5 class="flex items-center gap-x-3 font-poppins font-semibold text-grey-600">Bominsoe</h5>
-                    </figcaption>
+        <main class="mx-auto rounded-xl space-y-6 px-3 py-6">
+            <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
+                <div class="col-span-4 lg:text-center lg:pt-14 mb-10 border-r-2 border-r-gray-600 pr-3">
+                    <img :src="`storage/ArticleAttachment/${article.photo.unique_name}`" alt="Lary avatar "
+                         class="rounded-xl">
                     <p class="mt-4 block text-gray-400 text-xs text-center">
                         Published
                         <time>{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</time>
@@ -35,7 +25,7 @@
                 <div class="col-span-8">
                     <div class="hidden lg:flex justify-between mb-6">
                         <a :href="route('article.index')"
-                           class="btn btn-dark-blue py-px px-4 font-semibold normal-case rounded-lg">
+                           class="transition-colors duration-300 relative inline-flex items-center bg-slate-900 mr-2 m-0 rounded-xl text-xs font-semibold text-white py-2 px-3 hover:bg-slate-800">
                             <svg width="22" height="22" viewBox="0 0 22 22" class="mr-2">
                                 <g fill="none" fill-rule="evenodd">
                                     <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z">
@@ -45,7 +35,7 @@
                                     </path>
                                 </g>
                             </svg>
-                            Back
+                            Back to Posts
                         </a>
 
                         <div class="space-x-2">
@@ -75,8 +65,6 @@ import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
 import moment from "moment-timezone";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
-import {use} from "view-ui-plus/src/locale";
-import {env} from "@inertiajs/inertia-vue3/.eslintrc";
 
 const props = defineProps({
     article: [],

@@ -2,8 +2,8 @@
     <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5">
             <div>
-                <img :src="'storage/Images/ArticleAttachment/' + article.photo.unique_name" alt="Blog Post illustration"
-                    class="rounded-xl">
+                <img :src="`/storage/ArticleAttachment/${article.photo.unique_name}`" alt="Blog Post illustration"
+                     class="rounded-xl">
             </div>
 
             <div class=" mt-8 flex flex-col justify-between">
@@ -14,7 +14,7 @@
 
                     <div class="mt-4">
                         <h1 class="text-lg text-white">
-                            <a href="/articles/{{article.slug}}">
+                            <a :href="article.slug">
                                 {{ article.title }}
                             </a>
                         </h1>
@@ -37,7 +37,7 @@
                         <!--                    <img src="/images/lary-avatar.svg" alt="Lary avatar">-->
                         <div class="ml-3">
                             <h5 class="font-bold text-white">
-                                <a href="/?author={{ article.author.username }}">
+                                <a :href="'/?author=' + article.author.username ">
                                     {{ article.author.username }}
                                 </a>
                             </h5>
@@ -45,7 +45,7 @@
                     </div>
                     <div>
                         <a :href="route('article.show', article)"
-                            class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8">Read
+                           class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8">Read
                             More</a>
                     </div>
                 </footer>
