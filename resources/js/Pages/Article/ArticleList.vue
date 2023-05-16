@@ -1,13 +1,9 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, router } from '@inertiajs/vue3';
+import {Head} from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import MasterTable from "@/Components/MasterTable.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import MasterATab from "@/Components/MasterATab.vue";
-import ArticleCard from "@/Components/ArticleCard.vue";
-import ArticleGrid from "@/Components/ArticleGrid.vue";
 import moment from "moment-timezone";
 import { Breadcrumb, BreadcrumbItem, Links } from "view-ui-plus";
 import CategoryBotton from "@/Components/CategoryBotton.vue";
@@ -88,7 +84,7 @@ const ths = [
                             </div>
                         </td>
                         <td>{{ article.slug }}</td>
-                        <td class="w-64">{{ article.excerpt }}</td>
+                        <td class="w-64" v-html="article.excerpt"></td>
                         <td class="w-32">{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</td>
                         <td>{{ article.author.username }}</td>
                         <td>

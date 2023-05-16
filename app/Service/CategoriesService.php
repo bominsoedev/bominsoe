@@ -37,7 +37,7 @@ class CategoriesService
 
             return 'success';
         } catch (QueryException $queryException) {
-            return null;
+           return null;
         }
     }
 

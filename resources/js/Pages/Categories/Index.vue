@@ -51,7 +51,7 @@ export default {
         },
         submit() {
             this.form.post(route('category.store'), {
-                onFinish: () => this.form.reset('category'),
+                onFinish: () => this.form.reset(),
             });
         }
     }

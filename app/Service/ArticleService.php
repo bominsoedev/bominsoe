@@ -13,24 +13,27 @@ class ArticleService
 {
     public function index()
     {
-        $articles = Article::where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/Index', [
             'articles' => $articles
         ]);
     }
+
     public function lists()
     {
-        $articles = Article::where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/ArticleList', [
             'articles' => $articles
         ]);
     }
+
     public function create($category)
     {
         return Inertia::render('Article/create', [
             'categories' => $category->where('user_id', auth()->id())->get()
         ])->with('message', 'Hello စမ်းကြည့်တာပါ');
     }
+
     public function store($request, $article, $articleCategories, $attachment)
     {
         try {
@@ -52,7 +55,7 @@ class ArticleService
                 $unique_name = uniqid() . "_articleAttachmentPhoto_" . $request->file('attachment')->getClientOriginalName();
                 $org_name = $request->file('attachment')->getClientOriginalName();
                 $extension = $request->file('attachment')->extension();
-                $path = 'public/Images/ArticleAttachment';
+                $path = 'public/ArticleAttachment/';
                 $attachment_param = [
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $articleStore->id,
@@ -78,6 +81,7 @@ class ArticleService
             dd($queryException);
         }
     }
+
     public function edit($article, $category)
     {
         return Inertia::render('Article/edit', [
