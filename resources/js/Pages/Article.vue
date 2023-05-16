@@ -87,14 +87,14 @@
                                     <CategoryBotton :category="article.category"></CategoryBotton>
                                 </div>
                             </div>
-                            <div class="relative mx-auto flex justify-center" style="max-width: 150vh; height: 50vh">
-                                <div class="flex-1 overflow-hidden">
-                                    <img class="rounded" :src="'/storage/ArticleAttachment/'+article.photo.unique_name"
-                                         alt="">
-                                </div>
+                            <div class="relative mx-auto flex justify-center" style="width: 100%; height: 50vh;">
+                                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.photo.unique_name}`"
+                                     alt="Blog Post illustration"
+                                     class="lazy h-full w-full object-cover lazyloaded rounded-xl"
+                                     style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                             </div>
                         </section>
-                        <div class="bg-[#151f32] py-6 px-4 rounded">
+                        <div class="bg-[#151f32] py-6 px-4 rounded-xl">
                             <section class="container" style="max-width: 1166px;">
                                 <div class="mx-auto mb-8 flex w-full flex-wrap lg:flex-nowrap">
                                     <div
@@ -107,7 +107,7 @@
                                                 <header class="mb-8">
                                                     <div class="flex items-center">
                                                         <button
-                                                            class="hidden rounded-full px-1 md:flex md:items-center md:justify-center bg-white/10 mr-4"
+                                                            class="rounded-full px-1 md:flex md:items-center md:justify-center bg-white/10 mr-4"
                                                             style="width: 39px; height: 39px;">
                                                             <svg viewBox="0 0 32 32" width="45" height="45"
                                                                  class="flex-shrink-0 text-white">
@@ -147,20 +147,7 @@
                                                                 {{ moment(article.created_at).format('MMMM Do, YYYY') }}
                                                             </dd>
                                                         </div>
-                                                        <div class="hidden px-5 xl:block">
-                                                            <dt class="mb-2 font-cabin text-2xs font-medium text-white/75">
-                                                                Topic
-                                                            </dt>
-                                                            <dd class="text-sm font-semibold text-white"><a
-                                                                class="link text-white"
-                                                                href="https://laracasts.com/topics/pest">Pest</a></dd>
-                                                        </div>
-                                                        <div class="hidden px-5 lg:block">
-                                                            <dt class="mb-2 font-cabin text-2xs font-medium text-white/75">
-                                                                Series Progress
-                                                            </dt>
-                                                            <dd class="text-sm font-semibold text-white">27%</dd>
-                                                        </div><!----></dl>
+                                                    </dl>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,11 +156,11 @@
                                 <h1 class="font-bold text-3xl lg:text-4xl mb-10">
 
                                 </h1>
-                                <div v-html="article.body" class="space-y-4 lg:text-lg leading-loose">
+                                <div v-html="article.body" class="space-y-4 leading-loose">
                                 </div>
                             </section>
                         </div>
-                        <section class="mt-5 space-y-6 bg-slate-800 py-6 px-4 rounded">
+                        <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
                             <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
                             <ArticleComment v-for="comment in article.comments" :key="comment.uuid"
                                             :comment="comment">
