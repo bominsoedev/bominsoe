@@ -6,7 +6,7 @@
                     <img :src="'/storage/ArticleAttachment/'+comment.photo.unique_name" alt="" width="30"
                          class="rounded-full" style="height: 30px">
                 </div>
-                <div class="bg-gray-800 p-3 rounded-lg w-full">
+                <div class="bg-[#151f32] p-3 rounded-lg w-full">
                     <h3 class="text-lg font-bold">{{ comment.author.username }}</h3>
                     <div class="">
                         <p>
