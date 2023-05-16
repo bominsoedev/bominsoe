@@ -12,7 +12,7 @@ const props = defineProps({
     articles: []
 })
 const ths = [
-    '', 'ID', 'Title', 'Slug', 'Description', 'When', 'Upload By', 'Control', 'Image'
+    '', 'ID', 'Title', 'Slug', 'Description', 'When', 'Upload By', 'Control',
 ]
 </script>
 
@@ -98,10 +98,6 @@ const ths = [
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                 </svg>
                             </a>
-                        </td>
-                        <td class="px-6 py-4">
-                            <img :src="`storage/Images/ArticleAttachment/${article.photo.unique_name}`"
-                                class="w-12 h-12 border rounded-md" />
                         </td>
                     </tr>
                 </MasterTable>
