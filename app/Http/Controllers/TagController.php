@@ -12,7 +12,7 @@ class TagController extends Controller
     public $tagInterface;
     public function __construct(TagsInterface $tagInterface)
     {
-      return  $this->tagInterface = $tagInterface;
+        return  $this->tagInterface = $tagInterface;
     }
 
     /**
@@ -34,9 +34,9 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTagRequest $request)
+    public function store(StoreTagRequest $request, Tag $tag)
     {
-        //
+        return $this->tagInterface->store($request, $tag);
     }
 
     /**
@@ -52,7 +52,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return $this->tagInterface->edit($tag);
     }
 
     /**
@@ -60,7 +60,7 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        return $this->tagInterface->update($request, $tag);
     }
 
     /**
