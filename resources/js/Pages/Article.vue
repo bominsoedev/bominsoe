@@ -23,7 +23,7 @@
                             <span class="h-px w-full bg-sky-600"></span>
                         </h5>
                         <div class="bg-panel-800 p-3 my-4 rounded-xl">
-                            <h4 class="mt-2 font-poppins text-3xl font-light leading-none">
+                            <h4 class="mt-2 font-poppins text-2xl font-bold leading-none text-sky-600">
                                 {{ article.author.username }}
                             </h4>
                             <div class="mt-2 flex items-center gap-x-3">
@@ -51,7 +51,7 @@
                         <div
                             class="panel relative transition-colors duration-300 dark text-white bg-panel-800 px-4 rounded-xl py-3">
                             <div class="flex justify-between">
-                                <h2 class="mb-5 font-semibold leading-none text-xl">
+                                <h2 class="my-3 leading-none text-2xl text-sky-600 font-bold">
                                     Article Description
                                 </h2>
                             </div>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="relative mx-auto flex justify-center" style="width: 100%; height: 50vh;">
                                 <img loading="lazy" :src="`/storage/ArticleAttachment/${article.photo.unique_name}`"
-                                     alt="Blog Post illustration"
+                                     alt="Article illustration"
                                      class="lazy h-full w-full object-cover lazyloaded rounded-xl"
                                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                             </div>
@@ -100,8 +100,8 @@
                                     <div
                                         class="relative mx-auto basis-full items-center justify-between rounded-xl p-6 font-bold text-white md:flex lg:flex-1 lg:basis-0 bg-gradient-to-ls from-frameworks-lights to-framework to-testing">
                                         <div
-                                            class="pointer-events-none absolute top-0 bottom-0 right-0 left-0 left-1/2 hidden -translate-x-1/2 transform opacity-30 md:block"
-                                            :style="{ 'background': 'url(/Images/Icon/S.svg)  50% -1% / 350px no-repeat' }"></div>
+                                            class="pointer-events-none absolute top-0 bottom-0 right-0 left-0 left-1/2 -translate-x-1/2 transform opacity-30 md:block"
+                                            :style="{ 'background': 'url(/Images/Icon/S.svg)  50% -1%/ 250px  no-repeat' }"></div>
                                         <div class="flex-1 md:mx-[2.5rem] md:flex md:space-x-6">
                                             <div class="px-4 md:flex-1 md:px-0">
                                                 <header class="mb-8">
@@ -125,21 +125,40 @@
                                                 </header>
                                                 <div>
                                                     <dl class="flex divide-x divide-solid divide-white/15 md:ml-1">
-                                                        <div class="pr-5">
+                                                        <div class="px-5">
                                                             <dt class="mb-2 font-cabin text-2xs font-medium text-white/75">
                                                                 Visit Member
                                                             </dt>
-                                                            <dd class="text-sm font-semibold text-white">
+                                                            <dd class="flex items-center text-sm font-semibold text-white">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                     height="16" fill="currentColor" class="bi bi-eye mr-3"
+                                                                     viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                                                    <path
+                                                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                                                </svg>
                                                                 {{ article.visit_count }}
                                                             </dd>
                                                         </div>
                                                         <div class="px-5">
                                                             <dt class="mb-2 font-cabin text-2xs font-medium text-white/75">
-                                                                Run Time
+                                                                Article Favorites
                                                             </dt>
-                                                            <dd class="text-sm font-semibold text-white">5m 15s</dd>
+                                                            <dd class="flex items-center text-sm font-semibold text-white">
+                                                                <svg viewBox="0 0 32 32" width="30" height="30"
+                                                                     class="text-white">
+                                                                    <g stroke="none" stroke-width="1.2"
+                                                                       class="fill-current"
+                                                                       fill-rule="evenodd">
+                                                                        <path class="fill-current"
+                                                                              d="M13.6196,11.2 C11.6246857,11.2 10.4,12.85425 10.4,14.2106375 C10.4,17.143925 13.9170286,19.8671 16.4,21.6 C18.8829714,19.86645 22.4,17.143925 22.4,14.2106375 C22.4,12.8541363 21.1758971,11.2 19.1804,11.2 C18.0661143,11.2 17.1138286,12.042335 16.4,12.8420625 C15.6854857,12.0422538 14.73392,11.2 13.6196,11.2 Z"></path>
+                                                                    </g>
+                                                                </svg>
+                                                                222
+                                                            </dd>
                                                         </div>
-                                                        <div class="px-5 md:hidden xl:block">
+                                                        <div class="px-5">
                                                             <dt class="mb-2 font-cabin text-2xs font-medium text-white/75">
                                                                 Published
                                                             </dt>
@@ -157,6 +176,7 @@
 
                                 </h1>
                                 <div v-html="article.body" class="space-y-4 leading-loose">
+
                                 </div>
                             </section>
                         </div>

@@ -31,7 +31,7 @@ class ArticleService
     {
         return Inertia::render('Article/create', [
             'categories' => $category->where('user_id', auth()->id())->get()
-        ])->with('message', 'Hello စမ်းကြည့်တာပါ');
+        ]);
     }
 
     public function store($request, $article, $articleCategories, $attachment)

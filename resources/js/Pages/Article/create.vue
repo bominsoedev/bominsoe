@@ -106,7 +106,6 @@
                                    @input="form.attachment = $event.target.files[0]"/>
                         </label>
                     </div>
-
                 </div>
             </div>
             <div class="mt-3">
