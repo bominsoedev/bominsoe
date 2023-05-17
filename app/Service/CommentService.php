@@ -2,9 +2,11 @@
 
 namespace App\Service;
 
+use App\Models\Comment;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class CommentService
 {
@@ -20,10 +22,16 @@ class CommentService
             ];
             $article->comments()->create($comment_param);
             return 'success';
-        }
-        catch (QueryException $queryException){
+        } catch (QueryException $queryException) {
             return null;
         }
     }
 
+    public function edit($comment)
+    {
+
+        return Inertia::render('Arricle/ArticleCommentEdit', [
+            'comment' => $comment
+        ]);
+    }
 }

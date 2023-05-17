@@ -17,15 +17,19 @@ class CommentRepository implements CommentInterface
     public function store($request, $article)
     {
         $store = $this->commentService->store($request, $article);
-        if (!is_null($store)){
+        if (!is_null($store)) {
             DB::commit();
 
             return redirect()->back();
-        }
-        else{
+        } else {
             DB::rollBack();
 
             return  redirect()->back();
         }
+    }
+
+    public function edit($comment)
+    {
+        $edit = $this->commentService->edit($comment);
     }
 }
