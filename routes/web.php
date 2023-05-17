@@ -50,7 +50,8 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
 
     //Article Comment
     Route::post('articles/comment/{article:slug}', [CommentController::class, 'store'])->name('comment.store');
-    Route::get('articles/comment/edit/{comment:uuid}', [CommentController::class, 'edit'])->name('comment.edit');
+    Route::put('articles/comment/update/{comment:uuid}', [CommentController::class, 'update'])->name('comment.update');
+    Route::post('articles/comment/replies/{comment:uuid}', [CommentController::class, 'replies'])->name('comment.replies');
 
     //Categories Route
     Route::get('categories', [CategoryController::class, 'index'])->name('category.index');

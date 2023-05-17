@@ -5,6 +5,6 @@ namespace App\Repository;
 interface CommentInterface
 {
     public function store($request, $article);
-
-    public function edit($comment);
+    public function update($request, $comment);
+    public function replies($request, $comment);
 }
