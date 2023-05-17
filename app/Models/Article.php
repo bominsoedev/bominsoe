@@ -69,7 +69,12 @@ class Article extends Model
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('parent_id');
+    }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Comment::class,'parent_id');
     }
 
     public function Tag(): HasMany

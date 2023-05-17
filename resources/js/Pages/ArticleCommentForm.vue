@@ -12,9 +12,9 @@
             <div class="flex justify-end">
                 <button
                     class="inline-flex text-xs rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-3 btn btn-dark-blue dark:hover:bg-blue/15">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor"
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                          class="bi bi-send mr-1" viewBox="0 0 16 16">
-                        <path
+                        <path fill="#78909C" fill-rule="evenodd" stroke="#78909C" stroke-width=".5"
                             d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
                     </svg>
                     Comment
@@ -41,7 +41,7 @@ const form = useForm({
 })
 const submit = () => {
     form.post(route('comment.store', props.article), {
-        onFinish: () => form.reset('comment'),
+        onFinish: () => form.reset(),
     });
 };
 import {useForm} from "@inertiajs/vue3";
