@@ -26,7 +26,7 @@
                             <h4 class="mt-2 font-poppins text-2xl font-bold leading-none text-sky-600">
                                 {{ article.author.username }}
                             </h4>
-                            <div class="mt-2 flex items-center gap-x-3">
+                            <div class="my-2 flex items-center gap-x-3">
                                 <a href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-github" viewBox="0 0 16 16">
@@ -51,9 +51,9 @@
                         <div
                             class="panel relative transition-colors duration-300 dark text-white bg-panel-800 px-4 rounded-xl py-3">
                             <div class="flex justify-between">
-                                <h2 class="my-3 leading-none text-2xl text-sky-600 font-bold">
+                                <h4 class="my-2 font-poppins text-2xl font-bold leading-none text-sky-600">
                                     Article Description
-                                </h2>
+                                </h4>
                             </div>
                             <div class="content user-content !mb-0 text-sm">
                                 <p>
@@ -67,10 +67,10 @@
                 <main class="">
                     <div class="col-span-8">
                         <section class="max-w-none p-0 flex-1 mb-3 ">
-                            <div class="hidden lg:flex justify-between mb-6 bg-[#151f32] py-3 px-2 rounded-xl">
+                            <div class="hidden lg:flex justify-between mb-6 bg-gradient-to-ls from-frameworks-lights to-framework py-3 px-2 rounded-xl">
                                 <a :href="route('article.index')"
-                                   class="btn btn-dark-blue py-px px-4 font-semibold normal-case rounded-lg">
-                                    <svg width="22" height="22" viewBox="0 0 22 22" class="mr-2">
+                                   class="bg-blue-700 py-px font-semibold normal-case rounded-lg">
+                                    <svg width="22" height="22" viewBox="0 0 22 22">
                                         <g fill="none" fill-rule="evenodd">
                                             <path stroke="#000" stroke-opacity=".012" stroke-width=".5"
                                                   d="M21 1v20.16H.84V1z">
@@ -80,7 +80,6 @@
                                             </path>
                                         </g>
                                     </svg>
-                                    Back
                                 </a>
 
                                 <div class="space-x-2">
@@ -201,8 +200,6 @@ import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
 import moment from "moment-timezone";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
-import {use} from "view-ui-plus/src/locale";
-import {env} from "@inertiajs/inertia-vue3/.eslintrc";
 
 const props = defineProps({
     article: [],
