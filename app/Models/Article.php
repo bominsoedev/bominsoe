@@ -43,6 +43,7 @@ class Article extends Model
             $filters['category'] ?? false,
             fn ($query, $category) => $query->whereHas(
                 'category',
+                dd($query),
                 fn ($query) => $query->where('slug', $category)
             )
         );

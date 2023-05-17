@@ -70,5 +70,5 @@
 }
 .text-grey-600 {
     --tw-text-opacity: 1;
-    /* color: rgb(186 217 252/var(--tw-text-opacity)); */
+     color: rgb(186 217 252/var(--tw-text-opacity));
 }
