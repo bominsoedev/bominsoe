@@ -17,7 +17,7 @@ class CommentService
             $comment_param = [
                 'uuid' => Str::uuid()->toString(),
                 'article_id' => $article->id,
-                'user_id' => \request()->user()->id,
+                'user_id' => auth()->id(),
                 'body' => $request->comment
             ];
             $article->comments()->create($comment_param);
@@ -27,11 +27,35 @@ class CommentService
         }
     }
 
-    public function edit($comment)
+    public function update($request, $comment)
     {
+        try {
+            DB::beginTransaction();
+            $comment_param = [
+                'body' => $request->comment
+            ];
+            $comment->update($comment_param);
+            return "success";
+        } catch (QueryException $queryException) {
+            return null;
+        }
+    }
 
-        return Inertia::render('Arricle/ArticleCommentEdit', [
-            'comment' => $comment
-        ]);
+    public function replies($request, $comment)
+    {
+        try {
+            DB::beginTransaction();
+            $comment_param = [
+                'uuid' => Str::uuid()->toString(),
+                'article_id' => $comment->article_id,
+                'user_id' => auth()->id(),
+                'parent_id' => $comment->id,
+                'body' => $request->replies
+            ];
+            $comment->create($comment_param);
+            return 'success';
+        } catch (QueryException $queryException) {
+            dd($queryException);
+        }
     }
 }

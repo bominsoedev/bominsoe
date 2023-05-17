@@ -10,7 +10,7 @@ use App\Repository\CommentInterface;
 
 class CommentController extends Controller
 {
-    public  $commentInterface;
+    public $commentInterface;
 
     public function __construct(CommentInterface $commentInterface)
     {
@@ -62,7 +62,12 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        return $this->commentInterface->update($request, $comment);
+    }
+
+    public function replies(StoreCommentRequest $request, Comment $comment)
+    {
+        return $this->commentInterface->replies($request, $comment);
     }
 
     /**

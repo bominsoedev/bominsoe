@@ -32,8 +32,8 @@ class Article extends Model
     {
         $query->when(
             $filters['search'] ?? false,
-            fn ($query, $search) => $query->where(
-                fn ($query) => $query
+            fn($query, $search) => $query->where(
+                fn($query) => $query
                     ->where('title', 'like', '%' . request('search') . '%')
                     ->orWhere('body', 'like', '%' . request('search') . '%')
             )
@@ -41,10 +41,10 @@ class Article extends Model
 
         $query->when(
             $filters['category'] ?? false,
-            fn ($query, $category) => $query->whereHas(
+            fn($query, $category) => $query->whereHas(
                 'category',
                 dd($query),
-                fn ($query) => $query->where('slug', $category)
+                fn($query) => $query->where('slug', $category)
             )
         );
         $query->when($filters['author'] ?? false, fn($query, $author) => $query->whereHas('author', fn($query) => $query->where('username', $author)
@@ -71,12 +71,6 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
-
-    public function replies(): HasMany
-    {
-        return $this->hasMany(Comment::class,'parent_id');
-    }
-
     public function Tag(): HasMany
     {
         return $this->hasMany(Tag::class);

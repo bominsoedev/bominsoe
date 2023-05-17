@@ -24,12 +24,36 @@ class CommentRepository implements CommentInterface
         } else {
             DB::rollBack();
 
-            return  redirect()->back();
+            return redirect()->back();
+        }
+    }
+    public function update($request, $comment)
+    {
+        $update = $this->commentService->update($request, $comment);
+        if (!is_null($update)){
+            DB::commit();
+
+            return redirect()->back();
+        }
+        else{
+            DB::rollBack();
+
+            return redirect()->back();
         }
     }
 
-    public function edit($comment)
+    public function replies($request, $comment)
     {
-        $edit = $this->commentService->edit($comment);
+        $replies = $this->commentService->replies($request, $comment);
+        if (!is_null($replies)){
+            DB::commit();
+
+            return redirect()->back();
+        }
+        else{
+            DB::rollBack();
+
+            return redirect()->back();
+        }
     }
 }

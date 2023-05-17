@@ -178,6 +178,9 @@
 
                                 </div>
                             </section>
+                            <div class="">
+                                <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>
+                            </div>
                         </div>
                         <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
                             <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
