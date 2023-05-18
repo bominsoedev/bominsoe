@@ -1,5 +1,5 @@
 <template>
-    <div class="vfm vfm--inset vfm--fixed vfm--prevent-none" v-if="isOpen" height="auto"
+    <div class="vfm vfm--inset vfm--fixed vfm--prevent-none" height="auto"
          data-v-2836fdb5="" style="z-index: 1000;">
         <div class="vfm__container vfm--absolute vfm--inset vfm--outline-none flex mx-auto dark"
              aria-expanded="true"
@@ -9,7 +9,7 @@
                 data-v-2836fdb5="" style="box-shadow: rgba(27, 33, 58, 0.4) 0px 20px 60px -2px; max-width: 800px;">
                 <div class="flex py-4 px-6 md:px-8" data-v-2836fdb5-s="">
                     <div class="flex-1" data-v-2836fdb5-s="">
-                        <form v-if="isEdit" @submit.prevent="update(comment)" class="text-sm" data-v-2836fdb5-s="">
+                        <form v-if="this.isEdit" @submit.prevent="update(comment)" class="text-sm" data-v-2836fdb5-s="">
                             <div class="mb-2 flex items-center" data-v-2836fdb5-s="">
                                 <svg height="16px" viewBox="0 0 16 16" width="16px"
                                      class="mr-2 fill-current text-grey-800" data-v-2836fdb5-s="">
@@ -26,9 +26,6 @@
                                 </svg>
                                 <p class="font-semibold" data-v-2836fdb5-s="">
                                     Edit
-                                    <strong class="uppercase text-blue" data-v-2836fdb5-s="">
-
-                                    </strong>
                                 </p>
                             </div>
                             <div class="control" data-v-2836fdb5-s="">
@@ -42,7 +39,7 @@
                             </div>
                             <div class="flex w-full justify-end space-x-4" data-v-2836fdb5-s="">
                                 <div class="" data-v-2836fdb5-s="">
-                                    <button @click="closeComment"
+                                    <button @click.prevent="close"
                                             class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
                                             data-v-2836fdb5-s=""> Cancel
                                     </button>
@@ -57,7 +54,7 @@
                                                   d="M6.96 1.877L4.34.542l.435 1.413a5.196 5.196 0 0 0-3.161 2.64C.32 7.133 1.267 10.2 3.73 11.455s5.5.218 6.794-2.32a5.203 5.203 0 0 0 .316-3.989l-1.145.369c.338.955.29 2.087-.22 3.086-.99 1.944-3.308 2.735-5.194 1.774-1.887-.962-2.61-3.302-1.619-5.246a4.085 4.085 0 0 1 2.461-2.045l.46 1.493 1.377-2.7z">
                                             </path>
                                         </svg>
-                                        Post
+                                        Done
                                     </button>
                                 </div>
                             </div>
@@ -79,8 +76,8 @@
                                 </svg>
                                 <p class="font-semibold" data-v-2836fdb5-s="">
                                     Reply to
-                                    <strong class="uppercase text-blue" data-v-2836fdb5-s="">
-
+                                    <strong class="uppercase text-blue font-extrabold" data-v-2836fdb5-s="">
+                                        {{ comment.author.username }}
                                     </strong>
                                 </p>
                             </div>
@@ -95,7 +92,7 @@
                             </div>
                             <div class="flex w-full justify-end space-x-4" data-v-2836fdb5-s="">
                                 <div class="" data-v-2836fdb5-s="">
-                                    <button @click="closeComment()"
+                                    <button @click.prevent="close"
                                             class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
                                             data-v-2836fdb5-s=""> Cancel
                                     </button>
@@ -128,33 +125,32 @@ import {useForm} from "@inertiajs/vue3";
 export default {
     name: "CommentReply",
     props: {
-        comment: {},
-        isOpen: false,
-        isEdit:true,
+        comment:{},
+        isEdit:false,
     },
     data() {
         return {
             form: new useForm({
                 comment: this.comment.body,
-                replies:''
+                replies: "@" + this.comment.author.username
             })
         }
     },
     methods: {
-        closeComment() {
-            this.isOpen = false;
+        close() {
+            this.$emit("isOpen")
         },
         update(comment) {
             this.form.put(route('comment.update', comment), {
                 onSuccess: () => this.form.reset(),
             });
-            this.closeComment();
+            this.close();
         },
         replies(comment) {
             this.form.post(route('comment.replies', comment), {
                 onSuccess: () => this.form.reset(),
             });
-            this.closeComment();
+            this.close();
         }
     }
 }
