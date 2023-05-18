@@ -16,6 +16,7 @@
                     </figure>
                     <figcaption class="mt-4">
                         <h5 class="flex items-center gap-x-3 font-poppins font-semibold text-sky-600">
+                            <span class="h-px w-full bg-sky-600"></span>
                             <span class="flex-shrink-0 text-xs">
                                  Published
                         <time>{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</time>
@@ -57,8 +58,7 @@
                             </div>
                             <div class="content user-content !mb-0 text-sm">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores dignissimos
-                                    impedit labore molestiae necessitatibus nesciunt non quam totam voluptates.
+                                   {{ article.description }}
                                 </p>
                             </div>
                         </div>
@@ -178,9 +178,6 @@
 
                                 </div>
                             </section>
-                            <div class="">
-                                <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>
-                            </div>
                         </div>
                         <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
                             <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
@@ -203,6 +200,8 @@ import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
 import moment from "moment-timezone";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
+import {comment} from "postcss";
+import ArticleReply from "@/Components/ArticleReply.vue";
 
 const props = defineProps({
     article: [],

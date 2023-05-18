@@ -42,6 +42,7 @@ class ArticleService
                 'uuid' => Str::uuid()->toString(),
                 'title' => $request->article_title,
                 'slug' => Str::slug($request->article_title),
+                'description' => $request->description,
                 'excerpt' => Str::words($request->article_body, 15),
                 'body' => $request->article_body,
                 'user_id' => auth()->id(),

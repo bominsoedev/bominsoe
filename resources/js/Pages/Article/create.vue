@@ -58,7 +58,7 @@
                     <h5 class="bominsoe-h5 text-gray-400">Article Create</h5>
                 </div>
                 <div class="flex">
-                    <div class="mt-4 flex w-1/2 flex-col pl-2">
+                    <div class="mt-4 flex w-1/2 flex-col">
                         <InputLabel for="article_title" value="Article Title"/>
                         <div class="mt-1 flex flex-col">
                             <TextInput id="article_title" v-model="form.article_title" type="text"
@@ -67,7 +67,7 @@
                             <InputError class="mt-2" :message="form.errors.article_title"/>
                         </div>
                     </div>
-                    <div class="mt-4 flex w-1/2 flex-col pl-2">
+                    <div class="mt-4 flex w-1/2 flex-col">
                         <InputLabel for="article_category" value="Category"/>
                         <div class="mt-2 flex flex-col">
                             <Select v-model="form.article_category_id" multiple>
@@ -79,13 +79,25 @@
                         <InputError class="mt-2" :message="form.errors.article_category_id"/>
                     </div>
                 </div>
-                <div class="mt-3 p-3">
+                <div class="my-3">
+                    <InputLabel for="article_category" value="Description"/>
+                    <div class="mt-1">
+                    <textarea
+                        v-model="form.description"
+                        class="w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md"
+                        id="description"
+                        rows="3"
+                        placeholder="Aa"></textarea>
+                    </div>
+                    <InputError class="mt-2" :message="form.errors.description"/>
+                </div>
+                <div class="">
                     <ckeditor :editor="form.editor" v-model="form.article_body"
                               :config="form.editorConfig" tag-name="textarea"></ckeditor>
                     <InputError class="mt-2" :message="form.errors.article_body"/>
                 </div>
                 <!-- Article Image -->
-                <div class="mt-3 p-3">
+                <div class="mt-3">
                     <div class="flex items-center justify-center w-full">
                         <label for="attachment"
                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -153,6 +165,7 @@ export default {
                 article_title: '',
                 article_category_id: [],
                 article_body: '',
+                description: '',
                 editor: ClassicEditor,
                 editorConfig: {},
                 attachment: null
@@ -163,7 +176,7 @@ export default {
         submit() {
             this.form.post(route('article.store')
                 , {
-                    onFinish: () => this.form.reset('article_title', 'article_category_id', 'article_body', 'attachment'),
+                    onSuccess: () => this.form.reset('article_body', 'article_title', 'article_category_id', 'description'),
                 }
             );
         },

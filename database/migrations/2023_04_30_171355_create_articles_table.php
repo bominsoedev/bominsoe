@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->uuid('uuid')->unique();
             $table->string('title');
             $table->string('slug');
+            $table->string('description');
             $table->longText('body');
             $table->string('excerpt');
             $table->foreignId('user_id');

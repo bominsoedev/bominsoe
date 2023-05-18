@@ -33,7 +33,7 @@ const form = useForm({
 
 const submit = (tag) => {
     form.put(route('tag.update', tag), {
-        onFinish: () => form.reset('tag'),
+        onSuccess: () => form.reset('tag'),
     });
 };
 
