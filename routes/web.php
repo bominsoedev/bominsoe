@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('session.dashboard');
     Route::get('profile/edit/{user:uuid}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('profile/information/{user:uuid}', [ProfileController::class, 'information'])->name('profile.information');
-    Route::patch('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('profile/update/{user:uuid}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Article Route

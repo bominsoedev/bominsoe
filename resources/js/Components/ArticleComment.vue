@@ -7,7 +7,7 @@
                         <img loading="lazy" :src="'/storage/ArticleAttachment/' + comment.photo.unique_name" alt=""
                              width="30" class="lazy object-cover lazyloaded rounded-full" style="height: 28px">
                     </div>
-                    <div class=" bg-panel-800 p-3 rounded-lg w-full">
+                    <div class="timeline-comment bg-panel-800 p-3 rounded-lg w-full">
                         <h3 class="text-lg font-bold">{{ comment.author.username }}</h3>
                         <div class="my-4" v-html="comment.body">
                         </div>
@@ -15,14 +15,15 @@
                             <div class="">
                                 <button @click="replies()"
                                         class="inline-flex text-xs mr-2 rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-1 btn btn-dark-blue hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20">
-                                    <svg width="12" height="13" viewBox="0 0 12 13" class="mr-1">
-                                        <path fill="#78909C" fill-rule="evenodd" stroke="#78909C" stroke-width=".5"
-                                              d="M6.96 1.877L4.34.542l.435 1.413a5.196 5.196 0 0 0-3.161 2.64C.32 7.133 1.267 10.2 3.73 11.455s5.5.218 6.794-2.32a5.203 5.203 0 0 0 .316-3.989l-1.145.369c.338.955.29 2.087-.22 3.086-.99 1.944-3.308 2.735-5.194 1.774-1.887-.962-2.61-3.302-1.619-5.246a4.085 4.085 0 0 1 2.461-2.045l.46 1.493 1.377-2.7z">
-                                        </path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="currentColor"
+                                         class="bi bi-reply mr-1" viewBox="0 0 16 16">
+                                        <path
+                                            d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
                                     </svg>
                                     Reply
                                 </button>
-                                <button v-if="comment.author.id == $page.props.auth.user.id" @click="openComment()" type="button"
+                                <button v-if="comment.author.id == $page.props.auth.user.id" @click="openComment()"
+                                        type="button"
                                         class="inline-flex text-xs rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-1 btn btn-dark-blue hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="currentColor"
                                          class="bi bi-pencil-square mr-1" viewBox="0 0 16 16">
@@ -43,7 +44,8 @@
                                 </p> -->
                             </div>
                         </div>
-                        <ArticleReply v-for="comment in comment.replies" :key="comment.uuid" :comment="comment"></ArticleReply>
+                        <ArticleReply v-for="comment in comment.replies" :key="comment.uuid"
+                                      :comment="comment"></ArticleReply>
                     </div>
                 </div>
             </div>

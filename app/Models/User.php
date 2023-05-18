@@ -21,8 +21,11 @@ class User extends Authenticatable
         'uuid',
         'first_name',
         'last_name',
+        'nickname',
         'username',
         'phone',
+        'bio',
+        'photo',
         'email',
         'password',
     ];

@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-    <div v-show="message">
+    <div enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out" v-show="message">
         <p class="text-sm text-red-600 dark:text-sky-400 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="currentColor"
                  class="bi bi-exclamation-circle mr-1" viewBox="0 0 16 16">

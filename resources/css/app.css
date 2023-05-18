@@ -279,3 +279,9 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
         width: 100%;
     }
 }
+.timeline-comment {
+    position: relative;
+    border: 1px solid;
+    border-color: rgba(65,132,228,0.4);;
+    border-radius: 6px;
+}

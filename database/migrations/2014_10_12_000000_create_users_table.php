@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('username');
             $table->string('email')->unique();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->bigInteger('login_count')->default(1);
             $table->timestamp('login_at')->nullable();
             $table->timestamp('logout_at')->nullable();
