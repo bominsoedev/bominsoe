@@ -19,7 +19,6 @@ class Comment extends Model
         'parent_id',
         'body'
     ];
-    protected $with = ['author', 'photo', 'replies'];
 
     public function article(): BelongsTo
     {
@@ -31,13 +30,13 @@ class Comment extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function comment_photo(): BelongsTo
+    {
+        return $this->belongsTo(Attachment::class, 'user_id')->where('status', 'article_photo');
+    }
+
     public function replies(): HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id');
-    }
-
-    public function photo(): BelongsTo
-    {
-        return $this->belongsTo(Attachment::class, 'user_id');
     }
 }

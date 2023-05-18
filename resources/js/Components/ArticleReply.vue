@@ -4,13 +4,16 @@
             <div>
                 <div class="flex space-x-2">
                     <div class="mr-2">
-                        <img loading="lazy" :src="'/storage/ArticleAttachment/' + comment.photo.unique_name" alt=""
+                        <img loading="lazy" :src="'/storage/ArticleAttachment/' + comment.comment_photo.unique_name" alt=""
                              width="30" class="lazy object-cover lazyloaded rounded-full" style="height: 28px">
                     </div>
                     <div class="bg-panel-800 rounded-lg w-full timeline-comment p-2 border border-gray-600">
                         <h3 class="text-lg font-bold">{{ comment.author.username }}</h3>
                         <div class="my-4" v-html="comment.body">
                         </div>
+<!--                        <div class="">-->
+<!--                            <JsonViewer :value="comment" copyable boxed sort theme="jv-dark"/>-->
+<!--                        </div>-->
                         <div class="flex justify-between">
                             <div class="">
                                 <button @click="openComment()" type="button"
