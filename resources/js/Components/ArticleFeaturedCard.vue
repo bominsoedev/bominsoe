@@ -1,8 +1,8 @@
 <template>
     <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
         <div class="py-6 px-5 lg:flex">
-            <div v-if="article.photo" class="flex-1 lg:mr-8" style="width: 100%; height: 300px;">
-                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.photo.unique_name}`"
+            <div v-if="article.article_photo" class="flex-1 lg:mr-8" style="width: 100%; height: 300px;">
+                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
                      alt="Blog Post illustration"
                      class="lazy h-full w-full object-cover lazyloaded"
                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">

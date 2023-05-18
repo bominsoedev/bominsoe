@@ -6,9 +6,9 @@
                 <div
                     class="mx-auto mt-6 max-w-[500px] flex-shrink-0 lg:sticky lg:top-[40px] lg:mt-0 lg:w-[270px] lg:self-start xl:w-[315px]">
                     <figure>
-                        <div v-if="article.photo" class="relative overflow-hidden rounded-xl"
+                        <div v-if="article.article_photo" class="relative overflow-hidden rounded-xl"
                              style="width: 100%; height: 445px;">
-                            <img loading="lazy" :src="'/storage/ArticleAttachment/'+article.photo.unique_name"
+                            <img loading="lazy" :src="'/storage/ArticleAttachment/'+article.article_photo.unique_name"
                                  alt="Lary avatar "
                                  class="lazy h-full w-full object-cover lazyloaded"
                                  style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
@@ -44,7 +44,7 @@
                                 </a>
                             </div>
                             <p class="content mt-3 text-[13px] lg:pr-8">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, reiciendis!
+                                {{article.author.bio}}
                             </p>
                         </div>
                     </figcaption>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="relative mx-auto flex justify-center" style="width: 100%; height: 50vh;">
-                                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.photo.unique_name}`"
+                                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
                                      alt="Article illustration"
                                      class="lazy h-full w-full object-cover lazyloaded rounded-xl"
                                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
@@ -171,12 +171,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="font-bold text-3xl lg:text-4xl mb-10">
-
-                                </h1>
                                 <div v-html="article.body" class="space-y-4 leading-loose">
 
                                 </div>
+<!--                                <div class="">-->
+<!--                                    <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>-->
+<!--                                </div>-->
                             </section>
                         </div>
                         <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
@@ -204,7 +204,7 @@ import {comment} from "postcss";
 import ArticleReply from "@/Components/ArticleReply.vue";
 
 const props = defineProps({
-    article: [],
+    article: {},
     canLogin: {
         type: Boolean,
     },

@@ -74,20 +74,20 @@ const ths = [
             <main class="mx-auto mt-6 space-y-6">
                 <MasterTable :table_head="ths">
                     <tr v-for="article in articles" class="divide-y divide-gray-100 dark:divide-gray-700">
-                        <td></td>
-                        <td>{{ article.id }}</td>
-                        <td>
+                        <td class="items-center"></td>
+                        <td class="items-center">{{ article.id }}</td>
+                        <td class="items-center">
                             <span class="text-xs">{{ article.title }}</span>
                             <br>
                             <div class="space-x-2">
                                 <CategoryBotton :category="article.category"></CategoryBotton>
                             </div>
                         </td>
-                        <td>{{ article.slug }}</td>
+                        <td class="items-center">{{ article.slug }}</td>
                         <td class="w-64" v-html="article.excerpt"></td>
                         <td class="w-32">{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</td>
-                        <td>{{ article.author.username }}</td>
-                        <td>
+                        <td class="items-center">{{ article.author.username }}</td>
+                        <td class="items-center">
                             <a :href="route('article.edit', article)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil-square text-gray-400 hover:text-sky-500 duration-300"

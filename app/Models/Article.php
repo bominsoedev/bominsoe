@@ -27,7 +27,6 @@ class Article extends Model
         'visit_count',
 
     ];
-    protected $with = ['category', 'author', 'comments', 'photo'];
     public function scopeFilter($query, array $filters)
     {
         $query->when(
@@ -66,7 +65,10 @@ class Article extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
+    public function article_photo(): HasOne
+    {
+        return $this->hasOne(Attachment::class)->where('status','article_photo');
+    }
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
@@ -76,8 +78,8 @@ class Article extends Model
         return $this->hasMany(Tag::class);
     }
 
-    public function photo(): HasOne
+    public function profile_photo(): HasMany
     {
-        return $this->hasOne(Attachment::class);
+        return $this->hasMany(Attachment::class)->where('status','profile_photo');
     }
 }

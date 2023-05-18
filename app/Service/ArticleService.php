@@ -13,7 +13,7 @@ class ArticleService
 {
     public function index()
     {
-        $articles = Article::latest()->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username', 'article_photo:id,uuid,unique_name,article_id'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/Index', [
             'articles' => $articles
         ]);
@@ -21,7 +21,7 @@ class ArticleService
 
     public function lists()
     {
-        $articles = Article::latest()->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
         return Inertia::render('Article/ArticleList', [
             'articles' => $articles
         ]);
@@ -95,13 +95,28 @@ class ArticleService
 
     public function show($article)
     {
+        $article_data = $article->latest()->with(
+            [
+                'category:uuid,name,slug',
+                'author:id,uuid,username,bio',
+                'article_photo:id,uuid,unique_name,article_id',
+                'comments:id,uuid,body,article_id,user_id,parent_id',
+                'comments.author:id,uuid,username',
+                'comments.comment_photo:id,uuid,unique_name,article_id',
+                'comments.replies:id,uuid,body,article_id,user_id,parent_id',
+                'comments.replies.author:id,uuid,username',
+                'comments.replies.comment_photo:id,uuid,unique_name,article_id',
+            ])
+            ->filter(request(['search', 'category', 'author']))
+            ->where('user_id', auth()->id())->first();
         if ($article->user_id != auth()->id()) {
             $article->update([
                 'visit_count' => $article->visit_count + 1
             ]);
         }
+
         return Inertia::render('Article', [
-            'article' => $article,
+            'article' => $article_data,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
