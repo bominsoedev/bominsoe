@@ -69,6 +69,8 @@ class ArticleService
                 $attachment_file->storeAs($path, $unique_name);
                 $attachment->create($attachment_param);
             }
+
+
             $categories = $request->article_category_id;
             foreach ($categories as $c) {
                 $articleCategories->create([
@@ -79,7 +81,7 @@ class ArticleService
             }
             return 'success';
         } catch (QueryException $queryException) {
-            dd($queryException);
+            return null;
         }
     }
 
