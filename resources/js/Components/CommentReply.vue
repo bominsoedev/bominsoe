@@ -41,18 +41,27 @@
                                 <div class="" data-v-2836fdb5-s="">
                                     <button @click.prevent="close"
                                             class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
-                                            data-v-2836fdb5-s=""> Cancel
+                                            data-v-2836fdb5-s="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13"
+                                             fill="currentColor" class="bi bi-x-circle mr-1" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                        Cancel
                                     </button>
                                 </div>
                                 <div class="" data-v-2836fdb5-s="">
                                     <button
                                         class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
                                         data-v-2836fdb5-s="">
-                                        <svg width="12" height="13" viewBox="0 0 12 13" class="mr-1">
-                                            <path fill="#78909C" fill-rule="evenodd" stroke="#78909C"
-                                                  stroke-width=".5"
-                                                  d="M6.96 1.877L4.34.542l.435 1.413a5.196 5.196 0 0 0-3.161 2.64C.32 7.133 1.267 10.2 3.73 11.455s5.5.218 6.794-2.32a5.203 5.203 0 0 0 .316-3.989l-1.145.369c.338.955.29 2.087-.22 3.086-.99 1.944-3.308 2.735-5.194 1.774-1.887-.962-2.61-3.302-1.619-5.246a4.085 4.085 0 0 1 2.461-2.045l.46 1.493 1.377-2.7z">
-                                            </path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13"
+                                             fill="currentColor" class="bi bi-check2-circle mr-1" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                            <path
+                                                d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
                                         </svg>
                                         Done
                                     </button>
@@ -94,18 +103,25 @@
                                 <div class="" data-v-2836fdb5-s="">
                                     <button @click.prevent="close"
                                             class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
-                                            data-v-2836fdb5-s=""> Cancel
+                                            data-v-2836fdb5-s="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13"
+                                             fill="currentColor" class="bi bi-x-circle mr-1" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                        Cancel
                                     </button>
                                 </div>
                                 <div class="" data-v-2836fdb5-s="">
                                     <button
                                         class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
                                         data-v-2836fdb5-s="">
-                                        <svg width="12" height="13" viewBox="0 0 12 13" class="mr-1">
-                                            <path fill="#78909C" fill-rule="evenodd" stroke="#78909C"
-                                                  stroke-width=".5"
-                                                  d="M6.96 1.877L4.34.542l.435 1.413a5.196 5.196 0 0 0-3.161 2.64C.32 7.133 1.267 10.2 3.73 11.455s5.5.218 6.794-2.32a5.203 5.203 0 0 0 .316-3.989l-1.145.369c.338.955.29 2.087-.22 3.086-.99 1.944-3.308 2.735-5.194 1.774-1.887-.962-2.61-3.302-1.619-5.246a4.085 4.085 0 0 1 2.461-2.045l.46 1.493 1.377-2.7z">
-                                            </path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                             class="bi bi-send mr-1" viewBox="0 0 16 16">
+                                            <path fill="#78909C" fill-rule="evenodd" stroke="#78909C" stroke-width=".5"
+                                                  d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
                                         </svg>
                                         Post
                                     </button>
@@ -125,8 +141,8 @@ import {useForm} from "@inertiajs/vue3";
 export default {
     name: "CommentReply",
     props: {
-        comment:{},
-        isEdit:false,
+        comment: {},
+        isEdit: false,
     },
     data() {
         return {

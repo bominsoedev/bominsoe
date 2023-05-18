@@ -33,7 +33,7 @@ const form =useForm({
 
 const submit = (category) => {
     form.put(route('category.update',category), {
-        onFinish: () => form.reset('category'),
+        onSuccess: () => form.reset('category'),
     });
 };
 

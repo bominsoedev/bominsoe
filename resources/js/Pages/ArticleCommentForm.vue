@@ -1,6 +1,6 @@
 <template>
     <x-pane v-if="canLogin">
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="p-3 border-b border-gray-600">
             <div class="">
                 <textarea
                     v-model="form.comment"
@@ -9,9 +9,10 @@
                     rows="3"
                     placeholder="Aa"></textarea>
             </div>
+            <InputError class="mt-2" :message="form.errors.comment"/>
             <div class="flex justify-end">
                 <button
-                    class="inline-flex text-xs rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-3 btn btn-dark-blue dark:hover:bg-blue/15">
+                    class="inline-flex text-xs rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-3 btn btn-dark-blue hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                          class="bi bi-send mr-1" viewBox="0 0 16 16">
                         <path fill="#78909C" fill-rule="evenodd" stroke="#78909C" stroke-width=".5"
@@ -34,17 +35,17 @@
 </template>
 
 <script setup>
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const form = useForm({
     comment: '',
 })
 const submit = () => {
     form.post(route('comment.store', props.article), {
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset('comment'),
     });
 };
 import {useForm} from "@inertiajs/vue3";
+import InputError from "@/Components/InputError.vue";
 
 const props = defineProps({
     article: [],

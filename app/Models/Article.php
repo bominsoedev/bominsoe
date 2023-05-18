@@ -20,6 +20,7 @@ class Article extends Model
         'title',
         'slug',
         'excerpt',
+        'description',
         'body',
         'user_id',
         'is_public',
@@ -27,7 +28,6 @@ class Article extends Model
 
     ];
     protected $with = ['category', 'author', 'comments', 'photo'];
-
     public function scopeFilter($query, array $filters)
     {
         $query->when(

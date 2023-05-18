@@ -26,7 +26,7 @@ onMounted(() => {
 })
 const submit = () => {
     form.post(route('tag.store'), {
-        onFinish: () => form.reset('tag'),
+        onSuccess: () => form.reset('tag'),
     });
 };
 
