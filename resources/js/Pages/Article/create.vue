@@ -58,7 +58,7 @@
                     <h5 class="bominsoe-h5 text-gray-400">Article Create</h5>
                 </div>
                 <div class="flex">
-                    <div class="mt-4 flex w-1/2 flex-col">
+                    <div class="mt-4 flex w-1/2 flex-col mr-2">
                         <InputLabel for="article_title" value="Article Title"/>
                         <div class="mt-1 flex flex-col">
                             <TextInput id="article_title" v-model="form.article_title" type="text"
@@ -96,11 +96,10 @@
                               :config="form.editorConfig" tag-name="textarea"></ckeditor>
                     <InputError class="mt-2" :message="form.errors.article_body"/>
                 </div>
-                <!-- Article Image -->
                 <div class="mt-3">
-                    <div class="flex items-center justify-center w-full">
+                    <div class="flex items-center justify-center w-1/2">
                         <label for="attachment"
-                               class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                               class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
                                      stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -110,8 +109,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
                                         to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
-                                    800x400px)
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
                                 </p>
                             </div>
                             <input @click="addAttchment" id="attachment" type="file" class="hidden"
