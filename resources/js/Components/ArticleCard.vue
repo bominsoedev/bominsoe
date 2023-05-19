@@ -8,13 +8,12 @@
                         style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                 </div>
             </figure>
-            <div class=" mt-8 flex flex-col justify-between">
+            <div class="mt-5 flex flex-col justify-between">
                 <header>
                     <div class="space-x-1">
                         <CategoryBotton :category="article.category"></CategoryBotton>
                     </div>
-
-                    <div class="mt-4">
+                    <div class="mt-2">
                         <h1 class="text-lg text-sky-500">
                             <a :href="article.slug">
                                 {{ article.title }}
@@ -29,26 +28,39 @@
                         </span>
                     </div>
                 </header>
-                <div v-html="article.excerpt" class="text-sm mt-4 text-white">
+                <div v-html="article.excerpt" class="text-sm mt-3 text-white">
                 </div>
-                <footer class="flex justify-between items-center mt-8">
+                <a :href="route('article.show', article)"
+                   class="transition-colors duration-300 text-xs font-semibold">Read
+                    More</a>
+                <footer class="mt-5">
                     <div class="flex items-center text-sm">
                         <div class="flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
                             aria-hidden="true" height="30" width="30">
                             {{ $page.props.auth.user.username.split("")[0] }}
                         </div>
-                        <div class="ml-3">
-                            <h5 class="font-bold text-white">
-                                <a :href="'/?author=' + article.author.username">
+                        <div class="ml-2">
+                            <h5 class="font-bold text-white flex items-center space-x-1">
+                                <a :href="route('profile.information',article.author)">
                                     {{ article.author.username }}
+                                    <span v-if="article.author.nickname"
+                                          class="text-lg ">
+                                    ( {{ article.author.nickname }} )
+                                    </span>
                                 </a>
+                                <div class="">
+                                    <svg
+                                        class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1"
+                                        height="13" viewBox="0 0 16 16"
+                                        width="12"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title>Verified account</title>
+                                        <path
+                                            d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                    </svg>
+                                </div>
                             </h5>
                         </div>
-                    </div>
-                    <div>
-                        <a :href="route('article.show', article)"
-                            class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded py-2 px-8">Read
-                            More</a>
                     </div>
                 </footer>
             </div>

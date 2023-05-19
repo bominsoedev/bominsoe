@@ -8,9 +8,9 @@
                     <figure>
                         <div v-if="article.article_photo" class="relative overflow-hidden rounded-xl"
                              style="width: 100%; height: 445px;">
-                            <img loading="lazy" :src="'/storage/ArticleAttachment/'+article.article_photo.unique_name"
-                                 alt="Lary avatar "
+                            <img :src="'/storage/ArticleAttachment/' + article.article_photo.unique_name" alt="Lary avatar "
                                  class="lazy h-full w-full object-cover lazyloaded"
+                                 loading="lazy"
                                  style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                         </div>
                     </figure>
@@ -24,27 +24,40 @@
                             <span class="h-px w-full bg-sky-600"></span>
                         </h5>
                         <div class="bg-panel-800 p-3 my-4 rounded-xl">
-                            <h4 class="mt-2 font-poppins text-2xl font-bold leading-none text-sky-600">
+                            <h4 class="mt-2 font-poppins text-2xl font-bold leading-none">
                                 {{ article.author.username }}
+                                <span v-if="article.author.nickname"
+                                      class="text-lg ">
+                                    ( {{ article.author.nickname }} )
+                                </span>
+                                <div class="inline-block">
+                                    <svg class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1" height="13" viewBox="0 0 16 16"
+                                         width="12"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <title>Verified account</title>
+                                        <path
+                                            d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                                    </svg>
+                                </div>
                             </h4>
                             <div class="my-2 flex items-center gap-x-3">
                                 <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-github" viewBox="0 0 16 16">
+                                    <svg class="bi bi-github" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                         width="16" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                                     </svg>
                                 </a>
                                 <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-facebook" viewBox="0 0 16 16">
+                                    <svg class="bi bi-facebook" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                         width="16" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
                                     </svg>
                                 </a>
                             </div>
                             <p class="content mt-3 text-[13px] lg:pr-8">
-                                {{article.author.bio}}
+                                {{ article.author.bio }}
                             </p>
                         </div>
                     </figcaption>
@@ -58,7 +71,7 @@
                             </div>
                             <div class="content user-content !mb-0 text-sm">
                                 <p>
-                                   {{ article.description }}
+                                    {{ article.description }}
                                 </p>
                             </div>
                         </div>
@@ -67,13 +80,14 @@
                 <main class="">
                     <div class="col-span-8">
                         <section class="max-w-none p-0 flex-1 mb-3 ">
-                            <div class="hidden lg:flex justify-between mb-6 bg-gradient-to-ls from-frameworks-lights to-framework py-3 px-2 rounded-xl">
+                            <div
+                                class="hidden lg:flex justify-between mb-6 bg-gradient-to-ls from-frameworks-lights to-framework py-3 px-2 rounded-xl">
                                 <a :href="route('article.index')"
                                    class="bg-blue-700 py-px font-semibold normal-case rounded-lg">
-                                    <svg width="22" height="22" viewBox="0 0 22 22">
+                                    <svg height="22" viewBox="0 0 22 22" width="22">
                                         <g fill="none" fill-rule="evenodd">
-                                            <path stroke="#000" stroke-opacity=".012" stroke-width=".5"
-                                                  d="M21 1v20.16H.84V1z">
+                                            <path d="M21 1v20.16H.84V1z" stroke="#000" stroke-opacity=".012"
+                                                  stroke-width=".5">
                                             </path>
                                             <path class="fill-current"
                                                   d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
@@ -86,10 +100,12 @@
                                     <CategoryBotton :category="article.category"></CategoryBotton>
                                 </div>
                             </div>
-                            <div class="relative mx-auto flex justify-center" style="width: 100%; height: 50vh;">
-                                <img loading="lazy" :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
+                            <div v-if="article.article_photo" class="relative mx-auto flex justify-center"
+                                 style="width: 100%; height: 50vh;">
+                                <img :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
                                      alt="Article illustration"
                                      class="lazy h-full w-full object-cover lazyloaded rounded-xl"
+                                     loading="lazy"
                                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                             </div>
                         </section>
@@ -99,8 +115,8 @@
                                     <div
                                         class="relative mx-auto basis-full items-center justify-between rounded-xl p-6 font-bold text-white md:flex lg:flex-1 lg:basis-0 bg-gradient-to-ls from-frameworks-lights to-framework to-testing">
                                         <div
-                                            class="pointer-events-none absolute top-0 bottom-0 right-0 left-0 left-1/2 -translate-x-1/2 transform opacity-30 md:block"
-                                            :style="{ 'background': 'url(/Images/Icon/S.svg)  50% -1%/ 250px  no-repeat' }"></div>
+                                            :style="{ 'background': 'url(/Images/Icon/S.svg)  50% -1%/ 250px  no-repeat' }"
+                                            class="pointer-events-none absolute top-0 bottom-0 right-0 left-0 left-1/2 -translate-x-1/2 transform opacity-30 md:block"></div>
                                         <div class="flex-1 md:mx-[2.5rem] md:flex md:space-x-6">
                                             <div class="px-4 md:flex-1 md:px-0">
                                                 <header class="mb-8">
@@ -108,10 +124,10 @@
                                                         <button
                                                             class="rounded-full px-1 md:flex md:items-center md:justify-center bg-white/10 mr-4"
                                                             style="width: 39px; height: 39px;">
-                                                            <svg viewBox="0 0 32 32" width="45" height="45"
-                                                                 class="flex-shrink-0 text-white">
-                                                                <g stroke="none" stroke-width="1.2" class="fill-current"
-                                                                   fill-rule="evenodd">
+                                                            <svg class="flex-shrink-0 text-white" height="45" viewBox="0 0 32 32"
+                                                                 width="45">
+                                                                <g class="fill-current" fill-rule="evenodd" stroke="none"
+                                                                   stroke-width="1.2">
                                                                     <path class="fill-current"
                                                                           d="M13.6196,11.2 C11.6246857,11.2 10.4,12.85425 10.4,14.2106375 C10.4,17.143925 13.9170286,19.8671 16.4,21.6 C18.8829714,19.86645 22.4,17.143925 22.4,14.2106375 C22.4,12.8541363 21.1758971,11.2 19.1804,11.2 C18.0661143,11.2 17.1138286,12.042335 16.4,12.8420625 C15.6854857,12.0422538 14.73392,11.2 13.6196,11.2 Z"></path>
                                                                 </g>
@@ -129,9 +145,10 @@
                                                                 Visit Member
                                                             </dt>
                                                             <dd class="flex items-center text-sm font-semibold text-white">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                     height="16" fill="currentColor" class="bi bi-eye mr-3"
-                                                                     viewBox="0 0 16 16">
+                                                                <svg class="bi bi-eye mr-3" fill="currentColor"
+                                                                     height="16" viewBox="0 0 16 16"
+                                                                     width="16"
+                                                                     xmlns="http://www.w3.org/2000/svg">
                                                                     <path
                                                                         d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                                                                     <path
@@ -145,11 +162,11 @@
                                                                 Article Favorites
                                                             </dt>
                                                             <dd class="flex items-center text-sm font-semibold text-white">
-                                                                <svg viewBox="0 0 32 32" width="30" height="30"
-                                                                     class="text-white">
-                                                                    <g stroke="none" stroke-width="1.2"
-                                                                       class="fill-current"
-                                                                       fill-rule="evenodd">
+                                                                <svg class="text-white" height="30" viewBox="0 0 32 32"
+                                                                     width="30">
+                                                                    <g class="fill-current" fill-rule="evenodd"
+                                                                       stroke="none"
+                                                                       stroke-width="1.2">
                                                                         <path class="fill-current"
                                                                               d="M13.6196,11.2 C11.6246857,11.2 10.4,12.85425 10.4,14.2106375 C10.4,17.143925 13.9170286,19.8671 16.4,21.6 C18.8829714,19.86645 22.4,17.143925 22.4,14.2106375 C22.4,12.8541363 21.1758971,11.2 19.1804,11.2 C18.0661143,11.2 17.1138286,12.042335 16.4,12.8420625 C15.6854857,12.0422538 14.73392,11.2 13.6196,11.2 Z"></path>
                                                                     </g>
@@ -171,16 +188,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-html="article.body" class="space-y-4 leading-loose">
+                                <div class="space-y-4 leading-loose" v-html="article.body">
 
                                 </div>
-<!--                                <div class="">-->
-<!--                                    <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>-->
-<!--                                </div>-->
+                                <!--                                <div class="">-->
+                                <!--                                    <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>-->
+                                <!--                                </div>-->
                             </section>
                         </div>
                         <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
-                            <ArticleCommentForm :can-login="canLogin" :article="article"></ArticleCommentForm>
+                            <ArticleCommentForm :article="article" :can-login="canLogin"></ArticleCommentForm>
                             <ArticleComment v-for="comment in article.comments" :key="comment.uuid"
                                             :comment="comment">
                             </ArticleComment>

@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('slug');
             $table->string('description');
             $table->longText('body');
-            $table->string('excerpt');
+            $table->longText('excerpt');
             $table->foreignId('user_id');
             $table->integer('is_public')->nullable();
             $table->integer('visit_count')->nullable();

@@ -20,7 +20,7 @@ arts.shift()
 const classes = computed(() =>
     props.articles.length < 3
         ? 'col-span-3 mr-3 mb-3'
-        : 'col-span-2 mr-3 mb-3'
+        : 'col-span-3 mr-3 mb-3'
 );
 
 </script>

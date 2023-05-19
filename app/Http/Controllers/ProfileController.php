@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+
 use App\Models\Attachment;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -29,9 +30,12 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function information()
+    public function information(User $user)
     {
-        return Inertia::render('Profile/Profile');
+
+        return Inertia::render('Profile/Profile', [
+            'author' => \auth()->user()
+        ]);
     }
 
     public function upload_profile(Request $request, User $user, Attachment $attachment)

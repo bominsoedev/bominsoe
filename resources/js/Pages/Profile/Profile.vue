@@ -168,6 +168,9 @@ export default {
     }
 }
 
+const props = defineProps({
+    author:{}
+})
 
 </script>
 
