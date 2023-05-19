@@ -27,13 +27,64 @@
                 </SidebarLink>
             </Sidebar>
         </template>
-
-        <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
+        <div class=" flex justify-center absolute w-full z-[1000]" v-if="showFileUpload">
+            <form @submit.prevent="upload_profile($page.props.auth.user)" class="w-full">
+                <div class="rounded-lg shadow-xl dark:bg-gray-800 lg:w-1/2">
+                    <div class="m-4  py-6 px-4 rounded-xl">
+                        <label class="inline-block mb-2 text-white">Upload
+                            Image(jpg,png,svg,jpeg)</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label
+                                class="flex flex-col w-full h-32 duration-300 border border-sky-500 hover:border-sky-800  rounded-xl hover:bg-panel-800">
+                                <div class="flex flex-col items-center justify-center pt-7">
+                                    PROFILE PHOTO
+                                    <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                        Select a photo</p>
+                                </div>
+                                <input type="file" class="opacity-0" @change="onChange"
+                                       @input="form.profile_photo = $event.target.files[0]"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex w-full justify-start px-5 pb-5 space-x-4" data-v-2836fdb5-s="">
+                        <div class="" data-v-2836fdb5-s="">
+                            <button @click="closeFile()"
+                                    class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
+                                    data-v-2836fdb5-s="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="currentColor"
+                                     class="bi bi-x-circle mr-1" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path
+                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="" data-v-2836fdb5-s="">
+                            <button
+                                class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
+                                data-v-2836fdb5-s="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" fill="currentColor"
+                                     class="bi bi-check2-circle mr-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                    <path
+                                        d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                </svg>
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="rounded-lg px-6 py-4 text-sm bg-panel-800 bg-white">
             <div class="h-72 overflow-hidden relative p-3 bg-transparent rounded">
                 <img src="/Images/Icon/SHARING.svg" alt="" loading="lazy"
                      class="lazy h-full w-full object-cover lazyloaded rounded-xl"
                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
-                <button class="rounded border-2 bg-white text-black p-2 absolute right-3 bottom-3 ">
+                <button type="button" class="rounded border-2 bg-white text-black p-2 absolute right-3 bottom-3"
+                        @click="goFile()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-camera inline-flex" viewBox="0 0 16 16">
                         <path
@@ -45,9 +96,22 @@
                 </button>
             </div>
             <div class="flex p-3 items-center gap-5 z-50 relative pl-7">
-                <img src="/Images/Icon/S.svg" alt="" loading="lazy"
-                     class="w-32 h-32 rounded-full ring-4 -mt-10 ring-sky-500">
-
+                <div class=" inline-block relative">
+                    <img v-if="$page.props.auth.user.photo"
+                         :src="'/storage/ProfileAttachment/'+$page.props.auth.user.photo"
+                         alt=""
+                         loading="lazy"
+                         id="show"
+                         class="w-32 h-32 rounded-full ring-4 -mt-10 ring-sky-500 object-cover"
+                         @click="goFile()">
+                    <img v-else
+                         src="/Images/Icon/S.svg"
+                         alt=""
+                         loading="lazy"
+                         id="show"
+                         class="w-32 h-32 rounded-full ring-4 -mt-10 ring-sky-500 object-cover"
+                         @click="goFile()">
+                </div>
                 <div class="" style="width: 30rem;">
                     <h1 class="text-2xl font-extrabold">Chan Myae </h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ratione officia quis cupiditate
@@ -55,16 +119,54 @@
                 </div>
             </div>
         </div>
-
+        <!-- Photo Upload Modal -->
     </AuthenticatedLayout>
 </template>
-
-<script setup>
+<script>
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import SidebarLink from "@/Components/SidebarLink.vue";
-import {Head} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
+
+export default {
+    components: {AuthenticatedLayout, Sidebar, SidebarLink},
+    props: {},
+    data() {
+        return {
+            showFileUpload: false,
+            image: null,
+            form: new useForm({
+                profile_photo: null,
+                profile_cover:null
+            })
+
+        }
+    },
+
+    methods: {
+        goFile() {
+            this.showFileUpload = true;
+        },
+
+        closeFile() {
+            this.showFileUpload = false;
+        },
+        onChange(e) {
+            console.log("selectFiles", e.target.file[0])
+        },
+        upload_profile(param) {
+            this.form.post(route('profile.upload_profile', param)
+                , {
+                    onSuccess: () => this.form.reset(),
+                }
+            );
+           this.closeFile();
+        }
+
+
+    }
+}
 
 
 </script>

@@ -74,7 +74,14 @@
     --tw-bg-opacity: 1;
     background-color: rgb(24 39 63/var(--tw-bg-opacity));
 }
-
+:is(.dark .dark\:bg-panel-800) {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+}
+.hover\:bg-panel-800:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+}
 .text-grey-600 {
     --tw-text-opacity: 1;
     color: rgb(186 217 252/var(--tw-text-opacity));

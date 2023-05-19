@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Attachment;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -27,6 +32,47 @@ class ProfileController extends Controller
     public function information()
     {
         return Inertia::render('Profile/Profile');
+    }
+
+    public function upload_profile(Request $request, User $user, Attachment $attachment)
+    {
+        $profile_photo = $request->file('profile_photo');
+        try {
+            DB::beginTransaction();
+            if ($profile_photo) {
+                $request->validate([
+                    'profile_photo' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
+                ]);
+                $unique_name = uniqid() . "_profile_photo_" . $request->file('profile_photo')->getClientOriginalName();
+                $org_name = $request->file('profile_photo')->getClientOriginalName();
+                $extension = $request->file('profile_photo')->extension();
+                $path = 'public/ProfileAttachment/';
+                $profile_attachment_param = [
+                    'uuid' => Str::uuid()->toString(),
+                    'user_id' => \auth()->id(),
+                    'org_name' => $org_name,
+                    'unique_name' => $unique_name,
+                    'extension' => $extension,
+                    'path' => $path,
+                    'status' => 'profile_photo'
+                ];
+                $attachment->create($profile_attachment_param);
+                $profile_user_param = [
+                    'photo' => $unique_name
+                ];
+                $user->update($profile_user_param);
+                $profile_photo->storeAs($path, $unique_name);
+                DB::commit();
+
+                return \redirect()->back();
+            }
+        }
+        catch (QueryException $queryException){
+            dd($queryException);
+            DB::rollBack();
+
+            return \redirect()->back();
+        }
     }
 
     /**
