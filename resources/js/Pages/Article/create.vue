@@ -53,7 +53,7 @@
             </Sidebar>
         </template>
         <form @submit.prevent="submit" method="post">
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
+            <div class="rounded-lg px-6 py-4 text-sm bg-panel-800">
                 <div class="flex items-center justify-between">
                     <h5 class="bominsoe-h5 text-gray-400">Article Create</h5>
                 </div>
@@ -63,7 +63,9 @@
                         <div class="mt-1 flex flex-col">
                             <TextInput id="article_title" v-model="form.article_title" type="text"
                                        class="mt-1 block w-full"
-                                       autocomplete="article_title"/>
+                                       autocomplete="article_title"
+                                       placeholder="Aa"
+                            />
                             <InputError class="mt-2" :message="form.errors.article_title"/>
                         </div>
                     </div>
@@ -86,14 +88,16 @@
                         v-model="form.description"
                         class="w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md"
                         id="description"
-                        rows="3"
+                        rows="1"
                         placeholder="Aa"></textarea>
                     </div>
                     <InputError class="mt-2" :message="form.errors.description"/>
                 </div>
                 <div class="">
-                    <ckeditor :editor="form.editor" v-model="form.article_body"
-                              :config="form.editorConfig" tag-name="textarea"></ckeditor>
+                    <QuillEditor toolbar="full"
+                                 ref="myQuillEditor"
+                                 contentType="html"
+                                 v-model:content="form.article_body"/>
                     <InputError class="mt-2" :message="form.errors.article_body"/>
                 </div>
                 <div class="mt-3">
@@ -118,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 bg-panel-800 p-3 rounded-lg text-end">
                 <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Add Article
                 </primary-button>
@@ -139,7 +143,30 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {Breadcrumb, BreadcrumbItem, Form, Upload} from "view-ui-plus";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import '@vueup/vue-quill/dist/vue-quill.bubble.css'
+import { mapGetters } from 'vuex'
 
+var toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    ['link', 'image'],
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
+
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+
+    ['clean']                                         // remove formatting button
+];
 export default {
     components: {
         AuthenticatedLayout,
@@ -153,21 +180,41 @@ export default {
         Breadcrumb,
         BreadcrumbItem,
         Upload,
+        QuillEditor
     },
     props: {
         categories: [],
     },
     data: function () {
         return {
+            options:{
+                debug: 'info',
+                placeholder: 'Aa',
+                modules:{
+                    toolbar: toolbarOptions,
+                },
+                readOnly: false,
+                theme: 'snow',
+            },
+            mounting: false,
             form: new useForm({
                 article_title: '',
                 article_category_id: [],
-                article_body: '',
                 description: '',
+                article_body: '',
                 editor: ClassicEditor,
                 editorConfig: {},
                 attachment: null
             }),
+        }
+    },
+    watch: {
+        content (val) {
+            if (!this.mounting) {
+                this.$store.commit('setDelta', this.$refs.myQuillEditor.quill.getContents())
+            }
+            this.$store.commit('setContent', val)
+            this.mounting = false
         }
     },
     methods: {
@@ -178,27 +225,26 @@ export default {
                 }
             );
         },
+    },
+    computed: {
+        ...mapGetters(['delta', 'contents'])
+    },
+    mounted () {
+        this.mounting = true
+        if (!this.form.article_body && this.form.article_body) {
+            this.form.article_body = this.for.article_body
+        }
     }
 }
 </script>
 
 <style>
-.ck-reset_all :not(.ck-reset_all-excluded *),
-.ck.ck-reset,
-.ck.ck-reset_all {
-    background-color: #101827;
-    color: white;
-}
-
-.ck.ck-editor__main > .ck-editor__editable {
-    background-color: #101827;
-    color: white;
+.ql-editor {
     height: 500px;
 }
-
 .ivu-upload-drag {
     --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+    background-color: rgba(17 24 39 / var(--tw-bg-opacity));
     border: none;
 }
 
@@ -212,7 +258,7 @@ export default {
 }
 
 .ivu-select-selection {
-    border: rgb(17 24 39);
+    border: rgba(65, 132, 228, 0.4);
 }
 
 .ivu-select-dropdown {
@@ -220,6 +266,54 @@ export default {
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.ivu-select-item:hover {
+    background-color: rgba(65, 132, 228, 0.4);
+    color: white;
+    transition: 500ms;
+    border-radius: 2px;
+}
+.ivu-tag {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 2px 4px 2px 0;
+    padding: 0 8px;
+    border: 1px solid rgba(65, 132, 228, 0.4);;
+    border-radius: 3px;
+    --tw-text-opacity: 1;
+    background-color: rgba(50, 138, 241, .13/var(--tw-text-opacity));
+    font-size: 12px;
+    vertical-align: middle;
+    opacity: 1;
+    overflow: hidden;
+}
+.ivu-tag-text{
+    color: white;
+}
+.ivu-select-multiple .ivu-select-item-selected {
+    color: rgba(45,140,240,.9);
+    background: rgba(65, 132, 228, 0.4);
+}
+.ivu-tag .ivu-icon-ios-close {
+    display: inline-block;
+    font-size: 14px;
+    -webkit-transform: scale(1.42857143) rotate(0);
+    -ms-transform: scale(1.42857143) rotate(0);
+    transform: scale(1.42857143) rotate(0);
+    cursor: pointer;
+    margin-left: 2px;
+    color: white;
+    opacity: .66;
+    position: relative;
+    top: -1px;
+}
+.ivu-select-multiple .ivu-select-item-focus, .ivu-select-multiple .ivu-select-item-selected:hover{
+    background-color: rgba(65, 132, 228, 0.4);
+}
+.ivu-select-multiple .ivu-select-item-focus, .ivu-select-multiple .ivu-select-item-selected:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
 .ck-editor__editable {
     min-height: 300px;
     border-bottom-left-radius: 0.375rem !important;

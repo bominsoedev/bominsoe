@@ -29,7 +29,7 @@
         </template>
 
         <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-            <div class="h-72 overflow-hidden relative p-3 bg-transparent rounded">
+            <div class="h-72 overflow-hidden relative bg-transparent rounded">
                 <img src="/Images/Icon/SHARING.svg" alt="" loading="lazy"
                      class="lazy h-full w-full object-cover lazyloaded rounded-xl"
                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
@@ -47,11 +47,24 @@
             <div class="flex p-3 items-center gap-5 z-50 relative pl-7">
                 <img src="/Images/Icon/S.svg" alt="" loading="lazy"
                      class="w-32 h-32 rounded-full ring-4 -mt-10 ring-sky-500">
-
-                <div class="" style="width: 30rem;">
-                    <h1 class="text-2xl font-extrabold">Chan Myae </h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ratione officia quis cupiditate
-                        neque omnis aliquam dolorem facere.</p>
+                <div class="mb-10" style="width: 30rem;">
+                    <h4 class="mb-5 font-poppins text-2xl font-bold leading-none">
+                        {{ author.username }}
+                        <span v-if="author.nickname"
+                              class="text-lg ">
+                                    ( {{ author.nickname }} )
+                                </span>
+                        <div class="inline-block">
+                            <svg class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1" height="13" viewBox="0 0 16 16"
+                                 width="12"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <title>Verified account</title>
+                                <path
+                                    d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                            </svg>
+                        </div>
+                    </h4>
+                    <p>{{ author.bio }}</p>
                 </div>
             </div>
         </div>
@@ -66,6 +79,9 @@ import Sidebar from "@/Components/Sidebar.vue";
 import SidebarLink from "@/Components/SidebarLink.vue";
 import {Head} from "@inertiajs/vue3";
 
+const props = defineProps({
+    author:{}
+})
 
 </script>
 

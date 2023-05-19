@@ -43,7 +43,7 @@ class ArticleService
                 'title' => $request->article_title,
                 'slug' => Str::slug($request->article_title),
                 'description' => $request->description,
-                'excerpt' => Str::words($request->article_body, 15),
+                'excerpt' => Str::words($request->article_body,100,'.....Seemore'),
                 'body' => $request->article_body,
                 'user_id' => auth()->id(),
             ];
@@ -59,6 +59,7 @@ class ArticleService
                 $path = 'public/ArticleAttachment/';
                 $attachment_param = [
                     'uuid' => Str::uuid()->toString(),
+                    'user_id' => auth()->id(),
                     'article_id' => $articleStore->id,
                     'org_name' => $org_name,
                     'unique_name' => $unique_name,
@@ -81,7 +82,7 @@ class ArticleService
             }
             return 'success';
         } catch (QueryException $queryException) {
-            return null;
+            dd($queryException);
         }
     }
 
@@ -97,18 +98,18 @@ class ArticleService
     {
         $article_data = $article->latest()->with(
             [
-                'category:uuid,name,slug',
-                'author:id,uuid,username,bio',
-                'article_photo:id,uuid,unique_name,article_id',
-                'comments:id,uuid,body,article_id,user_id,parent_id',
+                'category:id,uuid,name,slug',
+                'author:id,uuid,username,bio,nickname',
                 'comments.author:id,uuid,username',
-                'comments.comment_photo:id,uuid,unique_name,article_id',
-                'comments.replies:id,uuid,body,article_id,user_id,parent_id',
                 'comments.replies.author:id,uuid,username',
+                'comments.replies.replies.author:id,uuid,username',
+                'article_photo:id,uuid,unique_name,article_id',
+                'comments.comment_photo:id,uuid,unique_name,article_id',
                 'comments.replies.comment_photo:id,uuid,unique_name,article_id',
             ])
             ->filter(request(['search', 'category', 'author']))
             ->where('user_id', auth()->id())->first();
+//        dd($article_data->toArray());
         if ($article->user_id != auth()->id()) {
             $article->update([
                 'visit_count' => $article->visit_count + 1

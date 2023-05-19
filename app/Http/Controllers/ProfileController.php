@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,9 +25,12 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function information()
+    public function information(User $user)
     {
-        return Inertia::render('Profile/Profile');
+
+        return Inertia::render('Profile/Profile', [
+            'author' => \auth()->user()
+        ]);
     }
 
     /**
