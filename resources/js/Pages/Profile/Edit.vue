@@ -25,24 +25,29 @@ defineProps({
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
         </template>
         <template #sidebar>
-            <Sidebar>
-                <SidebarLink class="font-bold" :href="route('profile.edit',$page.props.auth.user)" :active="route().current('profile.edit',$page.props.auth.user)">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                         stroke="currentColor" class="mr-4 h-4 w-4 text-gray-400">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path>
-                    </svg>
-                    Authentication
-                </SidebarLink>
-                <SidebarLink class="font-bold" :href="route('profile.information',$page.props.auth.user)" :active="route().current('profile.information',$page.props.auth.user)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-person text-sky-700 mr-3" viewBox="0 0 16 16">
+                <SidebarLink :active="route().current('profile.information',$page.props.auth.user)" :href="route('profile.information',$page.props.auth.user)"
+                             class="font-bold">
+                    <svg class="bi bi-person text-gray-400 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                         width="16" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                     </svg>
                     Profile
                 </SidebarLink>
-            </Sidebar>
+                <SidebarLink :active="route().current('profile.edit', $page.props.auth.user)"
+                             :href="route('profile.edit', $page.props.auth.user)"
+                             class="font-bold">
+                    <svg class="mr-3 h-4 w-4 text-gray-400" fill="none" height="16" stroke="currentColor" stroke-width="1.5"
+                         viewBox="0 0 24 24"
+                         width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
+                        </path>
+                    </svg>
+                    Authentication
+                </SidebarLink>
         </template>
         <div class="">
             <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
@@ -51,7 +56,6 @@ defineProps({
                     :status="status"
                 />
             </div>
-
             <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white mt-4">
                 <UpdatePasswordForm/>
             </div>

@@ -30,11 +30,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($result)) {
             DB::commit();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('message','Category Created Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('error','Something want wrong.');
         }
     }
 
@@ -54,11 +54,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($result)) {
             DB::commit();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('message','Category Updated Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('error','Something want wrong.');
         }
     }
 
@@ -68,11 +68,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($destroy)) {
             DB::commit();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('message','Category Destroy Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('error','Something want wrong.');
         }
     }
 }

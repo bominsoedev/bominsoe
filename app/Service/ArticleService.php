@@ -13,7 +13,13 @@ class ArticleService
 {
     public function index()
     {
-        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username', 'article_photo:id,uuid,unique_name,article_id'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()
+            ->with(['category:uuid,name,slug',
+                'author:id,uuid,username',
+                'article_photo:id,uuid,unique_name,article_id'])
+            ->filter(request(['search', 'category', 'author']))
+            ->where('user_id', auth()->id())->orderBy('id', 'desc')
+            ->paginate(51)->withQueryString();
         return Inertia::render('Article/Index', [
             'articles' => $articles
         ]);
@@ -21,7 +27,7 @@ class ArticleService
 
     public function lists()
     {
-        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->get();
+        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->paginate(50)->withQueryString();
         return Inertia::render('Article/ArticleList', [
             'articles' => $articles
         ]);

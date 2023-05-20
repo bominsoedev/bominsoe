@@ -12,9 +12,11 @@ import moment from "moment-timezone";
 import { initFlowbite } from "flowbite";
 import { onMounted } from "vue";
 import DangerButton from "@/Components/DangerButton.vue";
+import MasterPagination from "@/Components/MasterPagination.vue";
 
 export default {
     components: {
+        MasterPagination,
         AuthenticatedLayout,
         Head,
         SidebarLink,
@@ -34,6 +36,7 @@ export default {
             editMode: false,
             isOpen: false,
             ths: [
+                '',
                 'ID',
                 'Name',
                 'Slug',
@@ -71,7 +74,6 @@ onMounted(() => {
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Categories Settings</h1>
         </template>
         <template #sidebar>
-            <Sidebar>
                 <SidebarLink class="font-bold" :href="route('category.index')" :active="route().current('category.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-bezier2 mr-4 text-gray-400" viewBox="0 0 16 16">
@@ -90,13 +92,12 @@ onMounted(() => {
                     </svg>
                     My Tags
                 </SidebarLink>
-            </Sidebar>
         </template>
         <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
             <div class="flex items-center justify-between">
                 <h5 class="bominsoe-h5 text-gray-400">Category List</h5>
             </div>
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submit" class="mb-3">
                 <div class="mt-4 pl-2">
                     <InputLabel for="category" value="Category Name" />
                     <div class="mt-1">
@@ -111,15 +112,20 @@ onMounted(() => {
                     </div>
                 </div>
             </form>
-            <MasterTable :table_head="ths" classes="text-center item-center">
-                <tr v-for="category in categories" :key="category.id"
-                    class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
-                    <td class="text-center">{{ category.id }}</td>
-                    <td class="text-center">{{ category.name }}</td>
-                    <td class="text-center">{{ category.slug }}</td>
+            <MasterTable :table_head="ths">
+                <tr v-for="category in categories.data" :key="category.id"
+                    class="items-center divide-y divide-gray-100 dark:divide-gray-700">
+                    <td class="items-center"></td>
+                    <td class="p-5 h-5">
+                        <span class="items-center">
+                            {{ category.id }}
+                        </span>
+                    </td>
+                    <td class="items-center">{{ category.name }}</td>
+                    <td class="items-center">{{ category.slug }}</td>
                     <!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
-                    <td class="text-center">{{ category.user.username }}</td>
-                    <td class="text-center items-center space-x-2">
+                    <td class="items-center">{{ category.user.username }}</td>
+                    <td class="items-center items-center space-x-2">
                         <a :href="route('category.edit', category)"
                             class="inline-block text-white rounded-lg text-sm text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -190,6 +196,9 @@ onMounted(() => {
                     </td>
                 </tr>
             </MasterTable>
+        </div>
+        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+            <MasterPagination :links="categories.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>
 </template>

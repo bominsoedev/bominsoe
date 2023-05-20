@@ -22,7 +22,6 @@
             </Breadcrumb>
         </template>
         <template #sidebar>
-            <Sidebar>
                 <SidebarLink class="font-bold" :href="route('article.index')"
                              :active="route().current('article.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -50,7 +49,6 @@
                     </svg>
                     Articles Create
                 </SidebarLink>
-            </Sidebar>
         </template>
         <form @submit.prevent="submit" method="post">
             <div class="rounded-lg px-6 py-4 text-sm bg-panel-800">

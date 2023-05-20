@@ -27,33 +27,32 @@ class CommentRepository implements CommentInterface
             return redirect()->back();
         }
     }
+
     public function update($request, $comment)
     {
         $update = $this->commentService->update($request, $comment);
-        if (!is_null($update)){
+        if (!is_null($update)) {
             DB::commit();
 
-            return redirect()->back();
-        }
-        else{
+            return redirect()->back()->with('message', 'Comment created success.');
+        } else {
             DB::rollBack();
 
-            return redirect()->back();
+            return redirect()->back() > with('error', 'Something want wrong.');
         }
     }
 
     public function replies($request, $comment)
     {
         $replies = $this->commentService->replies($request, $comment);
-        if (!is_null($replies)){
+        if (!is_null($replies)) {
             DB::commit();
 
-            return redirect()->back();
-        }
-        else{
+            return redirect()->back()>with('message','Comment reply success.');
+        } else {
             DB::rollBack();
 
-            return redirect()->back();
+            return redirect()->back()>with('error','Something want wrong.');
         }
     }
 }

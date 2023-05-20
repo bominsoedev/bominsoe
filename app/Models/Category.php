@@ -18,6 +18,18 @@ class Category extends Model
         'user_id'
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when(
+            $filters['search'] ?? false,
+            fn($query, $search) => $query->where(
+                fn($query) => $query
+                    ->where('name', 'like', '%' . request('search') . '%')
+                    ->orWhere('slug', 'like', '%' . request('search') . '%')
+            )
+        );
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

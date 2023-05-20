@@ -31,11 +31,11 @@ class ArticleRepository implements ArticleInterface
         if (!is_null($store)) {
             DB::commit();
 
-            return redirect()->route('article.index');
+            return redirect()->route('article.index')->with('message','Article Created Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.index');
+            return redirect()->route('article.index')->with('error','Something want wrong.');
         }
     }
     public function edit($article, $category)
