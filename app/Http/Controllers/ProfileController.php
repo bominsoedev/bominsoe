@@ -32,10 +32,7 @@ class ProfileController extends Controller
 
     public function information(User $user)
     {
-
-        return Inertia::render('Profile/Profile', [
-            'author' => \auth()->user()
-        ]);
+        return Inertia::render('Profile/Profile');
     }
 
     public function upload_profile(Request $request, User $user, Attachment $attachment)
@@ -68,14 +65,13 @@ class ProfileController extends Controller
                 $profile_photo->storeAs($path, $unique_name);
                 DB::commit();
 
-                return \redirect()->back();
+                return '\redirect()->back()';
             }
         }
         catch (QueryException $queryException){
-            dd($queryException);
             DB::rollBack();
 
-            return \redirect()->back();
+            return 'a';
         }
     }
 

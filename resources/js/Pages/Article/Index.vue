@@ -9,8 +9,9 @@ import MasterATab from "@/Components/MasterATab.vue";
 import ArticleCard from "@/Components/ArticleCard.vue";
 import ArticleGrid from "@/Components/ArticleGrid.vue";
 import { Breadcrumb, BreadcrumbItem } from "view-ui-plus";
+import MasterPagination from "@/Components/MasterPagination.vue";
 
-const props = defineProps({
+defineProps({
     articles: []
 })
 </script>
@@ -44,7 +45,6 @@ const props = defineProps({
             </MasterATab>
         </div>
         <template #sidebar>
-            <Sidebar>
                 <SidebarLink class="font-bold" :href="route('article.index')" :active="route().current('article.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-postcard mr-4 text-gray-400" viewBox="0 0 16 16">
@@ -69,19 +69,18 @@ const props = defineProps({
                     </svg>
                     Articles Create
                 </SidebarLink>
-            </Sidebar>
         </template>
-        <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
+        <div class="rounded-xl px-6 py-4 text-sm bg-panel-800 bg-white">
             <div class="flex items-center justify-between">
                 <h5 class="bominsoe-h5 text-gray-400">Article</h5>
             </div>
             <main class="mx-auto mt-6 space-y-6">
-                <article-grid :articles="articles">
+                <article-grid :articles="articles.data">
                 </article-grid>
             </main>
-
-
-
+        </div>
+        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+            <MasterPagination :links="articles.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>
 </template>

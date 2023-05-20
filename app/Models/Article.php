@@ -37,7 +37,6 @@ class Article extends Model
                     ->orWhere('body', 'like', '%' . request('search') . '%')
             )
         );
-
         $query->when(
             $filters['category'] ?? false,
             fn($query, $category) => $query->whereHas(

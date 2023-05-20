@@ -210,7 +210,28 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     max-height: 100%;
     padding: 20px 15px;
 }
-
+.bg-blue\/7 {
+    background-color: rgba(50,138,241,.07);
+}
+.border-blue\/75 {
+    border-color: rgba(50,138,241,.75);
+}
+.text-grey-600 {
+    --tw-text-opacity: 1;
+    color: rgb(186 217 252/var(--tw-text-opacity));
+}
+.hover\:border-blue:hover {
+    --tw-border-opacity: 1;
+    border-color: rgb(50 138 241/var(--tw-border-opacity));
+}
+.focus\:border-blue:focus {
+    --tw-border-opacity: 1;
+    border-color: rgb(50 138 241/var(--tw-border-opacity));
+}
+.focus\:text-blue:focus {
+    --tw-text-opacity: 1;
+    color: rgb(50 138 241/var(--tw-text-opacity));
+}
 .input, .textarea {
     --tw-border-opacity: 1;
     --tw-text-opacity: 1;

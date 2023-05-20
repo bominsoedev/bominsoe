@@ -46,7 +46,6 @@ const submit = (category) => {
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Categories Settings</h1>
         </template>
         <template #sidebar>
-            <Sidebar>
                 <SidebarLink class="font-bold" :href="route('category.index')"
                              :active="route().current('category.index')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -56,7 +55,6 @@ const submit = (category) => {
                     </svg>
                     My Categories
                 </SidebarLink>
-            </Sidebar>
         </template>
         <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
             <div class="flex items-center justify-between">

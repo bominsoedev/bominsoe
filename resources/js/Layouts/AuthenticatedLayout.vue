@@ -184,7 +184,7 @@ const showingNavigationDropdown = ref(false);
                                     </svg>
                                     Categories
                                 </DropdownLink>
-                                <DropdownLink :href="route('profile.edit', $page.props.auth.user)">
+                                <DropdownLink :href="route('profile.information', $page.props.auth.user)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-person text-sky-700 mr-3" viewBox="0 0 16 16">
                                         <path
@@ -208,13 +208,16 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </nav>
             <div class="flex min-w-screen-xl justify-center">
+                <ToastList></ToastList>
                 <div class="mb-32 mt-8 w-full max-w-screen-xl px-12 dark:text-gray-400">
                     <div>
                         <div class="mb-8 flex w-full justify-between">
                             <slot name="header"/>
                         </div>
                         <div class="flex">
+                            <Sidebar>
                             <slot name="sidebar"/>
+                            </Sidebar>
                             <div class="w-full">
                                 <div class="">
                                     <slot/>
