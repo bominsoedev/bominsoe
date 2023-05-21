@@ -12,6 +12,7 @@ import moment from "moment-timezone";
 import { initFlowbite } from "flowbite";
 import { onMounted } from "vue";
 import DangerButton from "@/Components/DangerButton.vue";
+import MasterPagination from "@/Components/MasterPagination.vue";
 
 const props = defineProps({
     tags: [],
@@ -65,10 +66,7 @@ const submit = (tag) => {
                     My Tags
                 </SidebarLink>
         </template>
-        <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-            <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Tag List</h5>
-            </div>
+        <div class="rounded-lg px-3 py-2 text-sm dark:bg-gray-800 bg-white">
             <form @submit.prevent="submit(tag)" method="post">
                 <div class="mt-4 pl-2">
                     <InputLabel for="tag" value="Tag Name" />
@@ -85,7 +83,7 @@ const submit = (tag) => {
                 </div>
             </form>
             <MasterTable :table_head="ths">
-                <tr v-for="tag in tags" :key="tag.id" class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
+                <tr v-for="tag in tags.data" :key="tag.id" class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
                     <td>{{ tag.id }}</td>
                     <td>{{ tag.name }}</td>
                     <td>{{ tag.slug }}</td>
@@ -93,6 +91,9 @@ const submit = (tag) => {
                     <td>{{ tag.user.username }}</td>
                 </tr>
             </MasterTable>
+        </div>
+        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+            <MasterPagination :links="tags.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>
 </template>

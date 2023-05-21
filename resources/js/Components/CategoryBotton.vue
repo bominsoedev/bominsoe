@@ -1,5 +1,5 @@
 <template>
-    <a v-for="c in category" :href="'/?category='+c.slug"
+    <a v-for="c in category" :href="route('article.index')+'/?category='+c.slug"
        class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
         {{ c.name }}
     </a>

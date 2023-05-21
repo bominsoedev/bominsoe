@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use App\Models\Article;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tag extends Model
 {
@@ -15,7 +13,17 @@ class Tag extends Model
 
     protected $fillable = ['uuid', 'name', 'slug', 'icon', 'user_id'];
 
-
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when(
+            $filters['search'] ?? false,
+            fn($query, $search) => $query->where(
+                fn($query) => $query
+                    ->where('name', 'like', '%' . request('search') . '%')
+                    ->orWhere('slug', 'like', '%' . request('search') . '%')
+            )
+        );
+    }
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

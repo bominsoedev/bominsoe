@@ -16,7 +16,7 @@ class CategoriesService
             ->with(['user:id,uuid,username'])
             ->filter(request(['search', 'category', 'author']))
             ->paginate(10)
-            ->withQueryString();;
+            ->withQueryString();
         return Inertia::render('Categories/Index', [
             'categories' => $categories
         ]);
@@ -40,7 +40,7 @@ class CategoriesService
 
             return 'success';
         } catch (QueryException $queryException) {
-           return null;
+           return $queryException->errorInfo[2];
         }
     }
 
@@ -50,7 +50,10 @@ class CategoriesService
 
     public function edit($category)
     {
-        $categories = Category::where('user_id', auth()->id())->with(['user'])->get();
+        $categories = Category::where('user_id', auth()->id())
+            ->with(['user:id,uuid,username'])
+            ->paginate(10)
+            ->withQueryString();
         return Inertia::render('Categories/edit', [
             'categories' => $categories,
             'category' => $category

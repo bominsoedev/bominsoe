@@ -15,7 +15,7 @@ class ArticleService
     {
         $articles = Article::latest()
             ->with(['category:uuid,name,slug',
-                'author:id,uuid,username',
+                'author:id,uuid,username,photo',
                 'article_photo:id,uuid,unique_name,article_id'])
             ->filter(request(['search', 'category', 'author']))
             ->where('user_id', auth()->id())->orderBy('id', 'desc')
@@ -49,7 +49,7 @@ class ArticleService
                 'title' => $request->article_title,
                 'slug' => Str::slug($request->article_title),
                 'description' => $request->description,
-                'excerpt' => Str::words($request->article_body,100,'.....Seemore'),
+                'excerpt' => Str::words($request->article_body,100,'.....'),
                 'body' => $request->article_body,
                 'user_id' => auth()->id(),
             ];
@@ -105,17 +105,17 @@ class ArticleService
         $article_data = $article->latest()->with(
             [
                 'category:id,uuid,name,slug',
-                'author:id,uuid,username,bio,nickname',
-                'comments.author:id,uuid,username',
-                'comments.replies.author:id,uuid,username',
-                'comments.replies.replies.author:id,uuid,username',
+                'author:id,uuid,username,bio,nickname,photo',
+                'comments.author:id,uuid,username,photo',
+                'comments.replies.author:id,uuid,username,photo',
+                'comments.replies.replies.author:id,uuid,username,photo',
+                'comments.replies.replies.replies',
                 'article_photo:id,uuid,unique_name,article_id',
                 'comments.comment_photo:id,uuid,unique_name,article_id',
                 'comments.replies.comment_photo:id,uuid,unique_name,article_id',
             ])
             ->filter(request(['search', 'category', 'author']))
             ->where('user_id', auth()->id())->first();
-//        dd($article_data->toArray());
         if ($article->user_id != auth()->id()) {
             $article->update([
                 'visit_count' => $article->visit_count + 1

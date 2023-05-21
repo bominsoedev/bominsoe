@@ -12,12 +12,14 @@ import moment from "moment-timezone";
 import {initFlowbite} from "flowbite";
 import {onMounted} from "vue";
 import DangerButton from "@/Components/DangerButton.vue";
+import MasterPagination from "@/Components/MasterPagination.vue";
 
 const props = defineProps({
     categories: [],
     category: {}
 })
 const ths = [
+    '',
     'ID',
     'Name',
     'Slug',
@@ -56,11 +58,8 @@ const submit = (category) => {
                     My Categories
                 </SidebarLink>
         </template>
-        <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-            <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Category List</h5>
-            </div>
-            <form @submit.prevent="submit(category)" method="post">
+        <div class="rounded-lg px-3 py-2 text-sm dark:bg-gray-800 bg-white">
+            <form @submit.prevent="submit(category)" method="post" class="mb-3">
                 <div class="mt-4 pl-2">
                     <InputLabel for="category" value="Category Name"/>
                     <div class="mt-1">
@@ -82,15 +81,23 @@ const submit = (category) => {
             </form>
             <MasterTable
                 :table_head="ths">
-                <tr v-for="category in categories" :key="category.id"
-                    class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>{{ category.slug }}</td>
+                <tr v-for="category in categories.data" :key="category.id"
+                    class="items-center divide-y divide-gray-100 dark:divide-gray-700">
+                    <td class="items-center"></td>
+                    <td class="p-5 h-5">
+                        <span class="items-center">
+                            {{ category.id }}
+                        </span>
+                    </td>
+                    <td class="items-center">{{ category.name }}</td>
+                    <td class="items-center">{{ category.slug }}</td>
                     <!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
-                    <td>{{ category.user.username }}</td>
+                    <td class="items-center">{{ category.user.username }}</td>
                 </tr>
             </MasterTable>
+        </div>
+        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+            <MasterPagination :links="categories.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>
 </template>

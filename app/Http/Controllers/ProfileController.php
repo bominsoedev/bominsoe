@@ -65,13 +65,13 @@ class ProfileController extends Controller
                 $profile_photo->storeAs($path, $unique_name);
                 DB::commit();
 
-                return '\redirect()->back()';
+                return \redirect()->back()->with('message', 'Upload profile success.');
             }
         }
         catch (QueryException $queryException){
             DB::rollBack();
 
-            return 'a';
+            return \redirect()->back()->with('error', 'Something want wrong.');
         }
     }
 

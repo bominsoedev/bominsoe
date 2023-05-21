@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('github')->nullable();
+            $table->string('linkin')->nullable();
             $table->bigInteger('login_count')->default(1);
             $table->timestamp('login_at')->nullable();
             $table->timestamp('logout_at')->nullable();
