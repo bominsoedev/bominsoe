@@ -5,27 +5,32 @@
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
         </template>
         <template #sidebar>
-                <SidebarLink :active="route().current('profile.information', $page.props.auth.user)" :href="route('profile.information', $page.props.auth.user)"
-                             class="font-bold">
-                    <svg class="bi bi-person text-gray-400 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
-                         width="16" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-                    </svg>
-                    Profile
-                </SidebarLink>
-                <SidebarLink :active="route().current('profile.edit', $page.props.auth.user)" :href="route('profile.edit', $page.props.auth.user)"
-                             class="font-bold">
-                    <svg class="mr-3 h-4 w-4 text-gray-400" height="16" width="16" fill="none" stroke="currentColor" stroke-width="1.5"
-                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linecap="round"
-                              stroke-linejoin="round">
-                        </path>
-                    </svg>
-                    Authentication
-                </SidebarLink>
+            <SidebarLink :active="route().current('profile.information', $page.props.auth.user)"
+                         :href="route('profile.information', $page.props.auth.user)"
+                         class="font-bold">
+                <svg class="bi bi-person text-gray-400 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                     width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                </svg>
+                Profile
+            </SidebarLink>
+            <SidebarLink :active="route().current('profile.edit', $page.props.auth.user)"
+                         :href="route('profile.edit', $page.props.auth.user)"
+                         class="font-bold">
+                <svg class="mr-3 h-4 w-4 text-gray-400" fill="none" height="16" stroke="currentColor" stroke-width="1.5"
+                     viewBox="0 0 24 24"
+                     width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                    </path>
+                </svg>
+                Authentication
+            </SidebarLink>
         </template>
-        <div v-if="showFileUpload" class=" flex justify-center absolute w-full z-[1000]">
+        <div v-if="showFileUpload" class=" flex justify-center absolute duration-300 w-full z-[1000]">
             <form class="w-full" @submit.prevent="upload_profile($page.props.auth.user)">
                 <div class="rounded-lg shadow-xl dark:bg-gray-800 lg:w-1/2">
                     <div class="m-4  py-6 px-4 rounded-xl">
@@ -46,9 +51,10 @@
                     </div>
                     <div class="flex w-full justify-start px-5 pb-5 space-x-4" data-v-2836fdb5-s="">
                         <div class="" data-v-2836fdb5-s="">
-                            <button class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
-                                    data-v-2836fdb5-s=""
-                                    @click="closeFile()">
+                            <button
+                                class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
+                                data-v-2836fdb5-s=""
+                                @click="closeFile()">
                                 <svg class="bi bi-x-circle mr-1" fill="currentColor" height="13" viewBox="0 0 16 16"
                                      width="12" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -62,7 +68,8 @@
                             <button
                                 class="btn flex items-center w-full rounded-xl border-transparent bg-grey-500 normal-case text-grey-800 hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20 px-4 py-2 duration-300"
                                 data-v-2836fdb5-s="">
-                                <svg class="bi bi-check2-circle mr-1" fill="currentColor" height="13" viewBox="0 0 16 16"
+                                <svg class="bi bi-check2-circle mr-1" fill="currentColor" height="13"
+                                     viewBox="0 0 16 16"
                                      width="12" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
@@ -111,9 +118,23 @@
                          @click="goFile()">
                 </div>
                 <div class="" style="width: 30rem;">
-                    <h1 class="text-2xl font-extrabold">Chan Myae </h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis ratione officia quis cupiditate
-                        neque omnis aliquam dolorem facere.</p>
+                    <h1 class="text-3xl font-extrabold my-3 text-white flex space-x-1 items-center">
+                        <span>
+                            {{ $page.props.auth.user.username }}
+                        </span>
+                        <span class="text-xl font-thin inline-flex">( {{ $page.props.auth.user.nickname }} )
+                        <svg
+                            class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1 ml-2"
+                            height="13" viewBox="0 0 16 16"
+                            width="12"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>Verified account</title>
+                            <path
+                                d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                        </svg>
+                        </span>
+                    </h1>
+                    <p class="text-gray-500">" {{ $page.props.auth.user.bio }} "</p>
                 </div>
             </div>
         </div>
@@ -134,7 +155,7 @@ export default {
             return auth
         }
     },
-    components: {AuthenticatedLayout, Sidebar, SidebarLink,Head},
+    components: {AuthenticatedLayout, Sidebar, SidebarLink, Head},
     data() {
         return {
             showFileUpload: false,

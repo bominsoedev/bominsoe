@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.transition-transform {
+    transition-duration: .15s;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
 .forge-tab-item {
     margin-left: -0.5rem;
     display: flex;
@@ -32,12 +39,14 @@
 }
 
 .from-frameworks-light {
-    --tw-gradient-from: #f44881;
+    /*--tw-gradient-from: #f44881;*/
+    --tw-gradient-from: #234172;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 72, 129, 0));
 }
 
 .to-frameworks {
-    --tw-gradient-to: #f44881;
+    /*--tw-gradient-to: #f44881;*/
+    --tw-gradient-to: #234172;
 }
 
 .bg-gradient-to-l {
@@ -310,6 +319,67 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
 .timeline-comment {
     position: relative;
     border: 1px solid;
-    border-color: rgba(65,132,228,0.4);;
+    border-color: rgba(65,132,228,0.4);
     border-radius: 6px;
+}
+.bg-blue-10{
+    background-color: rgba(65,132,228,0.4);
+}
+.hover\:bg-blue-10:hover {
+    --tw-border-opacity: 1;
+    background-color: rgba(65,132,228,0.4);
+}
+.reply-with-responses .responses {
+    margin-left: 60px;
+    position: relative;
+}
+.dark .reply-with-responses .responses:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+}
+.reply-with-responses .responses:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    content: "";
+    display: block;
+    height: 100%;
+    left: -24px;
+    position: absolute;
+    top: 0;
+    width: 2px;
+}
+.forum-comment {
+    transition: background-color,.3s;
+}
+.dark .reply-with-responses .responses>:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+}
+.reply-with-responses .responses>:before {
+    left: -34px;
+}
+.reply-with-responses .responses>:before {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    content: "";
+    display: block;
+    height: 2px;
+    position: relative;
+    top: 57px;
+    width: 23px;
+}
+.dark .reply-with-responses .responses>:last-child:after {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+}
+.reply-with-responses .responses>:last-child:after {
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    content: "";
+    display: block;
+    height: calc(100% - 60px);
+    left: -24px;
+    position: absolute;
+    top: 60px;
+    width: 2px;
 }

@@ -93,10 +93,7 @@ onMounted(() => {
                     My Tags
                 </SidebarLink>
         </template>
-        <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
-            <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Category List</h5>
-            </div>
+        <div class="rounded-lg px-3 py-2 text-sm dark:bg-gray-800 bg-white">
             <form @submit.prevent="submit" class="mb-3">
                 <div class="mt-4 pl-2">
                     <InputLabel for="category" value="Category Name" />

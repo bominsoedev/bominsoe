@@ -32,7 +32,6 @@ const props = defineProps({
             </Breadcrumb>
         </template>
         <template #sidebar>
-            <Sidebar>
                 <SidebarLink class="font-bold" :href="route('session.dashboard')" :active="route().current('session.dashboard')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="mr-4 h-4 w-4 text-gray-400 bi bi-sliders2-vertical" viewBox="0 0 16 16">
@@ -41,7 +40,6 @@ const props = defineProps({
                     </svg>
                     Settings
                 </SidebarLink>
-            </Sidebar>
         </template>
         <div class="rounded-lg mb-3 px-6 py-4 text-sm dark:bg-gray-800 bg-white">
             <div class="flex flex-wrap">

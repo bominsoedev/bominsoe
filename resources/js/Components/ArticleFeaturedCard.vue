@@ -37,7 +37,11 @@
                     More</a>
                 <footer class="flex justify-between items-center mt-8">
                     <div class="flex items-center text-sm">
-                        <div
+                        <div v-if="article.author.photo" class="">
+                            <img loading="lazy" :src="'/storage/ProfileAttachment/' + article.author.photo" alt=""
+                                 width="30" class="lazy object-cover lazyloaded rounded-full" style="height: 28px">
+                        </div>
+                        <div v-else
                             aria-hidden="true"
                             class="flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
                             height="30" width="30">
@@ -45,16 +49,10 @@
                         </div>
                         <div class="ml-2">
                             <h5 class="font-bold text-white flex items-center space-x-1">
-                                <a :href="route('profile.information',article.author)">
+                                <a :href="route('profile.information',article.author)" class="flex items-center">
                                     {{ article.author.username }}
-                                    <span v-if="article.author.nickname"
-                                          class="text-lg ">
-                                    ( {{ article.author.nickname }} )
-                                    </span>
-                                </a>
-                                <div class="">
                                     <svg
-                                        class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1"
+                                        class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1 ml-1"
                                         height="13" viewBox="0 0 16 16"
                                         width="12"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +60,7 @@
                                         <path
                                             d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
                                     </svg>
-                                </div>
+                                </a>
                             </h5>
                         </div>
                     </div>

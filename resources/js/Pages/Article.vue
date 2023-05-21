@@ -8,7 +8,7 @@
                     <figure>
                         <div v-if="article.article_photo" class="relative overflow-hidden rounded-xl"
                              style="width: 100%; height: 445px;">
-                            <img :src="'/storage/ArticleAttachment/' + article.article_photo.unique_name" alt="Lary avatar "
+                            <img :src="'/storage/ProfileAttachment/' + article.author.photo" alt="Lary avatar "
                                  class="lazy h-full w-full object-cover lazyloaded"
                                  loading="lazy"
                                  style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
@@ -31,9 +31,11 @@
                                     ( {{ article.author.nickname }} )
                                 </span>
                                 <div class="inline-block">
-                                    <svg class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1" height="13" viewBox="0 0 16 16"
-                                         width="12"
-                                         xmlns="http://www.w3.org/2000/svg">
+                                    <svg
+                                        class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1"
+                                        height="13" viewBox="0 0 16 16"
+                                        width="12"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <title>Verified account</title>
                                         <path
                                             d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
@@ -124,9 +126,11 @@
                                                         <button
                                                             class="rounded-full px-1 md:flex md:items-center md:justify-center bg-white/10 mr-4"
                                                             style="width: 39px; height: 39px;">
-                                                            <svg class="flex-shrink-0 text-white" height="45" viewBox="0 0 32 32"
+                                                            <svg class="flex-shrink-0 text-white" height="45"
+                                                                 viewBox="0 0 32 32"
                                                                  width="45">
-                                                                <g class="fill-current" fill-rule="evenodd" stroke="none"
+                                                                <g class="fill-current" fill-rule="evenodd"
+                                                                   stroke="none"
                                                                    stroke-width="1.2">
                                                                     <path class="fill-current"
                                                                           d="M13.6196,11.2 C11.6246857,11.2 10.4,12.85425 10.4,14.2106375 C10.4,17.143925 13.9170286,19.8671 16.4,21.6 C18.8829714,19.86645 22.4,17.143925 22.4,14.2106375 C22.4,12.8541363 21.1758971,11.2 19.1804,11.2 C18.0661143,11.2 17.1138286,12.042335 16.4,12.8420625 C15.6854857,12.0422538 14.73392,11.2 13.6196,11.2 Z"></path>
@@ -196,11 +200,15 @@
                                 <!--                                </div>-->
                             </section>
                         </div>
-                        <section class="mt-5 space-y-6 bg-[#151f32] py-6 px-4 rounded-xl">
-                            <ArticleCommentForm :article="article" :can-login="canLogin"></ArticleCommentForm>
-                            <ArticleComment v-for="comment in article.comments" :key="comment.uuid"
-                                            :comment="comment">
-                            </ArticleComment>
+                        <section class="mt-3 bg-[#151f32] py-6 px-4 rounded-xl">
+                            <div id="replies">
+                                <ArticleCommentForm :article="article" :can-login="canLogin"></ArticleCommentForm>
+                                <div class="reply-with-responses" v-for="comment in article.comments">
+                                    <ArticleComment  :key="comment.uuid"
+                                                    :comment="comment">
+                                    </ArticleComment>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </main>
@@ -217,7 +225,6 @@ import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
 import moment from "moment-timezone";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head, useForm} from "@inertiajs/vue3";
-import {comment} from "postcss";
 import ArticleReply from "@/Components/ArticleReply.vue";
 
 const props = defineProps({

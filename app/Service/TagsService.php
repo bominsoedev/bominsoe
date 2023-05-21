@@ -12,7 +12,11 @@ class TagsService
 {
     public function index()
     {
-        $tags = Tag::where('user_id', auth()->id())->with(['user'])->get();
+        $tags = Tag::where('user_id', auth()->id())
+            ->with(['user:id,uuid,username'])
+            ->filter(request(['search', 'category', 'author']))
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Categories/TagIndex', [
             'tags' => $tags
@@ -40,7 +44,10 @@ class TagsService
 
     public function edit($tag)
     {
-        $tags = Tag::where('user_id', auth()->id())->with(['user'])->get();
+        $tags = Tag::where('user_id', auth()->id())->with(['user'])
+            ->with(['user:id,uuid,username'])
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Categories/TagEdit', [
             'tags' => $tags,

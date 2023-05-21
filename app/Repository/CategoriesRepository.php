@@ -27,14 +27,16 @@ class CategoriesRepository implements CategoriesInterface
     public function store($request, $category)
     {
         $result = $this->categoriesService->store($request, $category);
-        if (!is_null($result)) {
+        if ($result == 'success') {
             DB::commit();
 
-            return redirect()->route('category.index')->with('message','Category Created Successfully.');
-        } else {
+            return redirect()->route('category.index')->with('message', 'Category Created Successfully.');
+        }
+        else
+        {
             DB::rollBack();
 
-            return redirect()->route('category.index')->with('error','Something want wrong.');
+            return redirect()->route('category.index')->with('error', $result);
         }
     }
 
@@ -54,11 +56,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($result)) {
             DB::commit();
 
-            return redirect()->route('category.index')->with('message','Category Updated Successfully.');
+            return redirect()->route('category.index')->with('message', 'Category Updated Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('category.index')->with('error','Something want wrong.');
+            return redirect()->route('category.index')->with('error', 'Something want wrong.');
         }
     }
 
@@ -68,11 +70,11 @@ class CategoriesRepository implements CategoriesInterface
         if (!is_null($destroy)) {
             DB::commit();
 
-            return redirect()->route('category.index')->with('message','Category Destroy Successfully.');
+            return redirect()->route('category.index')->with('message', 'Category Destroy Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('category.index')->with('error','Something want wrong.');
+            return redirect()->route('category.index')->with('error', 'Something want wrong.');
         }
     }
 }
