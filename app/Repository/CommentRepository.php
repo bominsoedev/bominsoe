@@ -34,7 +34,7 @@ class CommentRepository implements CommentInterface
         if (!is_null($update)) {
             DB::commit();
 
-            return redirect()->back()->with('message', 'Comment created success.');
+            return redirect()->back()->with('message', 'Comment updated success.');
         } else {
             DB::rollBack();
 

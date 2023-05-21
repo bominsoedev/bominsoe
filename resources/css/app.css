@@ -356,17 +356,20 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     background-color: rgb(24 39 63/var(--tw-bg-opacity));
 }
 .reply-with-responses .responses>:before {
-    left: -35px;
-}
-.reply-with-responses .responses>:before {
+    left: -36px;
     --tw-bg-opacity: 1;
-    background-color: rgb(235 237 241/var(--tw-bg-opacity));
+    /* background-color: rgb(235 237 241/var(--tw-bg-opacity)); */
     content: "";
     display: block;
-    height: 2px;
     position: relative;
-    top: 57px;
-    width: 35px;
+    top: 27px;
+    width: 36px;
+    height: 30px;
+    border: 2px solid #162740;
+    border-radius: 0 0 0 20px;
+    background-color: transparent!important;
+    border-top: 0;
+    border-right: 0;
 }
 .dark .reply-with-responses .responses>:last-child:after {
     --tw-bg-opacity: 1;

@@ -106,7 +106,8 @@ class ArticleService
     {
         $article_data = $article
             ->with(
-                ['category:id,uuid,name,slug',
+                [
+                    'category:id,uuid,name,slug',
                     'author:id,uuid,username,bio,nickname,photo',
                     'comments.author:id,uuid,username,photo',
                     'comments.replies.author:id,uuid,username,photo',
