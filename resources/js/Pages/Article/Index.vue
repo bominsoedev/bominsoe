@@ -70,11 +70,8 @@ defineProps({
                     Articles Create
                 </SidebarLink>
         </template>
-        <div class="rounded-xl px-6 py-4 text-sm bg-panel-800 bg-white">
-            <div class="flex items-center justify-between">
-                <h5 class="bominsoe-h5 text-gray-400">Article</h5>
-            </div>
-            <main class="mx-auto mt-6 space-y-6">
+        <div class="rounded-xl px-3 py-2 text-sm bg-panel-800 bg-white">
+            <main class="mx-auto mt-3 space-y-6">
                 <article-grid :articles="articles.data">
                 </article-grid>
             </main>

@@ -2,11 +2,9 @@
 
 namespace App\Service;
 
-use App\Models\Comment;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
 
 class CommentService
 {
@@ -21,6 +19,7 @@ class CommentService
                 'body' => $request->comment
             ];
             $article->comments()->create($comment_param);
+
             return 'success';
         } catch (QueryException $queryException) {
             return null;
@@ -35,6 +34,7 @@ class CommentService
                 'body' => $request->comment
             ];
             $comment->update($comment_param);
+
             return "success";
         } catch (QueryException $queryException) {
             return null;
@@ -53,6 +53,7 @@ class CommentService
                 'body' => $request->replies
             ];
             $comment->create($comment_param);
+
             return 'success';
         } catch (QueryException $queryException) {
             dd($queryException);
