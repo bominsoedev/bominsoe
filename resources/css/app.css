@@ -339,11 +339,11 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
 }
 .reply-with-responses .responses:before {
     --tw-bg-opacity: 1;
-    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    background-color: rgb(235 237 241/var(--tw-bg-opacity));
     content: "";
     display: block;
     height: 100%;
-    left: -24px;
+    left: -36px;
     position: absolute;
     top: 0;
     width: 2px;
@@ -356,17 +356,17 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     background-color: rgb(24 39 63/var(--tw-bg-opacity));
 }
 .reply-with-responses .responses>:before {
-    left: -34px;
+    left: -35px;
 }
 .reply-with-responses .responses>:before {
     --tw-bg-opacity: 1;
-    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    background-color: rgb(235 237 241/var(--tw-bg-opacity));
     content: "";
     display: block;
     height: 2px;
     position: relative;
     top: 57px;
-    width: 23px;
+    width: 35px;
 }
 .dark .reply-with-responses .responses>:last-child:after {
     --tw-bg-opacity: 1;
@@ -374,11 +374,11 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
 }
 .reply-with-responses .responses>:last-child:after {
     --tw-bg-opacity: 1;
-    background-color: rgb(24 39 63/var(--tw-bg-opacity));
+    background-color: rgb(235 237 241/var(--tw-bg-opacity));
     content: "";
     display: block;
     height: calc(100% - 60px);
-    left: -24px;
+    left: -36px;
     position: absolute;
     top: 60px;
     width: 2px;

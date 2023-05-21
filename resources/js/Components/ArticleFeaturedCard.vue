@@ -16,7 +16,7 @@
 
                     <div class="mt-4">
                         <h1 class="text-3xl text-sky-500">
-                            <a :href="article.slug">
+                            <a :href="article.uuid">
                                 {{ article.title }}
                             </a>
                         </h1>
@@ -38,13 +38,13 @@
                 <footer class="flex justify-between items-center mt-8">
                     <div class="flex items-center text-sm">
                         <div v-if="article.author.photo" class="">
-                            <img loading="lazy" :src="'/storage/ProfileAttachment/' + article.author.photo" alt=""
-                                 width="30" class="lazy object-cover lazyloaded rounded-full" style="height: 28px">
+                            <img :src="'/storage/ProfileAttachment/' + article.author.photo" alt="" class="lazy object-cover lazyloaded rounded-full"
+                                 loading="lazy" style="height: 28px" width="30">
                         </div>
                         <div v-else
-                            aria-hidden="true"
-                            class="flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
-                            height="30" width="30">
+                             aria-hidden="true"
+                             class="flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
+                             height="30" width="30">
                             {{ $page.props.auth.user.username.split("")[0] }}
                         </div>
                         <div class="ml-2">
@@ -63,6 +63,11 @@
                                 </a>
                             </h5>
                         </div>
+                    </div>
+                    <div v-if="article.comments" class="">
+                        <a :href="article.uuid">
+                            <comment><span class="mr-1">{{article.comments.length}}</span>comment</comment>
+                        </a>
                     </div>
                 </footer>
             </div>

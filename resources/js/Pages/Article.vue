@@ -192,12 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-y-4 leading-loose" v-html="article.body">
-
-                                </div>
-                                <!--                                <div class="">-->
-                                <!--                                    <JsonViewer :value="article" copyable boxed sort theme="jv-dark"/>-->
-                                <!--                                </div>-->
+                                <div class="space-y-4 leading-loose" v-html="article.body"></div>
                             </section>
                         </div>
                         <section class="mt-3 bg-[#151f32] py-6 px-4 rounded-xl">

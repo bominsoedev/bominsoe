@@ -27,6 +27,12 @@ class Article extends Model
         'visit_count',
 
     ];
+
+    public static function whereSlug($slug)
+    {
+
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when(

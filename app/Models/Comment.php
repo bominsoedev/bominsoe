@@ -39,4 +39,8 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
+    public function getArticleCountAttribute()
+    {
+        return $this->article()->count() + $this->replies()->count();
+    }
 }
