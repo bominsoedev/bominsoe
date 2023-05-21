@@ -85,7 +85,7 @@
         </div>
         <div class="rounded-lg px-6 py-4 text-sm bg-panel-800 bg-white">
             <div class="h-72 overflow-hidden relative p-3 bg-transparent rounded">
-                <img alt="" class="lazy h-full w-full object-cover lazyloaded rounded-xl" loading="lazy"
+                <img alt="" class="lazy h-full w-full object-cover lazyloaded rounded-xl duration-300 ease-in-out hover:opacity-100 opacity-90 transition" loading="lazy"
                      src="/Images/Icon/SHARING.svg"
                      style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
                 <button class="rounded border-2 bg-white text-black p-2 absolute right-3 bottom-3" type="button"
@@ -106,13 +106,13 @@
                          id="show"
                          :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
                          alt=""
-                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover"
+                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
                          loading="lazy"
                          @click="goFile()">
                     <img v-else
                          id="show"
                          alt=""
-                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover"
+                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
                          loading="lazy"
                          src="/Images/Icon/S.svg"
                          @click="goFile()">

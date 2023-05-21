@@ -45,7 +45,7 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::post('articles/article_store', [ArticleController::class, 'store'])->name('article.store');
     Route::get('articles/article_edit/{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::put('articles/article_edit', [ArticleController::class, 'update'])->name('article.update');
-    Route::get('articles/{article:slug}', [ArticleController::class, 'show'])->name('article.show');
+    Route::get('articles/{article:uuid}', [ArticleController::class, 'show'])->name('article.show');
     Route::post('/editor/file/upload', [ArticleController::class, 'upload'])->name('article.upload');
 
 
