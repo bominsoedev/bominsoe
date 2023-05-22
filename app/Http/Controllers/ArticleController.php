@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\ArticleCategories;
 use App\Models\Attachment;
 use App\Models\Category;
+use App\Models\Reaction;
 use App\Repository\ArticleInterface;
 
 class ArticleController extends Controller
@@ -59,6 +60,17 @@ class ArticleController extends Controller
     public function upload()
     {
     }
+
+    public function store_reaction(Article $article, Reaction $reaction)
+    {
+        return $this->articleInterface->store_reaction($article, $reaction);
+    }
+
+    public function destroy_reaction(Article $article, Reaction $reaction)
+    {
+        return $this->articleInterface->destroy_reaction($article, $reaction);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

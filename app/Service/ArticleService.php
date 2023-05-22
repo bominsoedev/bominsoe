@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -14,16 +15,18 @@ class ArticleService
     public function index()
     {
         $articles = Article::latest()
-            ->with(['category:uuid,name,slug',
+            ->with([
+                'reactions:id,uuid,article_id',
+                'category:uuid,name,slug',
                 'author:id,uuid,username,photo',
                 'article_photo:id,uuid,unique_name,article_id',
-                'comments.replies'
+                'comments_count'
             ])
             ->filter(request(['search', 'category', 'author']))
             ->where('user_id', auth()->id())->orderBy('id', 'desc')
             ->paginate(51)->withQueryString();
         return Inertia::render('Article/Index', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
@@ -104,15 +107,18 @@ class ArticleService
 
     public function show($article)
     {
+        $reacted = $article->reactionBy(request()->user());
+        $liked_count = $article->reactions()->count();
         $article_data = $article
             ->with(
                 [
+                    'reactions:id,uuid,user_id,article_id',
                     'category:id,uuid,name,slug',
                     'author:id,uuid,username,bio,nickname,photo',
                     'comments.author:id,uuid,username,photo',
                     'comments.replies.author:id,uuid,username,photo',
                     'comments.replies.replies.author:id,uuid,username,photo',
-                    'comments.replies.replies.replies.author:id,uuid,username,photo',
+                    'comments.replies.replies.replies',
                     'article_photo:id,uuid,unique_name,article_id',
                     'comments.comment_photo:id,uuid,unique_name,article_id',
                     'comments.replies.comment_photo:id,uuid,unique_name,article_id',
@@ -125,8 +131,39 @@ class ArticleService
         }
         return Inertia::render('Article', [
             'article' => $article_data,
+            'reacted' => $reacted,
+            'reaction_count'=>$liked_count,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
+    }
+
+    public function store_reaction($article, $reaction)
+    {
+        try {
+            DB::beginTransaction();
+            $reaction->create([
+                'uuid' => Str::uuid()->toString(),
+                'article_id' => $article->id,
+                'user_id' => auth()->id()
+            ]);
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            dd($queryException);
+        }
+    }
+
+    public function destroy_reaction($article, $reaction)
+    {
+        try {
+            DB::beginTransaction();
+            request()->user()->reactions()->where('article_id', $article->id)->delete();
+
+            return 'success';
+        }
+        catch (QueryException $queryException){
+            return null;
+        }
     }
 }

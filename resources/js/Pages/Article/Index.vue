@@ -12,13 +12,14 @@ import { Breadcrumb, BreadcrumbItem } from "view-ui-plus";
 import MasterPagination from "@/Components/MasterPagination.vue";
 
 defineProps({
-    articles: []
+    articles: [],
+    comment_count:[]
 })
 </script>
 
 <template>
     <Head title="Articles" />
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :nav-status="true">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
@@ -72,7 +73,7 @@ defineProps({
         </template>
         <div class="rounded-xl px-3 py-2 text-sm bg-panel-800 bg-white">
             <main class="mx-auto mt-3 space-y-6">
-                <article-grid :articles="articles.data">
+                <article-grid :articles="articles.data" >
                 </article-grid>
             </main>
         </div>

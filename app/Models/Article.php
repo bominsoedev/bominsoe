@@ -65,6 +65,15 @@ class Article extends Model
         return $this->belongsToMany(Category::class, 'article_categories');
     }
 
+    public function reactionBy(User $user)
+    {
+        return $this->reactions->contains('user_id', $user->id);
+    }
+
+    public function reactions():HasMany
+    {
+        return $this->hasMany(Reaction::class);
+    }
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -72,6 +81,11 @@ class Article extends Model
     public function article_photo(): HasOne
     {
         return $this->hasOne(Attachment::class)->where('status','article_photo');
+    }
+
+    public function comments_count():HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
     public function comments(): HasMany
     {
