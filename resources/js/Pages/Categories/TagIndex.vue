@@ -44,7 +44,7 @@ const ths = [
 
 <template>
     <Head title="Tags"/>
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :nav-status="true">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Tags Settings</h1>
         </template>

@@ -1,6 +1,6 @@
 <template>
     <Head :title="article.title" />
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :nav-status="true">
         <main class="mx-auto rounded-xl space-y-6 px-3 py-6">
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                 <div class="col-span-4 lg:text-center lg:pt-14 mb-10 border-r-2 border-r-gray-600 pr-3">

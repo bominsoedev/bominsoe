@@ -2,7 +2,7 @@
     <div v-if="comment.body" class="responses">
         <div class="reply-with-responses">
             <article
-                class="p-3 rounded-xl forum-comment mb-3 transition-colors duration-300 dark bg-blue/7 hover:bg-blue/13 text-white">
+                class="p-3 rounded-xl forum-comment transition-colors duration-300 dark bg-blue/7 hover:bg-blue/13 text-white">
                 <div>
                     <div class="flex space-x-2">
                         <div class="mr-2">

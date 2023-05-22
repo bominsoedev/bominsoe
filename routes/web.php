@@ -48,11 +48,20 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('articles/{article:uuid}', [ArticleController::class, 'show'])->name('article.show');
     Route::post('/editor/file/upload', [ArticleController::class, 'upload'])->name('article.upload');
 
+    //Article Reaction Route
+
+    Route::post('article/reaction/like/{article:uuid}',[ArticleController::class,'store_reaction'])->name('article.store_reaction');
+    Route::post('article/reaction/unlike/{article:uuid}',[ArticleController::class,'destroy_reaction'])->name('article.destroy_reaction');
 
     //Article Comment
     Route::post('articles/comment/{article:slug}', [CommentController::class, 'store'])->name('comment.store');
     Route::put('articles/comment/update/{comment:uuid}', [CommentController::class, 'update'])->name('comment.update');
     Route::post('articles/comment/replies/{comment:uuid}', [CommentController::class, 'replies'])->name('comment.replies');
+
+    //Cooment Reaction Route
+
+    Route::post('comment/reaction/like/{comment:uuid}',[CommentController::class,'store_reaction'])->name('comment.store_reaction');
+    Route::post('comment/reaction/unlike/{comment:uuid}',[CommentController::class,'destroy_reaction'])->name('comment.destroy_reaction');
 
     //Categories Route
     Route::get('categories', [CategoryController::class, 'index'])->name('category.index');

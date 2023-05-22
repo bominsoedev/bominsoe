@@ -13,37 +13,70 @@ class ArticleRepository implements ArticleInterface
     {
         $this->articleService = $articleService;
     }
+
     public function index()
     {
         return $this->articleService->index();
     }
+
     public function lists()
     {
         return $this->articleService->lists();
     }
+
     public function create($category)
     {
         return $this->articleService->create($category);
     }
+
     public function store($request, $article, $articleCategories, $attachment)
     {
         $store = $this->articleService->store($request, $article, $articleCategories, $attachment);
         if (!is_null($store)) {
             DB::commit();
 
-            return redirect()->route('article.index')->with('message','Article Created Successfully.');
+            return redirect()->route('article.index')->with('message', 'Article Created Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.index')->with('error','Something want wrong.');
+            return redirect()->route('article.index')->with('error', 'Something want wrong.');
         }
     }
+
     public function edit($article, $category)
     {
         return $this->articleService->edit($article, $category);
     }
+
     public function show($article)
     {
         return $this->articleService->show($article);
+    }
+
+    public function store_reaction($article, $reaction)
+    {
+        $store_reaction = $this->articleService->store_reaction($article, $reaction);
+        if (!is_null($store_reaction)) {
+            DB::commit();
+
+            return redirect()->back()->with('message', 'Liked.');
+        } else {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Something want wrong.');
+        }
+    }
+    public function destroy_reaction($article, $reaction)
+    {
+        $destroy_reaction = $this->articleService->destroy_reaction($article, $reaction);
+        if (!is_null($destroy_reaction)) {
+            DB::commit();
+
+            return redirect()->back()->with('message', 'UnLiked.');
+        } else {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Something want wrong.');
+        }
     }
 }

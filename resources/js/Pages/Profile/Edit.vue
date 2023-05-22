@@ -20,7 +20,7 @@ defineProps({
 <template>
     <Head title="Authentication"/>
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :nav-status="true">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
         </template>

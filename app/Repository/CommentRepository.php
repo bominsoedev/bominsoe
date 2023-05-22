@@ -38,7 +38,7 @@ class CommentRepository implements CommentInterface
         } else {
             DB::rollBack();
 
-            return redirect()->back()-> with('error', 'Something want wrong.');
+            return redirect()->back()->with('error', 'Something want wrong.');
         }
     }
 
@@ -48,11 +48,39 @@ class CommentRepository implements CommentInterface
         if (!is_null($replies)) {
             DB::commit();
 
-            return redirect()->back()->with('message','Comment reply success.');
+            return redirect()->back()->with('message', 'Comment reply success.');
         } else {
             DB::rollBack();
 
-            return redirect()->back()->with('error','Something want wrong.');
+            return redirect()->back()->with('error', 'Something want wrong.');
+        }
+    }
+
+    public function store_reaction($comment, $reaction)
+    {
+        $store_reaction = $this->commentService->store_reaction($comment, $reaction);
+        if (!is_null($store_reaction)) {
+            DB::commit();
+
+            return redirect()->back()->with('message', 'Liked.');
+        } else {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Something want wrong.');
+        }
+    }
+
+    public function destroy_reaction($comment, $reaction)
+    {
+        $destroy_reaction = $this->commentService->destroy_reaction($comment, $reaction);
+        if (!is_null($destroy_reaction)) {
+            DB::commit();
+
+            return redirect()->back()->with('message', 'UnLiked.');
+        } else {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Something want wrong.');
         }
     }
 }

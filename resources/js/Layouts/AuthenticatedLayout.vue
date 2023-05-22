@@ -13,6 +13,11 @@ onMounted(() => {
     initFlowbite();
 })
 
+defineProps({
+    navStatus: {
+        type: Boolean
+    }
+})
 const showingNavigationDropdown = ref(false);
 </script>
 <template>
@@ -39,7 +44,8 @@ const showingNavigationDropdown = ref(false);
                                             fill="#BFE9F2" fill-opacity="0.36"/>
                                     </g>
                                     <defs>
-                                        <filter id="filter0_d_1_3" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="79.7614"
+                                        <filter id="filter0_d_1_3" color-interpolation-filters="sRGB"
+                                                filterUnits="userSpaceOnUse" height="79.7614"
                                                 width="439.037" x="0.818176"
                                                 y="0.227264">
                                             <feFlood flood-opacity="0" result="BackgroundImageFix"/>
@@ -64,7 +70,8 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <div class="col-span-4 col-start-3 col-end-7 flex w-full items-center justify-center gap-x-5">
                         <NavLink :active="route().current('session.dashboard')" :href="route('session.dashboard')">
-                            <svg class="bi bi-house-gear text-sky-700" fill="currentColor" height="16" viewBox="0 0 16 16"
+                            <svg class="bi bi-house-gear text-sky-700" fill="currentColor" height="16"
+                                 viewBox="0 0 16 16"
                                  width="16" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
@@ -76,16 +83,18 @@ const showingNavigationDropdown = ref(false);
                         <NavLink :active="route().current('article.index')" :href="route('article.index')">
                             <svg class="bi bi-postcard text-sky-700" fill="currentColor" height="16" viewBox="0 0 16 16"
                                  width="16" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"
-                                      fill-rule="evenodd"/>
+                                <path
+                                    d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"
+                                    fill-rule="evenodd"/>
                             </svg>
                             Articles
                         </NavLink>
                         <NavLink :active="route().current('category.index')" :href="route('category.index')">
                             <svg class="bi bi-bezier2 text-sky-700" fill="currentColor" height="16" viewBox="0 0 16 16"
                                  width="16" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01c.18.18.34.381.484.605.638.992.892 2.354.892 3.895 0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a2.839 2.839 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5v-1zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"
-                                      fill-rule="evenodd"/>
+                                <path
+                                    d="M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01c.18.18.34.381.484.605.638.992.892 2.354.892 3.895 0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a2.839 2.839 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5v-1zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"
+                                    fill-rule="evenodd"/>
                             </svg>
                             Categories
                         </NavLink>
@@ -132,15 +141,21 @@ const showingNavigationDropdown = ref(false);
                             <template #trigger>
                                 <span class="inline-flex rounded-md">
 
-                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
-                                            type="button">
+                                    <button
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
+                                        type="button">
                                          <div v-if="$page.props.auth.user.photo" class="mr-2">
-                                                <img loading="lazy" :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo" alt=""
-                                                     width="100%" height="100%" class="lazy object-cover lazyloaded rounded-full duration-300 ease-in-out hover:opacity-100 opacity-90 transition" style="width:40px; height: 40px">
+                                                <img :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
+                                                     alt=""
+                                                     class="lazy object-cover lazyloaded rounded-full duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                                                     height="100%" loading="lazy"
+                                                     style="width:40px; height: 40px"
+                                                     width="100%">
                                         </div>
                                         <div v-else
                                              aria-hidden="true"
-                                             class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 mr-2 h-[30px] w-[30px] border-none" height="30" width="30">
+                                             class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 mr-2 h-[30px] w-[30px] border-none"
+                                             height="30" width="30">
                                             <span class=" uppercase">
                                                 {{
                                                     $page.props.auth.user.username.split("")[0]
@@ -153,7 +168,8 @@ const showingNavigationDropdown = ref(false);
 
                             <template #content>
                                 <DropdownLink :href="route('session.dashboard')">
-                                    <svg class="bi bi-house-gear text-sky-700 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                    <svg class="bi bi-house-gear text-sky-700 mr-3" fill="currentColor" height="16"
+                                         viewBox="0 0 16 16"
                                          width="16" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
@@ -163,24 +179,28 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </DropdownLink>
                                 <DropdownLink :href="route('article.index')">
-                                    <svg class="bi bi-postcard text-sky-700 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                    <svg class="bi bi-postcard text-sky-700 mr-3" fill="currentColor" height="16"
+                                         viewBox="0 0 16 16"
                                          width="16" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"
-                                              fill-rule="evenodd"/>
+                                        <path
+                                            d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"
+                                            fill-rule="evenodd"/>
                                     </svg>
                                     Articles
                                 </DropdownLink>
                                 <DropdownLink :href="route('category.index')">
                                     <svg class="h-4 w-4 text-sky-700 mr-3" fill="none" viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20.59 3.29l.12.12a1.05 1.05 0 0 1 .29.71v7.95a2 2 0 0 1-.59 1.42l-7.22 7.22a1 1 0 0 1-1.41 0l-8.49-8.49a1 1 0 0 1 0-1.41l7.22-7.22A2 2 0 0 1 11.93 3h7.95a1.05 1.05 0 0 1 .71.29zM14 8a2 2 0 0 0 3.414 1.414A2 2 0 0 0 16 6a2 2 0 0 0-2 2z"
-                                              fill="currentColor"
-                                              fill-rule="evenodd"></path>
+                                        <path
+                                            d="M20.59 3.29l.12.12a1.05 1.05 0 0 1 .29.71v7.95a2 2 0 0 1-.59 1.42l-7.22 7.22a1 1 0 0 1-1.41 0l-8.49-8.49a1 1 0 0 1 0-1.41l7.22-7.22A2 2 0 0 1 11.93 3h7.95a1.05 1.05 0 0 1 .71.29zM14 8a2 2 0 0 0 3.414 1.414A2 2 0 0 0 16 6a2 2 0 0 0-2 2z"
+                                            fill="currentColor"
+                                            fill-rule="evenodd"></path>
                                     </svg>
                                     Categories
                                 </DropdownLink>
                                 <DropdownLink :href="route('profile.information', $page.props.auth.user)">
-                                    <svg class="bi bi-person text-sky-700 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                    <svg class="bi bi-person text-sky-700 mr-3" fill="currentColor" height="16"
+                                         viewBox="0 0 16 16"
                                          width="16" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
@@ -188,12 +208,15 @@ const showingNavigationDropdown = ref(false);
                                     Profile
                                 </DropdownLink>
                                 <DropdownLink :href="route('logout')" as="button" method="post">
-                                    <svg class="bi bi-box-arrow-in-left text-red-600 mr-3" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                    <svg class="bi bi-box-arrow-in-left text-red-600 mr-3" fill="currentColor"
+                                         height="16" viewBox="0 0 16 16"
                                          width="16" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
-                                              fill-rule="evenodd"/>
-                                        <path d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
-                                              fill-rule="evenodd"/>
+                                        <path
+                                            d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
+                                            fill-rule="evenodd"/>
+                                        <path
+                                            d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                                            fill-rule="evenodd"/>
                                     </svg>
                                     Log Out
                                 </DropdownLink>
@@ -210,13 +233,11 @@ const showingNavigationDropdown = ref(false);
                             <slot name="header"/>
                         </div>
                         <div class="flex">
-                            <Sidebar>
+                            <Sidebar v-if="navStatus">
                                 <slot name="sidebar"/>
                             </Sidebar>
                             <div class="w-full">
-                                <div class="">
-                                    <slot/>
-                                </div>
+                                <slot/>
                             </div>
                         </div>
                     </div>

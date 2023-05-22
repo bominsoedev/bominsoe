@@ -59,4 +59,33 @@ class CommentService
             dd($queryException);
         }
     }
+
+    public function store_reaction($comment, $reaction)
+    {
+        try {
+            DB::beginTransaction();
+            $reaction->create([
+                'uuid' => Str::uuid()->toString(),
+                'comment_id' => $comment->id,
+                'user_id' => auth()->id()
+            ]);
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            dd($queryException);
+        }
+    }
+
+    public function destroy_reaction($comment, $reaction)
+    {
+        try {
+            DB::beginTransaction();
+            request()->user()->reactions()->where('comment_id', $comment->id)->delete();
+
+            return 'success';
+        }
+        catch (QueryException $queryException){
+            return null;
+        }
+    }
 }
