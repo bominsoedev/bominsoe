@@ -1,12 +1,12 @@
 <template>
     <x-pane v-if="canLogin">
-        <form @submit.prevent="submit" class="p-3 border-b border-gray-600">
+        <form @submit.prevent="submit" class="p-3 bg-panel-800 mt-3 rounded-xl">
             <div class="">
                 <textarea
                     v-model="form.comment"
-                    class="w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 text-sm focus:border-sky-500 dark:focus:border-sky-600 focus:ring-sky-500 dark:focus:ring-sky-600 rounded-md"
+                    class="w-full border border-gray-700 text-gray-300 text-sm bg-transparent focus:border-sky-600 focus:ring-sky-600 rounded-md"
                     id="comment"
-                    rows="3"
+                    rows="1"
                     placeholder="Aa"></textarea>
             </div>
             <InputError class="mt-2" :message="form.errors.comment"/>

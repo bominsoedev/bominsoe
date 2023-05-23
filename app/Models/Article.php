@@ -91,6 +91,10 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
+    public function comment(): HasOne
+    {
+        return $this->hasOne(Comment::class);
+    }
     public function Tag(): HasMany
     {
         return $this->hasMany(Tag::class);

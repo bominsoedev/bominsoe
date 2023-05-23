@@ -1,8 +1,8 @@
 <template>
-    <Head title="Profile"/>
+    <Head :title="$page.props.auth.user.username"/>
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Account Settings</h1>
         </template>
         <template #sidebar>
             <SidebarLink :active="route().current('profile.information', $page.props.auth.user)"
@@ -122,19 +122,11 @@
                         <span>
                             {{ $page.props.auth.user.username }}
                         </span>
-                        <span class="text-xl font-thin inline-flex">( {{ $page.props.auth.user.nickname }} )
-                        <svg
-                            class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1 ml-2"
-                            height="13" viewBox="0 0 16 16"
-                            width="12"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <title>Verified account</title>
-                            <path
-                                d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
-                        </svg>
+                        <span v-if="$page.props.auth.user.nickname" class="text-xl font-thin inline-flex">( {{ $page.props.auth.user.nickname }} )
+                        <BlueBadgeIcon/>
                         </span>
                     </h1>
-                    <p class="text-gray-500">" {{ $page.props.auth.user.bio }} "</p>
+                    <p v-if="$page.props.auth.user.bio" class="text-gray-500">" {{ $page.props.auth.user.bio }} "</p>
                 </div>
             </div>
         </div>
@@ -148,6 +140,7 @@ import Sidebar from "@/Components/Sidebar.vue";
 import SidebarLink from "@/Components/SidebarLink.vue";
 import {Head, useForm} from "@inertiajs/vue3";
 import auth from "view-ui-plus/src/components/auth";
+import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 
 export default {
     computed: {
@@ -155,7 +148,7 @@ export default {
             return auth
         }
     },
-    components: {AuthenticatedLayout, Sidebar, SidebarLink, Head},
+    components: {BlueBadgeIcon, AuthenticatedLayout, Sidebar, SidebarLink, Head},
     data() {
         return {
             showFileUpload: false,

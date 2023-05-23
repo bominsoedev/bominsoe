@@ -17,15 +17,15 @@ const props = defineProps({
     <Head title="Dashboard"/>
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-200 leading-tight">Dashboard</h2>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
-                    <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
+                    <span class="text-gray-200 hover:text-sky-500 duration-300">
                     Dashboard
                     </span>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                    <span class="text-gray-50 dark:text-white/75 duration-300">
+                    <span class="text-gray-200 hover:text-sky-500 duration-300">
                     Settings
                     </span>
                 </BreadcrumbItem>

@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import {computed} from 'vue';
+import {Link} from '@inertiajs/vue3';
 
 const props = defineProps({
     href: {
@@ -14,13 +14,13 @@ const props = defineProps({
 
 const classes = computed(() =>
     props.active
-        ? 'flex h-10 items-center justify-center gap-x-2 rounded-lg px-3 text-sm font-semibold text-gray-800 hover:text-sky-400 dark:hover:text-sky-400 bg-sky-50 dark:bg-gray-800 dark:text-sky-400'
-        : 'flex h-10 items-center justify-center gap-x-2 rounded-lg px-3 text-sm font-semibold text-gray-800 hover:text-sky-400 dark:hover:text-sky-400 dark:text-gray-400'
+        ? 'flex h-5 items-center justify-center gap-x-2 rounded-lg px-3 text-xs hover:text-white text-sky-400 duration-300 uppercase'
+        : 'flex h-5 items-center justify-center gap-x-2 rounded-lg px-3 text-xs hover:text-white text-gray-400 duration-300 uppercase'
 );
 </script>
 
 <template>
-    <Link :href="href" :class="classes">
-        <slot />
+    <Link :class="classes" :href="href">
+        <slot/>
     </Link>
 </template>

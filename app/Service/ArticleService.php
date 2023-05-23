@@ -23,7 +23,7 @@ class ArticleService
                 'comments_count'
             ])
             ->filter(request(['search', 'category', 'author']))
-            ->where('user_id', auth()->id())->orderBy('id', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate(51)->withQueryString();
         return Inertia::render('Article/Index', [
             'articles' => $articles,
@@ -107,9 +107,11 @@ class ArticleService
 
     public function show($article)
     {
+        $comment = new Comment();
+        $reactedBy = $comment->reactedBy(request()->user());
         $reacted = $article->reactionBy(request()->user());
         $liked_count = $article->reactions()->count();
-        $article_data = $article
+        $article_data = $article->query()
             ->with(
                 [
                     'reactions:id,uuid,user_id,article_id',
@@ -122,7 +124,8 @@ class ArticleService
                     'article_photo:id,uuid,unique_name,article_id',
                     'comments.comment_photo:id,uuid,unique_name,article_id',
                     'comments.replies.comment_photo:id,uuid,unique_name,article_id',
-                    'comments.replies.replies.comment_photo:id,uuid,unique_name,article_id',]
+                    'comments.replies.replies.comment_photo:id,uuid,unique_name,article_id',
+                ]
             )->findOrFail($article->id);
         if ($article->user_id != auth()->id()) {
             $article->update([
@@ -132,7 +135,8 @@ class ArticleService
         return Inertia::render('Article', [
             'article' => $article_data,
             'reacted' => $reacted,
-            'reaction_count'=>$liked_count,
+            'reactedBy' => $reactedBy,
+            'reaction_count' => $liked_count,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
         ]);
@@ -161,8 +165,7 @@ class ArticleService
             request()->user()->reactions()->where('article_id', $article->id)->delete();
 
             return 'success';
-        }
-        catch (QueryException $queryException){
+        } catch (QueryException $queryException) {
             return null;
         }
     }

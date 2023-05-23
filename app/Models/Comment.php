@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Comment extends Model
 {
@@ -28,29 +29,29 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
+    public function reactedBy(User $user)
+    {
+        return $this->reactions->contains('user_id', $user->id);
+    }
     public function comment_photo(): BelongsTo
     {
         return $this->belongsTo(Attachment::class, 'user_id')->where('status', 'article_photo');
     }
-
-    public function comments(): BelongsTo
-    {
-        return $this->belongsTo(Comment::class)->where('article_id');
-    }
-
     public function replies(): HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
-
+    public function reactions():HasMany
+    {
+        return $this->hasMany(Reaction::class);
+    }
     public function reactionBy(User $user)
     {
         return $this->reactions->contains('user_id', $user->id);
     }
 
-    public function reactions(): HasMany
+    public function comment_reactions(): HasMany
     {
-        return $this->hasMany(Reaction::class);
+        return $this->hasMany(Reaction::class)->where('comment_id');
     }
 }
