@@ -14,7 +14,7 @@
                 <form @submit.prevent="category_search(search)">
                     <input id="category-search"
                            v-model="search"
-                           class="block p-1 pl-10 text-sm text-gray-900 border border-sky-500 rounded-lg w-80 bg-gray-50 focus:border-sky-500 dark:bg-panel-800 dark:border-sky-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                           class="block p-1 pl-10 text-sm text-gray-900 border rounded-lg w-80 bg-transparent focus:border-sky-500 border-sky-600 placeholder-gray-400 focus:ring-sky-500"
                            placeholder="Search for category"
                     type="text">
                 </form>

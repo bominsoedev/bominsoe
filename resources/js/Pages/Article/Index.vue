@@ -18,10 +18,10 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Articles" />
+    <Head title="My Articles" />
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
@@ -71,8 +71,8 @@ defineProps({
                     Articles Create
                 </SidebarLink>
         </template>
-        <div class="rounded-xl px-3 py-2 text-sm bg-panel-800 bg-white">
-            <main class="mx-auto mt-3 space-y-6">
+        <div class="rounded-xl px-3 py-2 text-sm border border-gray-800">
+            <main class="mx-auto space-y-6">
                 <article-grid :articles="articles.data" >
                 </article-grid>
             </main>

@@ -32,6 +32,7 @@ const submit = () => {
 };
 
 const ths = [
+    '',
     'ID',
     'Name',
     'Slug',
@@ -46,7 +47,24 @@ const ths = [
     <Head title="Tags"/>
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Tags Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Tags Settings</h1>
+            <Breadcrumb>
+                <BreadcrumbItem :to="route('session.dashboard')">
+                    <span class="text-gray-200 hover:text-sky-500 duration-300">
+                    Dashboard
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem :to="route('tag.index')">
+                    <span class="text-gray-200 hover:text-sky-500 duration-300">
+                    Tags
+                    </span>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                    <span class="text-gray-200 hover:text-sky-500 duration-300">
+                        My Tags
+                    </span>
+                </BreadcrumbItem>
+            </Breadcrumb>
         </template>
         <template #sidebar>
             <SidebarLink :active="route().current('category.index')" :href="route('category.index')" class="font-bold">
@@ -68,8 +86,8 @@ const ths = [
                 My Tags
             </SidebarLink>
         </template>
-        <div class="rounded-lg px-3 py-2 text-sm dark:bg-gray-800 bg-white">
-            <form method="post" @submit.prevent="submit">
+        <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
+            <form class="mb-3" method="post" @submit.prevent="submit">
                 <div class="mt-4 pl-2">
                     <InputLabel for="tag" value="Tag Name"/>
                     <div class="mt-1">
@@ -85,13 +103,14 @@ const ths = [
                 </div>
             </form>
             <MasterTable :table_head="ths">
-                <tr v-for="tag in tags.data" :key="tag.id" class="h-12 divide-y divide-gray-100 dark:divide-gray-700">
-                    <td>{{ tag.id }}</td>
-                    <td>{{ tag.name }}</td>
-                    <td>{{ tag.slug }}</td>
+                <tr v-for="tag in tags.data" :key="tag.id" class="h-12 divide-y divide-gray-700">
+                    <td class="items-center"></td>
+                    <td class="p-5 h-5">{{ tag.id }}</td>
+                    <td class="items-center">{{ tag.name }}</td>
+                    <td class="items-center">{{ tag.slug }}</td>
                     <td class="w-32">{{ moment(tag.created_at).format("DD-MM-YYYY") }}</td>
-                    <td>{{ tag.user.username }}</td>
-                    <td class="text-center space-x-2">
+                    <td class="items-center">{{ tag.user.username }}</td>
+                    <td class="items-center space-x-2">
                         <a :href="route('tag.edit', tag)" class="inline-block text-white rounded-lg text-sm text-center"
                            type="button">
                             <svg class="bi bi-pencil-square text-gray-400 hover:text-sky-500 duration-300" fill="currentColor" height="16" viewBox="0 0 16 16"

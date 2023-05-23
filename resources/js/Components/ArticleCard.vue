@@ -1,5 +1,5 @@
 <template>
-    <article class="transition-colors duration-300 rounded-xl bg-gradient-to-l from-frameworks-light to-frameworks">
+    <article class="transition-colors duration-300 rounded-xl bg-panel-800 hover:bg-panel-700">
         <div class="py-4 px-3">
             <figure v-if="article.article_photo">
                 <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 345px;">
@@ -24,18 +24,10 @@
                                 {{ $page.props.auth.user.username.split("")[0] }}
                             </div>
                             {{ article.author.username }}
-                            <svg
-                                class="bi bi-patch-check-fill fill-blue-600 stroke-white dark:stroke-sky-300 stroke-1 ml-1"
-                                height="13" viewBox="0 0 16 16"
-                                width="12"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <title>Verified account</title>
-                                <path
-                                    d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
-                            </svg>
+                            <BlueBadgeIcon/>
                         </a>
                         <div class="space-x-1">
-                            <CategoryBotton :category="article.category"></CategoryBotton>
+                            <CategoryBotton :category="article.category" :classes="'text-white'"></CategoryBotton>
                         </div>
                     </div>
                     <div class="mt-2">
@@ -56,7 +48,7 @@
                 <div v-html="article.excerpt" class="text-sm mt-3 text-white">
                 </div>
                 <a :href="route('article.show', article)"
-                   class="transition-colors duration-300 text-xs font-semibold">Read
+                   class="transition-colors duration-300 text-xs font-semibold text-gray-400">Read
                     More</a>
                 <footer class="flex justify-between items-center mt-5">
                     <div v-if="article.reactions.length" class="flex items-center">
@@ -68,11 +60,18 @@
                                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                                 fill-rule="evenodd"/>
                         </svg>
-                        <span>{{ article.reactions.length }}</span>
+                        <span class="text-white/70">{{ article.reactions.length }}</span>
                     </div>
                     <div v-if="article.comments_count" class="">
                         <a :href="article.uuid">
-                            <comment><span class="mr-1">{{article.comments_count.length}}</span>comment</comment>
+                            <comment class="flex items-center space-x-1 text-white/70">
+                                <span class="mr-1">{{ article.comments_count.length }}</span>
+                                <svg class="bi bi-chat-left" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                     width="16" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                </svg>
+                            </comment>
                         </a>
                     </div>
                 </footer>
@@ -86,6 +85,7 @@
 
 import CategoryBotton from "@/Components/CategoryBotton.vue";
 import moment from "moment-timezone";
+import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 
 const props = defineProps({
     article: {}

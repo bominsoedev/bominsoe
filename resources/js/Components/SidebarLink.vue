@@ -14,8 +14,8 @@ const props = defineProps({
 
 const classes = computed(() =>
     props.active
-        ? 'sidebar-link flex p-2 rounded items-center hover:text-sky-500 hover:bg-gray-300 text-xs duration-300 font-normal group dark:hover:text-sky-500 dark:hover:bg-gray-700 bg-gray-300 dark:text-sky-500 dark:bg-gray-800'
-        : 'sidebar-link flex p-2 rounded items-center dark:text-white hover:text-sky-500 hover:bg-gray-300 text-xs duration-300 font-normal group dark:hover:text-sky-500 dark:hover:bg-gray-700'
+        ? 'sidebar-link flex p-2 rounded items-center text-xs duration-300 font-normal group hover:text-sky-500 hover:bg-blue/13 text-sky-500 bg-blue-10'
+        : 'sidebar-link flex p-2 rounded items-center text-white text-xs duration-300 font-normal group hover:text-sky-500 hover:bg-blue-10'
 );
 </script>
 

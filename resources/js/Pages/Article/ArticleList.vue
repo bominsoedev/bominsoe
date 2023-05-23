@@ -17,10 +17,10 @@ const ths = [
 </script>
 
 <template>
-    <Head title="Articles"/>
+    <Head title="Articles List"/>
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Articles Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Articles Settings</h1>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
@@ -68,7 +68,7 @@ const ths = [
                 Articles Create
             </SidebarLink>
         </template>
-        <div class="rounded-lg px-3 py-2 text-sm dark:bg-gray-800 bg-white">
+        <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
             <main class="mx-auto space-y-6">
                 <MasterTable :table_head="ths">
                     <tr v-for="article in articles.data"

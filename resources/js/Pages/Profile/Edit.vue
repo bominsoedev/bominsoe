@@ -19,10 +19,9 @@ defineProps({
 
 <template>
     <Head title="Authentication"/>
-
     <AuthenticatedLayout :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Account Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Account Settings</h1>
         </template>
         <template #sidebar>
                 <SidebarLink :active="route().current('profile.information',$page.props.auth.user)" :href="route('profile.information',$page.props.auth.user)"
@@ -49,18 +48,18 @@ defineProps({
                     Authentication
                 </SidebarLink>
         </template>
-        <div class="">
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white">
+        <div class="rounded-xl px-3 py-2 text-sm border border-gray-800">
+            <div class="rounded-lg px-6 py-4 text-sm">
                 <UpdateProfileInformationForm
                     :must-verify-email="mustVerifyEmail"
                     :status="status"
                 />
             </div>
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white mt-4">
+            <div class="rounded-lg px-6 py-4 text-sm">
                 <UpdatePasswordForm/>
             </div>
 
-            <div class="rounded-lg px-6 py-4 text-sm dark:bg-gray-800 bg-white mt-4">
+            <div class="rounded-lg px-6 py-4 text-sm">
                 <DeleteUserForm/>
             </div>
         </div>
