@@ -6,7 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
-use Illuminate\Foundation\Application;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,11 +22,21 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    $articles = Article::latest()
+        ->with([
+            'reactions:id,uuid,article_id',
+            'category:uuid,name,slug',
+            'author:id,uuid,username,photo',
+            'article_photo:id,uuid,unique_name,article_id',
+            'comments_count'
+        ])
+        ->filter(request(['search', 'category', 'author']))
+        ->orderBy('id', 'desc')
+        ->paginate(51)->withQueryString();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'articles' => $articles,
     ]);
 })->name('home');
 
@@ -36,6 +46,7 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('profile/information/{user:uuid}', [ProfileController::class, 'information'])->name('profile.information');
     Route::patch('profile/update/{user:uuid}', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('profile/upload_profile/{user:uuid}', [ProfileController::class, 'upload_profile'])->name('profile.upload_profile');
+    Route::post('profile/profile.upload_cover/{user:uuid}', [ProfileController::class, 'upload_cover'])->name('profile.upload_cover');
     Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Article Route
@@ -50,8 +61,8 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
 
     //Article Reaction Route
 
-    Route::post('article/reaction/like/{article:uuid}',[ArticleController::class,'store_reaction'])->name('article.store_reaction');
-    Route::delete('article/reaction/unlike/{article:uuid}',[ArticleController::class,'destroy_reaction'])->name('article.destroy_reaction');
+    Route::post('article/reaction/like/{article:uuid}', [ArticleController::class, 'store_reaction'])->name('article.store_reaction');
+    Route::delete('article/reaction/unlike/{article:uuid}', [ArticleController::class, 'destroy_reaction'])->name('article.destroy_reaction');
 
     //Article Comment
     Route::post('articles/comment/{article:slug}', [CommentController::class, 'store'])->name('comment.store');
@@ -60,8 +71,8 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
 
     //Comment Reaction Route
 
-    Route::get('comment/reaction/like/{comment:uuid}',[CommentController::class,'store_reaction'])->name('comment.store_reaction');
-    Route::get('comment/reaction/unlike/{comment:uuid}',[CommentController::class,'destroy_reaction'])->name('comment.destroy_reaction');
+    Route::get('comment/reaction/like/{comment:uuid}', [CommentController::class, 'store_reaction'])->name('comment.store_reaction');
+    Route::get('comment/reaction/unlike/{comment:uuid}', [CommentController::class, 'destroy_reaction'])->name('comment.destroy_reaction');
 
     //Categories Route
     Route::get('categories', [CategoryController::class, 'index'])->name('category.index');

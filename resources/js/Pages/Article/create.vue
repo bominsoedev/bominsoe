@@ -1,8 +1,8 @@
 <template>
     <Head title="Article Create"/>
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Articles Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Articles Settings</h1>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">

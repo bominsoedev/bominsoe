@@ -19,7 +19,7 @@ defineProps({
 
 <template>
     <Head title="Authentication"/>
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-200 leading-tight">Account Settings</h1>
         </template>

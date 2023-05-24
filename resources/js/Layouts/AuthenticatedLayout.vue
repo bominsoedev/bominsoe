@@ -16,17 +16,18 @@ onMounted(() => {
 defineProps({
     navStatus: {
         type: Boolean
-    }
+    },
+    classes:""
 })
 const showingNavigationDropdown = ref(false);
 </script>
 <template>
     <div id="root" class="home-dark">
-        <div class="xl:flex-1">
+        <div class="flex-1">
             <div class="fixed inset-0 home-dark"></div>
-            <div class="relative lg:rounded-b-[28px]">
+            <div class="relative rounded-b-[28px]">
                 <nav
-                    class="z-50 w-full min-w-screen-xl py-4 lg:py-3" style="height: 60px">
+                    class="fixed z-50 w-full min-w-screen-xl py-4 lg:py-3 border-b border-gray-800 bg-[#151f32]" style="height: 60px">
                     <div class="relative grid w-full max-w-nav grid-cols-8 items-center gap-x-4 px-5">
                         <div class="mr-3">
                             <Link :href="route('home')" class="flex items-center">
@@ -187,9 +188,9 @@ const showingNavigationDropdown = ref(false);
                 </nav>
                 <section class="flex min-w-screen-xl justify-center">
                     <ToastList></ToastList>
-                    <div class="mb-32 mt-8 w-full max-w-screen-xl px-12 text-gray-400">
+                    <div class="mb-32 mt-20 w-full px-12 text-gray-400" :class="classes">
                         <div>
-                            <div class="mb-8 flex w-full justify-between">
+                            <div class="flex w-full justify-between">
                                 <slot name="header"/>
                             </div>
                             <div class="flex">

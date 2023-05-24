@@ -23,6 +23,7 @@ class ArticleService
                 'comments_count'
             ])
             ->filter(request(['search', 'category', 'author']))
+            ->where('user_id', auth()->id())
             ->orderBy('id', 'desc')
             ->paginate(51)->withQueryString();
         return Inertia::render('Article/Index', [
@@ -132,7 +133,7 @@ class ArticleService
                 'visit_count' => $article->visit_count + 1
             ]);
         }
-        return Inertia::render('Article', [
+        return Inertia::render('Article/Article', [
             'article' => $article_data,
             'reacted' => $reacted,
             'reactedBy' => $reactedBy,
@@ -154,7 +155,7 @@ class ArticleService
 
             return 'success';
         } catch (QueryException $queryException) {
-            dd($queryException);
+            return null;
         }
     }
 

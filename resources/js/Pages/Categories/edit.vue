@@ -43,9 +43,9 @@ const submit = (category) => {
 
 <template>
     <Head title="Categories"/>
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Categories Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mb-8">Categories Settings</h1>
         </template>
         <template #sidebar>
                 <SidebarLink class="font-bold" :href="route('category.index')"
