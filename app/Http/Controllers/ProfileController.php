@@ -75,6 +75,46 @@ class ProfileController extends Controller
         }
     }
 
+    public function upload_cover(Request $request, User $user, Attachment $attachment)
+    {
+        $profile_cover = $request->file('profile_cover');
+        try {
+            DB::beginTransaction();
+            if ($profile_cover) {
+                $request->validate([
+                    'profile_cover' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
+                ]);
+                $unique_name = uniqid() . "_profile_cover_" . $request->file('profile_cover')->getClientOriginalName();
+                $org_name = $request->file('profile_cover')->getClientOriginalName();
+                $extension = $request->file('profile_cover')->extension();
+                $path = 'public/ProfileAttachment/';
+                $profile_attachment_param = [
+                    'uuid' => Str::uuid()->toString(),
+                    'user_id' => \auth()->id(),
+                    'org_name' => $org_name,
+                    'unique_name' => $unique_name,
+                    'extension' => $extension,
+                    'path' => $path,
+                    'status' => 'profile_cover'
+                ];
+                $attachment->create($profile_attachment_param);
+                $profile_user_param = [
+                    'profile_cover' => $unique_name
+                ];
+                $user->update($profile_user_param);
+                $profile_cover->storeAs($path, $unique_name);
+                DB::commit();
+
+                return \redirect()->back()->with('message', 'Upload profile success.');
+            }
+        }
+        catch (QueryException $queryException){
+            DB::rollBack();
+
+            return \redirect()->back()->with('error', 'Something want wrong.');
+        }
+    }
+
     /**
      * Update the user's profile information.
      */

@@ -35,6 +35,7 @@ export default {
     },
     data: function () {
         return {
+            number: 0,
             editMode: false,
             isOpen: false,
             ths: [
@@ -71,9 +72,9 @@ onMounted(() => {
 
 <template>
     <Head title="Categories"/>
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :classes="'max-w-screen-xl'" :nav-status="true">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Categories Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Categories Settings</h1>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-200 hover:text-sky-500 duration-300">
@@ -137,7 +138,7 @@ onMounted(() => {
                     <td class="items-center"></td>
                     <td class="p-5 h-5">
                         <span class="items-center">
-                            {{ category.id }}
+                            {{ number }}
                         </span>
                     </td>
                     <td class="items-center">{{ category.name }}</td>
@@ -221,7 +222,7 @@ onMounted(() => {
                 </tr>
             </MasterTable>
         </div>
-        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+        <div v-if="categories.next_page_url || categories.prev_page_url" class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
             <MasterPagination :links="categories.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>

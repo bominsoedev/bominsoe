@@ -15,7 +15,8 @@ return new class extends Migration
 
             $table->string('nickname')->after('last_name')->nullable();
             $table->string('photo')->after('phone')->nullable();
-            $table->string('bio')->after('photo')->nullable();
+            $table->string('profile_cover')->after('photo')->nullable();
+            $table->string('bio')->after('profile_cover')->nullable();
         });
     }
 

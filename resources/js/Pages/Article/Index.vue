@@ -2,15 +2,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
-import Sidebar from "@/Components/Sidebar.vue";
-import MasterTable from "@/Components/MasterTable.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import MasterATab from "@/Components/MasterATab.vue";
-import ArticleCard from "@/Components/ArticleCard.vue";
 import ArticleGrid from "@/Components/ArticleGrid.vue";
 import { Breadcrumb, BreadcrumbItem } from "view-ui-plus";
 import MasterPagination from "@/Components/MasterPagination.vue";
-
 defineProps({
     articles: [],
     comment_count:[]
@@ -19,9 +14,9 @@ defineProps({
 
 <template>
     <Head title="My Articles" />
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Articles Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Articles Settings</h1>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-50 dark:text-white/75 dark:hover:text-sky-500 duration-300">
@@ -77,7 +72,7 @@ defineProps({
                 </article-grid>
             </main>
         </div>
-        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+        <div v-if="articles.next_page_url || articles.prev_page_url" class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
             <MasterPagination :links="articles.links"></MasterPagination>
         </div>
     </AuthenticatedLayout>

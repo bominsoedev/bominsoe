@@ -33,7 +33,7 @@
                     </div>
                     <div class="mt-4">
                         <h1 class="text-3xl text-sky-500">
-                            <a :href="article.uuid">
+                            <a :href="route('article.show',article.uuid)">
                                 {{ article.title }}
                             </a>
                         </h1>
@@ -87,7 +87,7 @@ import CategoryBotton from "@/Components/CategoryBotton.vue";
 import moment from "moment-timezone";
 import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 
-const props = defineProps({
+defineProps({
     article: {}
 })
 

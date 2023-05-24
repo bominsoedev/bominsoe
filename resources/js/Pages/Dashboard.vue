@@ -15,9 +15,9 @@ const props = defineProps({
 
 <template>
     <Head title="Dashboard"/>
-    <AuthenticatedLayout :nav-status="true">
+    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-200 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Dashboard</h2>
             <Breadcrumb>
                 <BreadcrumbItem :to="route('session.dashboard')">
                     <span class="text-gray-200 hover:text-sky-500 duration-300">
@@ -41,7 +41,7 @@ const props = defineProps({
                     Settings
                 </SidebarLink>
         </template>
-        <div class="rounded-lg mb-3 px-6 py-4 text-sm dark:bg-gray-800 bg-white">
+        <div class="rounded-lg mb-3 px-6 py-4 text-sm border border-gray-800">
             <div class="flex flex-wrap">
                 <div class="w-3/12 px-2">
                     <CardStats statSubtitle="Category" :statTitle="category_count" :stat-percent="category_count">
@@ -63,7 +63,7 @@ const props = defineProps({
                     </CardStats>
                 </div>
                 <div class="w-3/12 px-2">
-                    <CardStats statSubtitle="User" :stat-title="user_count" :stat-percent="user_count">
+                    <CardStats statSubtitle="Friend" :stat-title="user_count" :stat-percent="user_count">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                              class="w-10 h-10 bi bi-people-fill text-sky-700" viewBox="0 0 16 16">
                             <path

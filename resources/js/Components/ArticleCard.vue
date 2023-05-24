@@ -87,7 +87,7 @@ import CategoryBotton from "@/Components/CategoryBotton.vue";
 import moment from "moment-timezone";
 import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 
-const props = defineProps({
+defineProps({
     article: {}
 })
 </script>
