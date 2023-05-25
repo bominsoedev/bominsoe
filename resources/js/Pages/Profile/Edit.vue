@@ -21,7 +21,7 @@ defineProps({
     <Head title="Authentication"/>
     <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
         <template #header>
-            <h1 class="font-semibold text-xl text-gray-200 leading-tight">Account Settings</h1>
+            <h1 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Account Settings</h1>
         </template>
         <template #sidebar>
                 <SidebarLink :active="route().current('profile.information',$page.props.auth.user)" :href="route('profile.information',$page.props.auth.user)"

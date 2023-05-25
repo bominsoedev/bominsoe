@@ -30,60 +30,116 @@
                 Authentication
             </SidebarLink>
         </template>
-        <div class="rounded-lg text-sm border border-gray-800 ">
-            <div class="h-72 overflow-hidden relative p-3 bg-transparent rounded">
-                <img alt=""
-                     class="lazy h-full w-full object-cover lazyloaded rounded-xl duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                     v-if="$page.props.auth.user.profile_cover"
-                     loading="lazy"
-                     :src="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover"
-                     style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
-                <img alt=""
-                     class="lazy h-full w-full object-cover lazyloaded rounded-xl duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                     loading="lazy"
-                     src="/Images/Icon/SHARING.svg"
-                     style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
-                <button class="rounded border-2 bg-white text-black p-2 absolute right-3 bottom-3" type="button"
+        <div class="">
+            <div class="w-full profile-dark border border-[#223c68] rounded">
+                <div class="h-96 overflow-hidden relative p-3">
+                    <div class="">
+                        <img v-if="$page.props.auth.user.profile_cover"
+                             :src="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover"
+                             alt=""
+                             class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                             loading="lazy"
+                             style="height: 384px"
+                             @click.prevent="goCover()">
+                        <img v-else
+                             alt=""
+                             class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                             loading="lazy"
+                             src="/Images/Icon/SHARING.svg"
+                             style="height: 384px"
+                             @click.prevent="goCover()">
+                    </div>
+                    <button
+                        class="rounded-lg border-2 bg-white/50 hover:bg-white duration-300 transition-colors text-black p-1 absolute right-6 bottom-3"
+                        type="button"
                         @click.prevent="goCover()">
-                    <svg class="bi bi-camera inline-flex" fill="currentColor" height="16" viewBox="0 0 16 16"
-                         width="16" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
-                        <path
-                            d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
-                    </svg>
-                    Edit Cover Photo
-                </button>
+                        <div class="flex space-x-1 font-extrabold items-center mb-1">
+                            <svg class="bi bi-camera-fill" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                 width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                <path
+                                    d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                            </svg>
+                            <span class="font-extrabold">
+                             Edit Cover Photo
+                        </span>
+                        </div>
+                    </button>
+                </div>
+                <div class="flex space-x-2">
+                    <div class="flex p-3 items-center gap-5 relative pl-7">
+                        <div class="ring-4 ring-[#3e4042] w-38 h-38 -mt-12 rounded-full">
+                            <img v-if="$page.props.auth.user.photo"
+                                 id="show"
+                                 :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
+                                 alt=""
+                                 class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition border-4 border-[#16233b]"
+                                 loading="lazy"
+                                 @click="goFile()">
+                            <img v-else
+                                 id="show"
+                                 alt=""
+                                 class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                                 loading="lazy"
+                                 src="/Images/Icon/S.svg"
+                                 @click="goFile()">
+                        </div>
+                    </div>
+                    <div class="mb-6 mt-3">
+                        <div class="">
+                            <div class="flex items-center space-x-1">
+                                <div class="font-bold text-[30px]">
+                                    {{ $page.props.auth.user.username }}
+                                </div>
+                                <div v-if="$page.props.auth.user.nickname"
+                                     class="">
+                                    ( {{ $page.props.auth.user.nickname }} )
+                                </div>
+                                <div class="flex">
+                                    <div class="flex items-center">
+                                        <BlueBadgeIcon/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="flex mb-5 -space-x-3">
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
+                                    </a>
+                                    <a href="#" class="w-10 h-10 flex-wrap items-center relative text-center text-gray-500">
+                                        <img alt=""
+                                             class="w-10 h-10 border-2 border-white rounded-full opacity-25 absolute" src="/Images/Icon/S.svg">
+                                        ...
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex p-3 items-center gap-5 z-50 relative pl-7">
-                <div class=" inline-block relative">
-                    <img v-if="$page.props.auth.user.photo"
-                         id="show"
-                         :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
-                         alt=""
-                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                         loading="lazy"
-                         @click="goFile()">
-                    <img v-else
-                         id="show"
-                         alt=""
-                         class="w-32 h-32 rounded-full ring-2 -mt-10 ring-sky-500 object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                         loading="lazy"
-                         src="/Images/Icon/S.svg"
-                         @click="goFile()">
-                </div>
-                <div class="" style="width: 30rem;">
-                    <h1 class="text-3xl font-extrabold my-3 text-white flex space-x-1 items-center">
-                        <span>
-                            {{ $page.props.auth.user.username }}
-                        </span>
-                        <span v-if="$page.props.auth.user.nickname"
-                              class="text-xl font-thin inline-flex">( {{ $page.props.auth.user.nickname }} )
-                        <BlueBadgeIcon/>
-                        </span>
-                    </h1>
-                    <p v-if="$page.props.auth.user.bio" class="text-gray-500">" {{ $page.props.auth.user.bio }} "</p>
-                </div>
+            <div class="bg-panel-800 h-72 w-full mt-6">
+
             </div>
         </div>
         <!-- Photo Upload Modal -->
