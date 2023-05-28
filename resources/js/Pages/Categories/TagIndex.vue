@@ -27,7 +27,8 @@ onMounted(() => {
 })
 const submit = () => {
     form.post(route('tag.store'), {
-        onSuccess: () => form.reset('tag'),
+        onSuccess: () => form.reset(),
+        preserveScroll: true
     });
 };
 

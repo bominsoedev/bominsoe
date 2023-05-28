@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('facebook')->nullable();
             $table->string('github')->nullable();
             $table->string('linkin')->nullable();
+            $table->timestamp('last_seen_at')->nullable();
             $table->bigInteger('login_count')->default(1);
             $table->timestamp('login_at')->nullable();
             $table->timestamp('logout_at')->nullable();

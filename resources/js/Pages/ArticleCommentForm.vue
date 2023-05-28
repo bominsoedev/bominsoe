@@ -1,6 +1,5 @@
 <template>
     <x-pane v-if="canLogin">
-        <form @submit.prevent="submit" class="p-3 bg-panel-800 mt-3 rounded-xl">
             <div class="">
                 <textarea
                     v-model="form.comment"
@@ -11,7 +10,7 @@
             </div>
             <InputError class="mt-2" :message="form.errors.comment"/>
             <div class="flex justify-end">
-                <button
+                <button @click="submit"
                     class="inline-flex text-xs rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-3 btn btn-dark-blue hover:bg-black/10 dark:bg-blue/13 dark:text-white dark:hover:border-transparent dark:hover:bg-blue/20">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
                          class="bi bi-send mr-1" viewBox="0 0 16 16">
@@ -21,7 +20,6 @@
                     Comment
                 </button>
             </div>
-        </form>
     </x-pane>
     <template v-else>
         <p class="text-xs rounded-xl inline-block bg-slate-900 px-3 py-3 uppercase">
@@ -41,7 +39,8 @@ const form = useForm({
 })
 const submit = () => {
     form.post(route('comment.store', props.article), {
-        onSuccess: () => form.reset('comment'),
+        onSuccess: () => form.reset(),
+        preserveScroll: true
     });
 };
 import {useForm} from "@inertiajs/vue3";

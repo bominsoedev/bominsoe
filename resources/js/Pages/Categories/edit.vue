@@ -35,7 +35,8 @@ const form =useForm({
 
 const submit = (category) => {
     form.put(route('category.update',category), {
-        onSuccess: () => form.reset('category'),
+        onSuccess: () => form.reset(),
+        preserveScroll: true
     });
 };
 

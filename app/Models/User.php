@@ -24,12 +24,16 @@ class User extends Authenticatable
         'last_name',
         'nickname',
         'username',
+        'last_seen_at',
         'phone',
         'bio',
         'photo',
         'profile_cover',
         'email',
         'password',
+        'facebook',
+        'github',
+        'linkin'
     ];
 
     /**
@@ -50,8 +54,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function reactions():HasMany
+
+    public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class);
+    }
+
+    public function getOnlineAttribute()
+    {
+        $lastSeen = $this->last_seen_at;
+
+        if ($lastSeen) {
+            // Check if the user was active within the last 5 minutes (adjust the timeframe as needed)
+            return $lastSeen->diffInMinutes(now()) <= 5;
+        }
+
+        return false;
     }
 }

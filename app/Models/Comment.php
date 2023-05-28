@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Comment extends Model
 {
@@ -19,6 +18,7 @@ class Comment extends Model
         'parent_id',
         'body'
     ];
+    protected $with = ['replies','reactions','author'];
 
     public function article(): BelongsTo
     {
@@ -29,29 +29,23 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function reactedBy(User $user)
-    {
-        return $this->reactions->contains('user_id', $user->id);
-    }
-    public function comment_photo(): BelongsTo
-    {
-        return $this->belongsTo(Attachment::class, 'user_id')->where('status', 'article_photo');
-    }
-    public function replies(): HasMany
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
-    public function reactions():HasMany
-    {
-        return $this->hasMany(Reaction::class);
-    }
+
     public function reactionBy(User $user)
     {
         return $this->reactions->contains('user_id', $user->id);
     }
 
-    public function comment_reactions(): HasMany
+    public function comment_photo(): BelongsTo
     {
-        return $this->hasMany(Reaction::class)->where('comment_id');
+        return $this->belongsTo(Attachment::class, 'user_id')->where('status', 'article_photo');
+    }
+
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
+    public function reactions(): HasMany
+    {
+        return $this->hasMany(Reaction::class);
     }
 }

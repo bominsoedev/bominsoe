@@ -24,6 +24,9 @@ const form = useForm({
     username: user.username,
     email: user.email,
     bio: user.bio,
+    facebook: user.facebook,
+    github: user.github,
+    linkin: user.linkin,
 });
 </script>
 
@@ -95,17 +98,55 @@ const form = useForm({
                                 class="mt-2"/>
                 </div>
             </div>
-            <div>
-                <InputLabel for="username" value="Name"/>
+            <div class="flex w-full flex-wrap">
+                <div class="w-1/4 flex-col">
+                    <InputLabel for="username" value="Username"/>
 
-                <TextInput id="username"
-                           v-model="form.username"
-                           autocomplete="username"
-                           autofocus
-                           class="mt-1 block w-full"
-                           type="text"/>
-                <InputError :message="form.errors.username"
-                            class="mt-2"/>
+                    <TextInput id="username"
+                               v-model="form.username"
+                               autocomplete="username"
+                               autofocus
+                               class="mt-1 block w-full"
+                               type="text"/>
+                    <InputError :message="form.errors.username"
+                                class="mt-2"/>
+                </div>
+                <div class="w-1/4 flex-col pl-2">
+                    <InputLabel for="facebook" value="Facebook"/>
+
+                    <TextInput id="facebook"
+                               v-model="form.facebook"
+                               autocomplete="facebook"
+                               autofocus
+                               class="mt-1 block w-full"
+                               type="text"/>
+                    <InputError :message="form.errors.facebook"
+                                class="mt-2"/>
+                </div>
+                <div class="w-1/4 flex-col pl-2">
+                    <InputLabel for="github" value="Github"/>
+
+                    <TextInput id="github"
+                               v-model="form.github"
+                               autocomplete="github"
+                               autofocus
+                               class="mt-1 block w-full"
+                               type="text"/>
+                    <InputError :message="form.errors.github"
+                                class="mt-2"/>
+                </div>
+                <div class="w-1/4 flex-col pl-2">
+                    <InputLabel for="linkin" value="LinkedIn"/>
+
+                    <TextInput id="linkin"
+                               v-model="form.linkin"
+                               autocomplete="linkin"
+                               autofocus
+                               class="mt-1 block w-full"
+                               type="text"/>
+                    <InputError :message="form.errors.linkin"
+                                class="mt-2"/>
+                </div>
             </div>
             <div>
                 <InputLabel for="email"
@@ -133,7 +174,8 @@ const form = useForm({
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                     Your email address is unverified.
-                    <Link :href="route('verification.send')" as="button" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    <Link :href="route('verification.send')" as="button"
+                          class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                           method="post">
                         Click here to re-send the verification email.
                     </Link>

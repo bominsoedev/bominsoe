@@ -15,4 +15,6 @@ class Reaction extends Model
         'article_id',
         'comment_id',
     ];
+
+    
 }

@@ -17,7 +17,7 @@ defineProps({
     navStatus: {
         type: Boolean
     },
-    classes:""
+    classes: ""
 })
 const showingNavigationDropdown = ref(false);
 </script>
@@ -27,7 +27,8 @@ const showingNavigationDropdown = ref(false);
             <div class="fixed inset-0 home-dark"></div>
             <div class="relative rounded-b-[28px]">
                 <nav
-                    class="fixed z-50 w-full min-w-screen-xl py-4 lg:py-3 border-b border-gray-800 bg-[#151f32]" style="height: 60px">
+                    class="fixed z-50 w-full min-w-screen-xl py-4 lg:py-3 border-b border-gray-800 bg-[#151f32]"
+                    style="height: 60px">
                     <div class="relative grid w-full max-w-nav grid-cols-8 items-center gap-x-4 px-5">
                         <div class="mr-3">
                             <Link :href="route('home')" class="flex items-center">
@@ -105,14 +106,11 @@ const showingNavigationDropdown = ref(false);
                                         <button
                                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             type="button">
-                                                <div v-if="$page.props.auth.user.photo" class="mr-2">
-                                                    <img
-                                                        :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
-                                                        alt=""
-                                                        class="lazy object-cover lazyloaded rounded-full duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                                                        height="100%" loading="lazy"
-                                                        style="width:40px; height: 40px"
-                                                        width="100%">
+                                            <div v-if="$page.props.auth.user.photo"  class="relative inline-block mr-2">
+                                                  <img alt="Profile image"
+                                                       class="inline-block object-cover w-10 h-10 rounded-full"
+                                                       :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"/>
+                                                  <span class="absolute top-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100"></span>
                                                 </div>
                                                 <div v-else
                                                      aria-hidden="true"
@@ -188,7 +186,7 @@ const showingNavigationDropdown = ref(false);
                 </nav>
                 <section class="flex min-w-screen-xl justify-center">
                     <ToastList></ToastList>
-                    <div class="mb-32 mt-20 w-full px-12 text-gray-400" :class="classes">
+                    <div :class="classes" class="mb-32 mt-20 w-full px-12 text-gray-400">
                         <div>
                             <div class="flex w-full justify-between">
                                 <slot name="header"/>

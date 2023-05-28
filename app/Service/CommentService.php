@@ -72,7 +72,7 @@ class CommentService
 
             return 'success';
         } catch (QueryException $queryException) {
-            dd($queryException);
+            return null;
         }
     }
 

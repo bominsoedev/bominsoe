@@ -34,7 +34,8 @@ const form = useForm({
 
 const submit = (tag) => {
     form.put(route('tag.update', tag), {
-        onSuccess: () => form.reset('tag'),
+        onSuccess: () => form.reset(),
+        preserveScroll: true
     });
 };
 

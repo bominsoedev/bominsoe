@@ -116,12 +116,12 @@
                         </label>
                     </div>
                 </div>
+                <div class="mt-3 bg-panel-800 p-3 rounded-lg text-end">
+                    <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Add Article
+                    </primary-button>
+                </div>
             </form>
-        </div>
-        <div class="mt-3 bg-panel-800 p-3 rounded-lg text-end">
-            <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Add Article
-            </primary-button>
         </div>
     </AuthenticatedLayout>
 </template>

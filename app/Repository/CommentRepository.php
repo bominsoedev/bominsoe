@@ -20,11 +20,11 @@ class CommentRepository implements CommentInterface
         if (!is_null($store)) {
             DB::commit();
 
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Comment success.');
         } else {
             DB::rollBack();
 
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Something want wrong.');
         }
     }
 
@@ -62,7 +62,7 @@ class CommentRepository implements CommentInterface
         if (!is_null($store_reaction)) {
             DB::commit();
 
-            return redirect()->back()->with('message', 'Liked.');
+            return redirect()->back()->with(array(['message' => 'Liked.']));
         } else {
             DB::rollBack();
 
@@ -75,8 +75,8 @@ class CommentRepository implements CommentInterface
         $destroy_reaction = $this->commentService->destroy_reaction($comment, $reaction);
         if (!is_null($destroy_reaction)) {
             DB::commit();
-
-            return redirect()->back()->with('message', 'UnLiked.');
+            $reacted = $comment->reactionBy(request()->user());
+            return redirect()->back()->with(array(['message' => 'UnLiked.', 'reacted' => $reacted]));
         } else {
             DB::rollBack();
 

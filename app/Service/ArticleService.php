@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Models\Article;
-use App\Models\Comment;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +54,7 @@ class ArticleService
                 'title' => $request->article_title,
                 'slug' => Str::slug($request->article_title),
                 'description' => $request->description,
-                'excerpt' => Str::words($request->article_body, 100, '.....'),
+                'excerpt' => Str::words($request->article_body, 30, '.....'),
                 'body' => $request->article_body,
                 'user_id' => auth()->id(),
             ];
@@ -94,7 +93,7 @@ class ArticleService
             }
             return 'success';
         } catch (QueryException $queryException) {
-            dd($queryException);
+            return null;
         }
     }
 
@@ -102,41 +101,22 @@ class ArticleService
     {
         return Inertia::render('Article/edit', [
             'article' => $article,
-            'categories' => $category->where('user_id', auth()->id())->get()
+            'categories' => $category->where('user_id', auth()->id())->get(),
         ]);
     }
 
     public function show($article)
     {
-        $comment = new Comment();
-        $reactedBy = $comment->reactedBy(request()->user());
         $reacted = $article->reactionBy(request()->user());
         $liked_count = $article->reactions()->count();
-        $article_data = $article->query()
-            ->with(
-                [
-                    'reactions:id,uuid,user_id,article_id',
-                    'category:id,uuid,name,slug',
-                    'author:id,uuid,username,bio,nickname,photo',
-                    'comments.author:id,uuid,username,photo',
-                    'comments.replies.author:id,uuid,username,photo',
-                    'comments.replies.replies.author:id,uuid,username,photo',
-                    'comments.replies.replies.replies',
-                    'article_photo:id,uuid,unique_name,article_id',
-                    'comments.comment_photo:id,uuid,unique_name,article_id',
-                    'comments.replies.comment_photo:id,uuid,unique_name,article_id',
-                    'comments.replies.replies.comment_photo:id,uuid,unique_name,article_id',
-                ]
-            )->findOrFail($article->id);
         if ($article->user_id != auth()->id()) {
             $article->update([
                 'visit_count' => $article->visit_count + 1
             ]);
         }
         return Inertia::render('Article/Article', [
-            'article' => $article_data,
+            'article' => $article,
             'reacted' => $reacted,
-            'reactedBy' => $reactedBy,
             'reaction_count' => $liked_count,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

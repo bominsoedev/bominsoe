@@ -22,6 +22,9 @@ class ProfileUpdateRequest extends FormRequest
             'nickname' => ['string', 'max:20'],
             'phone' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:11'],
             'bio' => ['string', 'max:255'],
+            'facebook' => ['string', 'max:50'],
+            'github' => ['string', 'max:50'],
+            'linkin' => ['string', 'max:50'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
