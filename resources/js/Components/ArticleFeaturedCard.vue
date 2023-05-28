@@ -1,32 +1,33 @@
 <template>
     <article class="transition-colors duration-500 rounded-xl bg-panel-800 hover:bg-panel-700">
-        <div class="py-6 px-5 flex">
-            <div v-if="article.article_photo" class="flex-1 lg:mr-8" style="width: 100%; height: 400px;">
+        <div class="py-3 px-2 flex">
+            <div v-if="article.article_photo" class="flex-1 lg:mr-8" style="width: 80%;">
                 <img :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
                      alt="Blog Post illustration"
-                     class="lazy h-full w-full object-cover lazyloaded rounded-xl"
-                     loading="lazy"
-                     style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
+                     class="lazy object-cover rounded-xl"
+                     loading="lazy">
             </div>
             <div class="flex-1 flex flex-col justify-between">
                 <header class="">
                     <div class="flex justify-between">
-                        <a :href="route('profile.information',article.author)"
-                           class="flex items-center text-white mb-3">
-                            <div v-if="article.author.photo" class="">
-                                <img :src="'/storage/ProfileAttachment/' + article.author.photo" alt=""
-                                     class="mr-2 lazy object-cover lazyloaded rounded-full"
-                                     loading="lazy" style="height: 28px" width="30">
-                            </div>
-                            <div v-else
-                                 aria-hidden="true"
-                                 class="mr-2 flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
-                                 height="30" width="30">
-                                {{ $page.props.auth.user.username.split("")[0] }}
-                            </div>
-                            {{ article.author.username }}
+                        <div class="flex items-center">
+                            <a :href="route('profile.information',article.author)"
+                               class="flex items-center text-white">
+                                <div v-if="article.author.photo" class="">
+                                    <img :src="'/storage/ProfileAttachment/' + article.author.photo" alt=""
+                                         class="mr-2 lazy object-cover lazyloaded rounded-full"
+                                         loading="lazy" style="height: 28px" width="30">
+                                </div>
+                                <div v-else
+                                     aria-hidden="true"
+                                     class="mr-2 flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
+                                     height="30" width="30">
+                                    {{ article.author.username.split("")[0] }}
+                                </div>
+                                {{ article.author.username }}
+                            </a>
                             <BlueBadgeIcon/>
-                        </a>
+                        </div>
                         <div class="space-x-1">
                             <CategoryBotton :category="article.category"></CategoryBotton>
                         </div>
@@ -46,12 +47,13 @@
                         </span>
                     </div>
                 </header>
-
-                <div class="text-sm mt-2 text-white" v-html="article.excerpt">
+                <div class="content user-content text-[13px] text-grey-100 mt-6">
+                    <div class="content user-content" v-html="article.excerpt">
+                    </div>
+                    <a :href="route('article.show', article)"
+                       class="transition-colors duration-300 text-xs font-semibold text-gray-400">Read
+                        More</a>
                 </div>
-                <a :href="route('article.show', article)"
-                   class="transition-colors duration-300 text-xs font-semibold text-gray-400">Read
-                    More</a>
                 <footer class="flex justify-between items-center mt-8">
                     <div class="flex items-center">
                         <svg class="bi bi-heart-fill text-[#f3477e] mr-2"

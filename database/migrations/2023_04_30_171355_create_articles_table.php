@@ -12,15 +12,19 @@ return new class extends Migration {
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->uuid('uuid')->unique();
             $table->string('title');
             $table->string('slug');
             $table->string('description');
             $table->longText('body');
             $table->longText('excerpt');
-            $table->foreignId('user_id');
+            $table->string('form_frameworks');
+            $table->string('gradient_left');
             $table->integer('is_public')->nullable();
             $table->integer('visit_count')->nullable();
+            $table->integer('share_count')->nullable();
+            $table->dateTime('article_create_date');
             $table->timestamps();
         });
     }

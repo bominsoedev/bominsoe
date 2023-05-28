@@ -357,7 +357,6 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     background-color: transparent;
     background-image: url("/public/Images/gradient.svg");
     background-repeat: no-repeat;
-    background-size: 100%;
     color: #ffffff;
 }
 .reply-with-responses .responses {

@@ -30,7 +30,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <GuestLayout :can-register="$page.props.auth.canRegister" :can-login="$page.props.auth.canLogin">
         <Head title="Log in" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">

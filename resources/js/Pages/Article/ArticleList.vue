@@ -18,7 +18,7 @@ const ths = [
 
 <template>
     <Head title="Articles List"/>
-    <AuthenticatedLayout :nav-status="true" :classes="'max-w-screen-xl'">
+    <AuthenticatedLayout :classes="'max-w-screen-xl'" :nav-status="true">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-200 leading-tight mb-8">Articles Settings</h1>
             <Breadcrumb>

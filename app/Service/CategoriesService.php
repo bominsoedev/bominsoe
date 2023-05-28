@@ -18,7 +18,8 @@ class CategoriesService
             ->paginate(10)
             ->withQueryString();
         return Inertia::render('Categories/Index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'filters' => request('search')
         ]);
     }
 

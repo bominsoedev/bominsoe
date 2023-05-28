@@ -12,9 +12,6 @@ use phpDocumentor\Reflection\DocBlock\Tag;
 
 class Article extends Model
 {
-    use HasFactory;
-
-    protected $guarded = [];
     protected $fillable = [
         'uuid',
         'title',
@@ -23,10 +20,18 @@ class Article extends Model
         'description',
         'body',
         'user_id',
+        'form_frameworks',
+        'gradient_left',
+        'share_count',
+        'article_create_date',
         'is_public',
         'visit_count',
 
     ];
+
+    use HasFactory;
+    protected $guarded = [];
+    protected $with = ['author','reactions','category','comments','article_photo'];
 
     public static function whereSlug($slug)
     {
@@ -53,11 +58,6 @@ class Article extends Model
         $query->when($filters['author'] ?? false, fn($query, $author) => $query->whereHas('author', fn($query) => $query->where('username', $author)
         )
         );
-    }
-
-    public function User(): HasOne
-    {
-        return $this->hasOne(User::class);
     }
 
     public function category(): BelongsToMany

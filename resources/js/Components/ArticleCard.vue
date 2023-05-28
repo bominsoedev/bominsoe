@@ -2,10 +2,9 @@
     <article class="transition-colors duration-300 rounded-xl bg-panel-800 hover:bg-panel-700">
         <div class="py-4 px-3">
             <figure v-if="article.article_photo">
-                <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 345px;">
+                <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 161.71px;">
                     <img loading="lazy" :src="'/storage/ArticleAttachment/' + article.article_photo.unique_name" alt="Lary avatar "
-                        class="lazy h-full w-full object-cover lazyloaded"
-                        style="-webkit-mask-image: -webkit-radial-gradient(center center, white, black);">
+                        class="lazy object-cover rounded-xl">
                 </div>
             </figure>
             <div class="mt-5 flex flex-col justify-between">
@@ -31,7 +30,7 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                        <h1 class="text-lg text-sky-500">
+                        <h1 class="text-lg text-white">
                             <a :href="article.uuid">
                                 {{ article.title }}
                             </a>
@@ -45,7 +44,7 @@
                         </span>
                     </div>
                 </header>
-                <div v-html="article.excerpt" class="text-sm mt-3 text-white">
+                <div v-html="article.description" class="text-sm mt-3 text-white">
                 </div>
                 <a :href="route('article.show', article)"
                    class="transition-colors duration-300 text-xs font-semibold text-gray-400">Read

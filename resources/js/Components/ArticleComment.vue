@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <article
         class="forum-comment is-reply mb-3 rounded-xl px-0 py-0 transition-colors duration-300 dark bg-blue/7 hover:bg-panel-700 text-white">
         <div class="flex px-6 py-4 lg:p-5">
@@ -46,8 +46,8 @@
                                 </div>
                             </div>
                             <div class="relative ml-3 flex" style="top: -5px;">
-                                <div class="ml-4 hidden md:block">
-                                    <ul class="achievement-list hidden lg:flex lg:flex-1 lg:justify-between lg:gap-x-1"></ul>
+                                <div class="ml-4 hidden">
+                                    <ul class="achievement-list flex flex-1 justify-between gap-x-1"></ul>
                                 </div>
                             </div>
                         </header>
@@ -58,7 +58,26 @@
                     </div>
                     <div class="mt-auto">
                         <div
-                            class="forum-comment-edit-links relative -mb-1 mt-4 flex justify-end gap-x-2 md:leading-none lg:justify-start justify-start">
+                            class="forum-comment-edit-links relative -mb-1 mt-4 flex gap-x-2 justify-start">
+<!--                            <json-viewer :value="comment.reactions"></json-viewer>-->
+                            <button
+                                :class="comment.author.id == comment.reactions.user_id ? 'rounded-full px-1 flex items-center justify-center bg-[#f6b7cb] ring-1 ring-rose-300 border border-rose-300':'rounded-full px-1 flex items-center justify-center bg-white/10'"
+                                :title="comment.author.id == comment.reactions.user_id ? 'Want to like this article for future reference?':'Want to like this article for future reference?'"
+                                style="width: 20px; height: 20px;"
+                                @click.prevent="comment.author.id == comment.reactions.user_id ? unlike(comment) :like(comment)">
+                                <svg
+                                    :class="comment.author.id == comment.reactions.user_id ? 'flex-shrink-0 text-[#f3477e]':'flex-shrink-0 text-white'"
+                                    height="25"
+                                    viewBox="0 0 32 32"
+                                    width="25">
+                                    <g class="fill-current" fill-rule="evenodd"
+                                       stroke="none"
+                                       stroke-width="1.2">
+                                        <path class="fill-current"
+                                              d="M13.6196,11.2 C11.6246857,11.2 10.4,12.85425 10.4,14.2106375 C10.4,17.143925 13.9170286,19.8671 16.4,21.6 C18.8829714,19.86645 22.4,17.143925 22.4,14.2106375 C22.4,12.8541363 21.1758971,11.2 19.1804,11.2 C18.0661143,11.2 17.1138286,12.042335 16.4,12.8420625 C15.6854857,12.0422538 14.73392,11.2 13.6196,11.2 Z"></path>
+                                    </g>
+                                </svg>
+                            </button>
                             <button
                                 class="inline-flex text-xs mr-2 rounded-lg items-center font-semibold normal-case text-grey-800 transition-all dark:text-grey-600 px-3 py-1 btn btn-dark-blue hover:bg-blue-10 dark:bg-blue/13 dark:text-white"
                                 @click="replies()">
@@ -99,11 +118,7 @@
             </div>
         </div>
     </article>
-    <ArticleReply v-for="comment in comment.replies"
-                  key="comment.uuid"
-                  :comment="comment">
-
-    </ArticleReply>
+    <slot/>
     <div v-if="isOpen">
         <CommentReply :comment="comment"
                       :is-edit="isEdit"
@@ -125,7 +140,7 @@ export default {
     components: {Button, ArticleReply, CommentReply},
     props: {
         comment: {},
-        reactedBy: {
+        reacted: {
             type: Boolean
         },
     },
@@ -151,10 +166,14 @@ export default {
             return moment();
         },
         like(param) {
-            this.form.get(route('comment.store_reaction', param));
+            this.form.get(route('comment.store_reaction', param),{
+                preserveScroll: true
+            });
         },
         unlike(param) {
-            this.form.get(route('comment.destroy_reaction', param));
+            this.form.get(route('comment.destroy_reaction', param),{
+                preserveScroll: true
+            });
         },
     }
 

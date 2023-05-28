@@ -31,23 +31,23 @@
             </SidebarLink>
         </template>
         <div class="">
-            <div class="w-full profile-dark border border-[#223c68] rounded">
+            <div class="w-full profile-dark border border-[#223c68] rounded" style="height: 815">
                 <div class="h-96 overflow-hidden relative p-3">
                     <div class="">
-                        <img v-if="$page.props.auth.user.profile_cover"
-                             :src="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover"
-                             alt=""
-                             class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                             loading="lazy"
-                             style="height: 384px"
-                             @click.prevent="goCover()">
-                        <img v-else
-                             alt=""
-                             class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
-                             loading="lazy"
-                             src="/Images/Icon/SHARING.svg"
-                             style="height: 384px"
-                             @click.prevent="goCover()">
+                        <a target="_blank" :href="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover">
+                            <img v-if="$page.props.auth.user.profile_cover"
+                                 :src="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover"
+                                 alt=""
+                                 class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                                 loading="lazy"
+                                 style="height: 384px">
+                            <img v-else
+                                 alt=""
+                                 class="lazy h-full w-full cursor-pointer object-cover lazyloaded rounded duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                                 loading="lazy"
+                                 src="/Images/Icon/SHARING.svg"
+                                 style="height: 384px">
+                        </a>
                     </div>
                     <button
                         class="rounded-lg border-2 bg-white/50 hover:bg-white duration-300 transition-colors text-black p-1 absolute right-6 bottom-3"
@@ -68,12 +68,12 @@
                 </div>
                 <div class="flex space-x-2">
                     <div class="flex p-3 items-center gap-5 relative pl-7">
-                        <div class="ring-4 ring-[#3e4042] w-38 h-38 -mt-12 rounded-full">
+                        <div class="ring-4 ring-[#3e4042] w-38 h-38 -mt-12 rounded-full" style="padding: 1px">
                             <img v-if="$page.props.auth.user.photo"
                                  id="show"
                                  :src="'/storage/ProfileAttachment/' + $page.props.auth.user.photo"
                                  alt=""
-                                 class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition border-4 border-[#16233b]"
+                                 class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition ring-4 ring-[#0f8dea]"
                                  loading="lazy"
                                  @click="goFile()">
                             <img v-else
@@ -102,36 +102,13 @@
                                 </div>
                             </div>
                             <div class="">
-                                <div class="flex mb-5 -space-x-3">
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full" src="/Images/Icon/S.svg">
-                                    </a>
-                                    <a href="#" class="w-10 h-10 flex-wrap items-center relative text-center text-gray-500">
-                                        <img alt=""
-                                             class="w-10 h-10 border-2 border-white rounded-full opacity-25 absolute" src="/Images/Icon/S.svg">
-                                        ...
-                                    </a>
+                                <div class="-space-x-3">
+                                    <img :title="$page.props.auth.user.username" class="relative z-[60] inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username" class="relative z-50 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username" class="relative z-40 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username" class="relative z-30 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username" class="relative z-20 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username" class="relative z-10 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
                                 </div>
                             </div>
                         </div>
@@ -248,6 +225,7 @@ export default {
             this.form.post(route('profile.upload_profile', param)
                 , {
                     onSuccess: () => this.form.reset(),
+                    preserveScroll: true
                 }
             );
             this.closeFile();
@@ -256,6 +234,7 @@ export default {
             this.form.post(route('profile.upload_cover', param)
                 , {
                     onSuccess: () => this.form.reset(),
+                    preserveScroll: true
                 }
             );
             this.closeFile();

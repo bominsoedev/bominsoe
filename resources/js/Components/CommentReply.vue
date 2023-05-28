@@ -125,12 +125,14 @@ export default {
         update(comment) {
             this.form.put(route('comment.update', comment), {
                 onSuccess: () => this.form.reset(),
+                preserveScroll: true
             });
             this.close();
         },
         replies(comment) {
             this.form.post(route('comment.replies', comment), {
                 onSuccess: () => this.form.reset(),
+                preserveScroll: true
             });
             this.close();
         }

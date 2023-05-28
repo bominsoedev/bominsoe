@@ -14,6 +14,7 @@ import {onMounted} from "vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import MasterPagination from "@/Components/MasterPagination.vue";
 import {Breadcrumb, BreadcrumbItem} from "view-ui-plus";
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
     components: {
@@ -31,10 +32,15 @@ export default {
         DangerButton, moment
     },
     props: {
-        categories: [],
+        categories: {
+            type: Object,
+            default: () => ({}),
+        },
+        filters: Object
     },
     data: function () {
         return {
+            keyword: '',
             number: 0,
             editMode: false,
             isOpen: false,
@@ -57,12 +63,26 @@ export default {
         },
         submit() {
             this.form.post(route('category.store'), {
-                onSuccess: () => this.form.reset()
+                onSuccess: () => this.form.reset(),
+                preserveScroll: true
             });
+        },
+        search(value) {
+            Inertia.get('/session/categories', {category: value}, {
+                queryStringArrayFormat: {},
+                preserveState: true,
+                replace: true
+            });
+
+        }
+    },
+    watch: {
+        search(newQuestion, value) {
+            if (newQuestion.includes('?')) {
+                this.getAnswer()
+            }
         }
     }
-
-
 }
 onMounted(() => {
     initFlowbite();
@@ -132,7 +152,36 @@ onMounted(() => {
                     </div>
                 </div>
             </form>
-            <MasterTable :table_head="ths">
+            <div class="text-end mb-3">
+                <label class="sr-only" for="category-search">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor"
+                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                  fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <form @submit.prevent="search(keyword)">
+                        <input id="category-search"
+                               v-model="keyword"
+                               class="block p-1 pl-10 text-sm border rounded-lg w-80 bg-transparent focus:border-sky-500 border-sky-600 placeholder-gray-400 focus:ring-sky-500"
+                               placeholder="Search for category"
+                               type="text">
+                    </form>
+                    <div class="absolute inset-y-0 left-72 flex items-center pr-3">
+                        <a href="#" v-on:click.prevent="route('category.index')">
+                            <svg class="bi bi-x" fill="currentColor" height="16" viewBox="0 0 16 16"
+                                 width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <MasterTable :filter="filters" :table_head="ths">
                 <tr v-for="category in categories.data" :key="category.id"
                     class="items-center divide-y divide-gray-700">
                     <td class="items-center"></td>
@@ -176,7 +225,7 @@ onMounted(() => {
                              tabindex="-1">
                             <div class="relative w-full max-w-2xl max-h-full">
                                 <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <div class="relative bg-white rounded-lg shadow bg-gray-700">
                                     <!-- Modal header -->
                                     <div
                                         class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -206,8 +255,8 @@ onMounted(() => {
                                     <div
                                         class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                         <form class="inline-block"
-                                              @submit="form.delete(route('category.destroy', category))">
-                                            <danger-button class="bg-red-800">
+                                              @submit.prevent="form.delete(route('category.destroy', category))">
+                                            <danger-button :data-modal-hide="category.uuid" class="bg-red-800">
                                                 Destroy
                                             </danger-button>
                                         </form>

@@ -103,9 +103,7 @@
                 </div>
             </article>
             <div class="responses">
-                <ReplytoReplies v-for="comment in comment.replies"
-                                :key="comment.uuid"
-                                :comment="comment"></ReplytoReplies>
+               <slot/>
             </div>
         </div>
     </div>
