@@ -8,12 +8,13 @@ interface ArticleInterface
 
     public function lists();
 
-    public function create($category);
+    public function create($category, $tag);
 
-    public function store($request, $article, $articleCategories, $attachment);
+    public function store($request, $article, $articleCategories, $attachment, $articleTag);
 
     public function edit($article, $category);
 
+    public function update( $request,$article,$articleCategories, $attachment);
     public function show($article);
 
     public function store_reaction($article, $reaction);

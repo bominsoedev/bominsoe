@@ -53,7 +53,7 @@
         <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
             <form method="post" @submit.prevent="submit">
                 <div class="flex">
-                    <div class="mt-4 flex w-1/2 flex-col mr-2">
+                    <div class="mt-4 flex w-2/4 flex-col mr-2">
                         <InputLabel for="article_title" value="Article Title"/>
                         <div class="mt-1 flex flex-col">
                             <TextInput id="article_title" v-model="form.article_title" autocomplete="article_title"
@@ -64,7 +64,7 @@
                             <InputError :message="form.errors.article_title" class="mt-2"/>
                         </div>
                     </div>
-                    <div class="mt-4 flex w-1/2 flex-col">
+                    <div class="mt-4 flex w-1/4 flex-col mr-2">
                         <InputLabel for="article_category" value="Category"/>
                         <div class="mt-2 flex flex-col">
                             <Select v-model="form.article_category_id" multiple>
@@ -74,6 +74,17 @@
                             </Select>
                         </div>
                         <InputError :message="form.errors.article_category_id" class="mt-2"/>
+                    </div>
+                    <div class="mt-4 flex w-1/4 flex-col">
+                        <InputLabel for="article_category" value="Tags"/>
+                        <div class="mt-2 flex flex-col">
+                            <Select v-model="form.article_tag_id" multiple>
+                                <Option v-for="(tag, i) in tags" :key="i" :value="tag.id">
+                                    {{ tag.name }}
+                                </Option>
+                            </Select>
+                        </div>
+                        <InputError :message="form.errors.article_tag_id" class="mt-2"/>
                     </div>
                 </div>
                 <div class="my-3">
@@ -111,7 +122,7 @@
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
                                 </p>
                             </div>
-                            <input id="attachment" class="hidden" type="file" @click="addAttchment"
+                            <input id="attachment" class="hidden" type="file"
                                    @input="form.attachment = $event.target.files[0]"/>
                         </label>
                     </div>
@@ -179,6 +190,7 @@ export default {
     },
     props: {
         categories: [],
+        tags: []
     },
     data: function () {
         return {
@@ -195,6 +207,7 @@ export default {
             form: new useForm({
                 article_title: '',
                 article_category_id: [],
+                article_tag_id: [],
                 description: '',
                 article_body: '',
                 editor: ClassicEditor,
@@ -216,7 +229,7 @@ export default {
         submit() {
             this.form.post(route('article.store')
                 , {
-                    onSuccess: () => this.form.reset('article_body', 'article_title', 'article_category_id', 'description'),
+                    onSuccess: () => this.form.reset(),
                 }
             );
         },
