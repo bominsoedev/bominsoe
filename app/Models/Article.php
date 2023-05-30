@@ -65,6 +65,7 @@ class Article extends Model
         return $this->belongsToMany(Category::class, 'article_categories');
     }
 
+
     public function reactionBy(User $user)
     {
         return $this->reactions->contains('user_id', $user->id);
@@ -97,7 +98,7 @@ class Article extends Model
     }
     public function Tag(): HasMany
     {
-        return $this->hasMany(Tag::class);
+        return $this->hasMany(Tag::class , 'article_tags');
     }
 
     public function profile_photo(): HasMany

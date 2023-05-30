@@ -54,7 +54,7 @@
             </SidebarLink>
         </template>
         <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
-            <form method="post" @submit.prevent="submit">
+            <form method="post" @submit.prevent="submit(article)">
                 <div class="flex">
                     <div class="mt-4 flex w-1/2 flex-col mr-2">
                         <InputLabel for="article_title" value="Article Title"/>
@@ -120,19 +120,21 @@
                                     <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
                                     </p>
                                 </div>
-                                <input id="attachment" class="hidden" type="file" @click="addAttchment"
+                                <input id="attachment" class="hidden" type="file"
                                        @input="form.attachment = $event.target.files[0]"/>
                             </label>
                     </div>
                     <div class="flex flex-col w-1/2 pl-2">
                         <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 250px;">
-                            <img :src="'/storage/ArticleAttachment/'+form.attachment" alt="">
+                            <img :src="'/storage/ArticleAttachment/'+form.old_attachment" alt="">
                         </div>
                     </div>
+
+
                 </div>
                 <div class="mt-3 p-3 rounded-lg text-end">
                     <primary-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Add Article
+                        Update Article
                     </primary-button>
                 </div>
             </form>
@@ -215,7 +217,11 @@ export default {
                 article_body: this.article.body,
                 editor: ClassicEditor,
                 editorConfig: {},
-                attachment: [this.article.article_photo.unique_name]
+                attachment : [],
+                old_attachment: [this.article.article_photo.unique_name],
+
+
+
             }),
         }
     },
@@ -229,8 +235,8 @@ export default {
         }
     },
     methods: {
-        submit() {
-            this.form.post(route('article.update')
+        submit(article) {
+            this.form.put(route('article.update',article)
                 , {
                     onSuccess: () => this.form.reset(),
                 }
