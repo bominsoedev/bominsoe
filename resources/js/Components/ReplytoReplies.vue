@@ -101,6 +101,7 @@
                 </div>
             </div>
         </article>
+        <slot/>
     </div>
     <div v-if="isOpen">
         <CommentReply :comment="comment"

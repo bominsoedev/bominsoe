@@ -15,6 +15,7 @@ class Category extends Model
         'uuid',
         'name',
         'slug',
+        'icon',
         'user_id'
     ];
 

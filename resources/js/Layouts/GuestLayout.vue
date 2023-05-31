@@ -70,7 +70,7 @@ defineProps({
                                     <template #trigger>
                                     <span class="inline-flex rounded-md">
                                         <button
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            class="inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             type="button">
                                             <div v-if="$page.props.auth.user.photo"  class="relative inline-block mr-2">
                                                   <img alt="Profile image"
@@ -80,13 +80,11 @@ defineProps({
                                                 </div>
                                                 <div v-else
                                                      aria-hidden="true"
-                                                     class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 mr-2 h-[30px] w-[30px] border-none"
+                                                     class="flex items-center justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[40px] w-[40px] border-none"
                                                      height="30" width="30">
                                                     <span class=" uppercase">
-                                                        {{
-                                                            $page.props.auth.user.username.split("")[0]
-                                                        }}
-                                                    </span>
+                                                        {{$page.props.auth.user.username.split("")[0] }}</span>
+                                                  <span :class=" $page.props.auth.user.online ? 'absolute top-0 right-0 inline-block w-3 h-3 bg-gray-400 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100' : 'absolute top-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100'"></span>
                                                 </div>
                                             </button>
                                     </span>

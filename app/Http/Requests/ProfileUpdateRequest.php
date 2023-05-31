@@ -16,15 +16,15 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['string', 'max:20'],
-            'first_name' => ['string', 'max:15'],
-            'last_name' => ['string', 'max:15'],
-            'nickname' => ['string', 'max:20'],
-            'phone' => ['regex:/^([0-9\s\-\+\(\)]*)$/', 'max:11'],
-            'bio' => ['string', 'max:255'],
-            'facebook' => ['string', 'max:50'],
-            'github' => ['string', 'max:50'],
-            'linkin' => ['string', 'max:50'],
+            'username' => ['max:20'],
+            'first_name' => ['max:15'],
+            'last_name' => ['max:15'],
+            'nickname' => ['max:20'],
+            'phone' => ['max:11'],
+            'bio' => ['max:255'],
+            'facebook' => ['max:50'],
+            'github' => ['max:50'],
+            'linkin' => ['max:50'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }

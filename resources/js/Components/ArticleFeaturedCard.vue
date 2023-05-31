@@ -1,5 +1,5 @@
 <template>
-    <article class="transition-colors duration-500 rounded-xl bg-panel-800 hover:bg-panel-700">
+    <article class="transition-colors duration-500 rounded-xl from-frameworks-light to-frameworks bg-gradient-to-l">
         <div class="py-3 px-2 flex">
             <div v-if="article.article_photo" class="flex-1 lg:mr-8" style="width: 80%;">
                 <img :src="`/storage/ArticleAttachment/${article.article_photo.unique_name}`"
@@ -41,9 +41,7 @@
 
                         <span class="my-2 block text-white text-xs">
                             Published
-                            <time>
-                                {{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}
-                            </time>
+                                <Time :time="article.created_at" :interval="1" />
                         </span>
                     </div>
                 </header>
@@ -64,7 +62,10 @@
                                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                                 fill-rule="evenodd"/>
                         </svg>
-                        <span class="text-white/70">{{ article.reactions.length }}</span>
+                        <span :interval="1" class="text-white/70">
+<!--                            <Time :time="article.created_at" :interval="1" />-->
+                            {{ article.reactions.length }}
+                        </span>
                     </div>
                     <div v-if="article.comments_count" class="">
                         <a :href="article.uuid">
@@ -95,4 +96,17 @@ defineProps({
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.to-frameworks {
+    --tw-gradient-to: v-bind('article.gradient_left');
+}
+
+.from-frameworks-light {
+    --tw-gradient-from: v-bind('article.form_frameworks');
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 72, 129, 0));
+}
+
+.bg-gradient-to-l {
+    background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+</style>

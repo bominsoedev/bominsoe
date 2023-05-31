@@ -92,7 +92,14 @@
                         <section class="max-w-none p-0 flex-1 mb-3 ">
                             <div
                                 class="flex-shrink-0 sticky flex justify-between mb-3 text-white/70 bg-panel-800 hover:bg-panel-700 transition-colors duration-300 py-3 px-2 rounded">
-                                <GoBack/>
+                                <div class="flex">
+                                    <GoBack/>
+                                    <div v-for="tag in article.tag" :key="tag.id" class="">
+                                        <a :href="'/?tag='+tag.slug">
+                                            <Tag color="#151f32">{{ tag.name }}</Tag>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="space-x-2">
                                     <CategoryBotton :category="article.category"/>
                                 </div>
@@ -110,7 +117,7 @@
                             <section class="container" style="max-width: 1166px;">
                                 <div class="mx-auto mb-8 flex w-full flex-wrap lg:flex-nowrap">
                                     <div
-                                        class="relative mx-auto items-center justify-between rounded-xl p-6 font-bold flex flex-1 basis-0 bg-gradient-to-ls from-frameworks-lights to-framework text-white/70 to-testing">
+                                        class="relative mx-auto items-center justify-between rounded-xl p-6 font-bold flex flex-1 basis-0 from-frameworks-light to-frameworks bg-gradient-to-l text-white/70">
                                         <div
                                             :style="{ 'background': 'url(/Images/Icon/S.svg)  50% -1%/ 250px  no-repeat' }"
                                             class="pointer-events-none absolute top-0 bottom-0 right-0 left-0 left-1/2 -translate-x-1/2 transform opacity-10 md:block"></div>
@@ -229,6 +236,28 @@
                                                     :comment="comment"
                                                     :reacted="reactedBy"
                                     >
+                                        <ArticleReply v-for="comment in comment.replies"
+                                                      key="comment.uuid"
+                                                      :author="article.author"
+                                                      :comment="comment"
+                                                      :reacted="reactedBy"
+                                        >
+                                            <ReplytoReplies v-for="comment in comment.replies"
+                                                            key="comment.uuid"
+                                                            :author="article.author"
+                                                            :comment="comment"
+                                                            :reacted="reactedBy"
+                                            >
+                                                <ReplytoReplies v-for="comment in comment.replies"
+                                                                key="comment.uuid"
+                                                                :author="article.author"
+                                                                :comment="comment"
+                                                                :reacted="reactedBy"
+                                                >
+
+                                                </ReplytoReplies>
+                                            </ReplytoReplies>
+                                        </ArticleReply>
                                     </ArticleComment>
                                 </div>
                                 <ArticleCommentForm :article="article" :can-login="canLogin"></ArticleCommentForm>
@@ -394,6 +423,7 @@ import ArticleReply from "@/Components/ArticleReply.vue";
 import {Button} from "view-ui-plus";
 import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 import GoBack from "@/Components/GoBack.vue";
+import ReplytoReplies from "@/Components/ReplytoReplies.vue";
 
 const props = defineProps({
     article: {},
@@ -423,4 +453,17 @@ const unlike = (param) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.to-frameworks {
+    --tw-gradient-to: v-bind('article.gradient_left');
+}
+
+.from-frameworks-light {
+    --tw-gradient-from: v-bind('article.form_frameworks');
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 72, 129, 0));
+}
+
+.bg-gradient-to-l {
+    background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+</style>

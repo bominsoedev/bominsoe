@@ -33,7 +33,7 @@ defineProps({
                 </article-grid>
             </main>
         </div>
-        <div class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
+        <div v-if="articles.next_page_url || articles.prev_page_url" class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
             <MasterPagination :links="articles.links"></MasterPagination>
         </div>
     </GuestLayout>

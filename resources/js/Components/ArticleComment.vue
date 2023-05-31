@@ -40,8 +40,8 @@
                                 </div>
                                 <div class="mt-2 flex flex-wrap items-center gap-x-2 text-2xs font-medium">
                                     <span
-                                    class="text-3xs text-grey-800 dark:text-grey-600/40">
-                                        {{moment().utc(comment.created_at).local().startOf('seconds').fromNow() }}
+                                        class="text-3xs text-grey-800 dark:text-grey-600/40">
+                                          <Time :interval="1" :time="comment.created_at"/>
                                     </span>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                     <div class="mt-auto">
                         <div
                             class="forum-comment-edit-links relative -mb-1 mt-4 flex gap-x-2 justify-start">
-<!--                            <json-viewer :value="comment.reactions"></json-viewer>-->
+                            <!--                            <json-viewer :value="comment.reactions"></json-viewer>-->
                             <button
                                 :class="comment.author.id == comment.reactions.user_id ? 'rounded-full px-1 flex items-center justify-center bg-[#f6b7cb] ring-1 ring-rose-300 border border-rose-300':'rounded-full px-1 flex items-center justify-center bg-white/10'"
                                 :title="comment.author.id == comment.reactions.user_id ? 'Want to like this article for future reference?':'Want to like this article for future reference?'"
@@ -166,12 +166,12 @@ export default {
             return moment();
         },
         like(param) {
-            this.form.get(route('comment.store_reaction', param),{
+            this.form.get(route('comment.store_reaction', param), {
                 preserveScroll: true
             });
         },
         unlike(param) {
-            this.form.get(route('comment.destroy_reaction', param),{
+            this.form.get(route('comment.destroy_reaction', param), {
                 preserveScroll: true
             });
         },

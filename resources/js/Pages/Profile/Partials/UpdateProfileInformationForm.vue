@@ -197,9 +197,6 @@ const form = useForm({
                     </svg>
                     Update Profile
                 </PrimaryButton>
-                <Transition class="transition ease-in-out" enter-from-class="opacity-0" leave-to-class="opacity-0">
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
-                </Transition>
             </div>
         </form>
     </section>

@@ -192,7 +192,9 @@ onMounted(() => {
                     </td>
                     <td class="items-center">{{ category.name }}</td>
                     <td class="items-center">{{ category.slug }}</td>
-                    <!--                    <td class="w-32">{{ moment(category.created_at).format("DD-MM-YYYY") }}</td>-->
+                    <td class="w-32">
+                        <Time :interval="1" :time="category.created_at"/>
+                    </td>
                     <td class="items-center">{{ category.user.username }}</td>
                     <td class="items-center space-x-2">
                         <a :href="route('category.edit', category)"

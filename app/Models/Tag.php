@@ -11,7 +11,13 @@ class Tag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid', 'name', 'slug', 'icon', 'user_id'];
+    protected $fillable = [
+        'uuid',
+        'name',
+        'slug',
+        'icon',
+        'user_id'
+    ];
 
     public function scopeFilter($query, array $filters)
     {
@@ -24,6 +30,7 @@ class Tag extends Model
             )
         );
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

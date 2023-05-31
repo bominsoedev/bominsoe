@@ -1,10 +1,11 @@
 <template>
-    <article class="transition-colors duration-300 rounded-xl bg-panel-800 hover:bg-panel-700">
+    <article class="transition-colors duration-500 rounded-xl from-frameworks-light to-frameworks bg-gradient-to-l">
         <div class="py-4 px-3">
             <figure v-if="article.article_photo">
                 <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 161.71px;">
-                    <img loading="lazy" :src="'/storage/ArticleAttachment/' + article.article_photo.unique_name" alt="Lary avatar "
-                        class="lazy object-cover rounded-xl">
+                    <img :src="'/storage/ArticleAttachment/' + article.article_photo.unique_name" alt="Lary avatar "
+                         class="lazy object-cover rounded-xl"
+                         loading="lazy">
                 </div>
             </figure>
             <div class="mt-5 flex flex-col justify-between">
@@ -20,7 +21,7 @@
                                  aria-hidden="true"
                                  class="mr-2 flex items-center uppercase justify-center rounded-full bg-blue-50 text-blue-700 dark:border-gray-400 border-none"
                                  height="30" width="30">
-                                {{ $page.props.auth.user.username.split("")[0] }}
+                                {{ article.author.username.split("")[0] }}
                             </div>
                             {{ article.author.username }}
                             <BlueBadgeIcon/>
@@ -31,20 +32,17 @@
                     </div>
                     <div class="mt-2">
                         <h1 class="text-lg text-white">
-                            <a :href="article.uuid">
+                            <a :href="route('article.show',article.uuid)">
                                 {{ article.title }}
                             </a>
                         </h1>
-
                         <span class="mt-2 block text-gray-400 text-xs text-white">
                             Published
-                            <time>
-                                {{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}
-                            </time>
+                            <Time :interval="1" :time="article.created_at"/>
                         </span>
                     </div>
                 </header>
-                <div v-html="article.description" class="text-sm mt-3 text-white">
+                <div class="text-sm mt-3 text-white" v-html="article.excerpt">
                 </div>
                 <a :href="route('article.show', article)"
                    class="transition-colors duration-300 text-xs font-semibold text-gray-400">Read
@@ -59,10 +57,10 @@
                                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
                                 fill-rule="evenodd"/>
                         </svg>
-                        <span class="text-white/70">{{ article.reactions.length }}</span>
+                        <span :interval="1" class="text-white/70">{{ article.reactions.length }}</span>
                     </div>
                     <div v-if="article.comments_count" class="">
-                        <a :href="article.uuid">
+                        <a :href="route('article.show', article)">
                             <comment class="flex items-center space-x-1 text-white/70">
                                 <span class="mr-1">{{ article.comments_count.length }}</span>
                                 <svg class="bi bi-chat-left" fill="currentColor" height="16" viewBox="0 0 16 16"
@@ -83,7 +81,6 @@
 <script setup>
 
 import CategoryBotton from "@/Components/CategoryBotton.vue";
-import moment from "moment-timezone";
 import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
 
 defineProps({
@@ -91,4 +88,17 @@ defineProps({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.to-frameworks {
+    --tw-gradient-to: v-bind('article.gradient_left');
+}
+
+.from-frameworks-light {
+    --tw-gradient-from: v-bind('article.form_frameworks');
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 72, 129, 0));
+}
+
+.bg-gradient-to-l {
+    background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+</style>

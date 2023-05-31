@@ -3,7 +3,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head} from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
 import MasterTable from "@/Components/MasterTable.vue";
-import moment from "moment-timezone";
 import {Breadcrumb, BreadcrumbItem} from "view-ui-plus";
 import CategoryBotton from "@/Components/CategoryBotton.vue";
 import MasterPagination from "@/Components/MasterPagination.vue";
@@ -72,7 +71,7 @@ const ths = [
             <main class="mx-auto space-y-6">
                 <MasterTable :table_head="ths">
                     <tr v-for="article in articles.data"
-                        class="items-center divide-y divide-gray-100 dark:divide-gray-700">
+                        class="items-center divide-y divide-gray-700 h-36">
                         <td class="items-center"></td>
                         <td class="p-5 h-5">
                             <span class="items-center">
@@ -88,7 +87,9 @@ const ths = [
                         </td>
                         <td class="items-center">{{ article.slug }}</td>
                         <td class="w-64" v-html="article.excerpt"></td>
-                        <td class="w-32">{{ moment.utc(article.created_at).local().startOf('seconds').fromNow() }}</td>
+                        <td class="w-32">
+                            <Time :interval="1" :time="article.created_at"/>
+                        </td>
                         <td class="items-center">{{ article.author.username }}</td>
                         <td class="text-center">
                             <a :href="route('article.edit', article)" class="inline-block">

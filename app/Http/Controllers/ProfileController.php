@@ -127,7 +127,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit', \auth()->user());
+        return Redirect::route('profile.edit', \auth()->user())->with('message','Update Profile Information Successfully.');
     }
 
     /**
