@@ -41,9 +41,9 @@
                                             </svg>
                                         </div>
                                         <div class="mt-2 flex flex-wrap items-center gap-x-2 text-2xs font-medium"><span
-                                            class="text-3xs text-grey-800 dark:text-grey-600/40"> {{
-                                                moment().utc(comment.created_at).local().startOf('seconds').fromNow()
-                                            }}</span><span
+                                            class="text-3xs text-grey-800 dark:text-grey-600/40">
+                                          <Time :interval="1" :time="comment.created_at"/>
+                                        </span><span
                                             class="hidden md:inline">
                                     </span>
                                         </div>

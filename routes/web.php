@@ -22,7 +22,9 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $articles = Article::latest()
+    $articles = Article::
+    where('is_public', '1')
+        ->latest()
         ->with([
             'reactions:id,uuid,article_id',
             'category:uuid,name,slug',

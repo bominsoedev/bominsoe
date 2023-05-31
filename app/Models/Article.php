@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use phpDocumentor\Reflection\DocBlock\Tag;
 
 class Article extends Model
 {
@@ -26,17 +25,12 @@ class Article extends Model
         'article_create_date',
         'is_public',
         'visit_count',
-
     ];
 
     use HasFactory;
+
     protected $guarded = [];
-    protected $with = ['author','reactions','category','comments','article_photo'];
-
-    public static function whereSlug($slug)
-    {
-
-    }
+    protected $with = ['author', 'reactions', 'category', 'comments', 'article_photo', 'tag'];
 
     public function scopeFilter($query, array $filters)
     {
@@ -55,8 +49,19 @@ class Article extends Model
                 fn($query) => $query->where('slug', $category)
             )
         );
-        $query->when($filters['author'] ?? false, fn($query, $author) => $query->whereHas('author', fn($query) => $query->where('username', $author)
-        )
+        $query->when(
+            $filters['tag'] ?? false,
+            fn($query, $tag) => $query->whereHas(
+                'tag',
+                fn($query) => $query->where('slug', $tag)
+            )
+        );
+        $query->when(
+            $filters['author'] ?? false,
+            fn($query, $author) => $query->whereHas(
+                'author',
+                fn($query) => $query->where('username', $author)
+            )
         );
     }
 
@@ -71,38 +76,43 @@ class Article extends Model
         return $this->reactions->contains('user_id', $user->id);
     }
 
-    public function reactions():HasMany
+    public function reactions(): HasMany
     {
         return $this->hasMany(Reaction::class);
     }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function article_photo(): HasOne
     {
-        return $this->hasOne(Attachment::class)->where('status','article_photo');
+        return $this->hasOne(Attachment::class)->where('status', 'article_photo');
     }
 
-    public function comments_count():HasMany
+    public function comments_count(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
+
     public function comment(): HasOne
     {
         return $this->hasOne(Comment::class);
     }
-    public function Tag(): HasMany
+
+    public function tag(): BelongsToMany
     {
-        return $this->hasMany(Tag::class , 'article_tags');
+        return $this->belongsToMany(\App\Models\Tag::class, 'article_tags', 'article_id');
     }
 
     public function profile_photo(): HasMany
     {
-        return $this->hasMany(Attachment::class)->where('status','profile_photo');
+        return $this->hasMany(Attachment::class)->where('status', 'profile_photo');
     }
 }

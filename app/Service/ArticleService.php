@@ -18,11 +18,12 @@ class ArticleService
             ->with([
                 'reactions:id,uuid,article_id',
                 'category:uuid,name,slug',
+                'tag:uuid,name,slug',
                 'author:id,uuid,username,photo',
                 'article_photo:id,uuid,unique_name,article_id',
                 'comments_count'
             ])
-            ->filter(request(['search', 'category', 'author']))
+            ->filter(request(['search', 'category', 'author', 'tag']))
             ->where('user_id', auth()->id())
             ->orderBy('id', 'desc')
             ->paginate(51)->withQueryString();
@@ -33,7 +34,13 @@ class ArticleService
 
     public function lists()
     {
-        $articles = Article::latest()->with(['category:uuid,name,slug', 'author:id,uuid,username'])->filter(request(['search', 'category', 'author']))->where('user_id', auth()->id())->orderBy('id', 'desc')->paginate(50)->withQueryString();
+        $articles = Article::latest()
+            ->with(['category:uuid,name,slug', 'tag:uuid,name,slug', 'author:id,uuid,username'])
+            ->filter(request(['search', 'category', 'author', 'tag']))
+            ->where('user_id', auth()->id())
+            ->orderBy('id', 'desc')
+            ->paginate(50)
+            ->withQueryString();
         return Inertia::render('Article/ArticleList', [
             'articles' => $articles
         ]);
@@ -43,7 +50,7 @@ class ArticleService
     {
         return Inertia::render('Article/create', [
             'categories' => $category->where('user_id', auth()->id())->get(),
-            "tags"=> $tag->where('user_id', auth()->id())->get()
+            "tags" => $tag->where('user_id', auth()->id())->get()
         ]);
     }
 
@@ -55,6 +62,10 @@ class ArticleService
                 'uuid' => Str::uuid()->toString(),
                 'title' => $request->article_title,
                 'slug' => Str::slug($request->article_title),
+                'form_frameworks' => $request->form_frameworks,
+                'gradient_left' => $request->gradient_left,
+                'article_create_date' => now(),
+                'is_public' => $request->is_public,
                 'description' => $request->description,
                 'excerpt' => Str::words($request->article_body, 30, '.....'),
                 'body' => $request->article_body,
@@ -103,11 +114,11 @@ class ArticleService
             }
             return 'success';
         } catch (QueryException $queryException) {
-            return null;
+            dd($queryException);
         }
     }
 
-    public function edit($article, $category )
+    public function edit($article, $category)
     {
         return Inertia::render('Article/edit', [
             'article' => $article,
@@ -138,7 +149,7 @@ class ArticleService
 
             if ($attachment_file) {
                 $deleteArticlePhoto = $article->article_photo()->first();
-                Storage::delete('public/ArticleAttachment/'.$deleteArticlePhoto->unique_name);
+                Storage::delete('public/ArticleAttachment/' . $deleteArticlePhoto->unique_name);
                 $deleteArticlePhoto->delete();
                 $request->validate([
                     'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048'

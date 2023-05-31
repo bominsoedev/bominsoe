@@ -3,10 +3,10 @@
 namespace App\Service;
 
 use App\Models\Tag;
-use Inertia\Inertia;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class TagsService
 {
@@ -14,7 +14,7 @@ class TagsService
     {
         $tags = Tag::where('user_id', auth()->id())
             ->with(['user:id,uuid,username'])
-            ->filter(request(['search', 'category', 'author']))
+            ->filter(request(['search', 'category', 'author', 'tag']))
             ->paginate(10)
             ->withQueryString();
 

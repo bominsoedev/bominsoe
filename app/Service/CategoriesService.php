@@ -14,12 +14,11 @@ class CategoriesService
     {
         $categories = Category::where('user_id', auth()->id())
             ->with(['user:id,uuid,username'])
-            ->filter(request(['search', 'category', 'author']))
+            ->filter(request(['search', 'category', 'author', 'tag']))
             ->paginate(10)
             ->withQueryString();
         return Inertia::render('Categories/Index', [
             'categories' => $categories,
-            'filters' => request('search')
         ]);
     }
 
