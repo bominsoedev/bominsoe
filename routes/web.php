@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserFollowerController;
 use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,7 +35,7 @@ Route::get('/', function () {
         ])
         ->filter(request(['search', 'category', 'author']))
         ->orderBy('id', 'desc')
-        ->paginate(51)->withQueryString();
+        ->paginate(20);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -50,6 +51,11 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::post('profile/upload_profile/{user:uuid}', [ProfileController::class, 'upload_profile'])->name('profile.upload_profile');
     Route::post('profile/profile.upload_cover/{user:uuid}', [ProfileController::class, 'upload_cover'])->name('profile.upload_cover');
     Route::delete('profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // User Following
+
+    Route::get('/{user:username}/followings', [UserFollowerController::class, 'index'])->name('user.index');
+
 
     //Article Route
     Route::get('articles/my_articles', [ArticleController::class, 'index'])->name('article.index');

@@ -1,12 +1,16 @@
 <script setup>
-import {Head} from '@inertiajs/vue3';
+import {Head, router, usePage} from '@inertiajs/vue3';
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import ToastList from "@/Components/ToastList.vue";
 import Sidebar from "@/Components/Sidebar.vue";
 import ArticleGrid from "@/Components/ArticleGrid.vue";
 import MasterPagination from "@/Components/MasterPagination.vue";
+import {onMounted, ref} from "vue";
+import ArticleCard from "@/Components/ArticleCard.vue";
+import ArticleFeaturedCard from "@/Components/ArticleFeaturedCard.vue";
+import {useInfiniteScroll} from "@/Composables/useInfiniteScroll";
 
-defineProps({
+const props = defineProps({
     canLogin: {
         type: Boolean,
     },
@@ -14,11 +18,30 @@ defineProps({
         type: Boolean,
     },
     articles: {
-        type: Object
+        type: Object,
+        required: true
     },
     navStatus: {
         type: Boolean
     }
+});
+
+const {article,loadMoreItems} = useInfiniteScroll('articles');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            loadMoreItems();
+        }
+    });
+}, {
+    rootMargin: '0px 0px 200px 0px'
+});
+
+const article_mark = ref(null);
+
+onMounted(() => {
+    observer.observe(article_mark.value);
 });
 </script>
 
@@ -29,13 +52,14 @@ defineProps({
         </template>
         <div class="rounded-xl px-3 py-2 text-sm border border-gray-800">
             <main class="mx-auto space-y-6">
-                <article-grid :articles="articles.data" >
-                </article-grid>
+                <ArticleFeaturedCard v-if="article.length" :article="article[0]"/>
+                <div class="grid gap-6 grid-cols-3">
+                    <article-card v-for="article in [article].shift()" :article="article"
+                                  class="group relative col-span-1"/>
+                </div>
             </main>
         </div>
-        <div v-if="articles.next_page_url || articles.prev_page_url" class="mt-3 bg-panel-800 px-4 rounded-xl py-3">
-            <MasterPagination :links="articles.links"></MasterPagination>
-        </div>
+        <div ref="article_mark" class="h-2"></div>
     </GuestLayout>
 </template>
 

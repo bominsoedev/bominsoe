@@ -19,11 +19,15 @@ class ArticleFactory extends Factory
     {
         return [
             'uuid' => Str::uuid()->toString(),
-            'title' => fake()->unique()->sentence(),
+            'title' => fake()->title,
             'slug' => fake()->slug,
-            'description' => fake()->unique()->word(), // password
+            'description' => fake()->word(), // password
             'body' => $this->faker->word(),
-            'excerpt' => fake()->unique()->sentence(),
+            'is_public' => 1,
+            'form_frameworks' => fake()->hexColor(),
+            'gradient_left' => fake()->hexColor(),
+            'article_create_date' => now(),
+            'excerpt' => fake()->sentence(),
             'user_id' => 1,
         ];
     }

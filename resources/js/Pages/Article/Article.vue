@@ -444,13 +444,18 @@ const form = useForm({});
 
 
 const like = (param) => {
-    form.post(route('article.store_reaction', param));
+    form.post(route('article.store_reaction', param),{
+        onSuccess:form.wasSuccessful,
+        preserveScroll: true
+    });
 };
 const unlike = (param) => {
     form.delete(route('article.destroy_reaction', param), {
         onSuccess: form.wasSuccessful,
+        preserveScroll: true
     });
 };
+
 </script>
 
 <style scoped>

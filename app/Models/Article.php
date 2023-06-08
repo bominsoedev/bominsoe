@@ -40,6 +40,7 @@ class Article extends Model
                 fn($query) => $query
                     ->where('title', 'like', '%' . request('search') . '%')
                     ->orWhere('body', 'like', '%' . request('search') . '%')
+                    ->orWhere('excerpt', 'like', '%' . request('search') . '%')
             )
         );
         $query->when(

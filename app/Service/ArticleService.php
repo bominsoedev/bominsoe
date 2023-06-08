@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Article;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,6 +30,7 @@ class ArticleService
             ->paginate(51)->withQueryString();
         return Inertia::render('Article/Index', [
             'articles' => $articles,
+            'filters' => Request::only('search')
         ]);
     }
 

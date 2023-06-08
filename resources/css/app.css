@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'view-ui-plus/dist/styles/viewuiplus.css';
 
 .transition-transform {
     transition-duration: .15s;
