@@ -11,7 +11,7 @@ defineProps({
     articles: Object
 })
 const ths = [
-    '', 'ID', 'Title', 'Slug', 'Description', 'When', 'Upload By', 'Control',
+    '', 'ID', 'Title', 'Slug', 'Description', 'Status', 'When', 'Upload By', 'Control',
 ]
 </script>
 
@@ -87,6 +87,7 @@ const ths = [
                         </td>
                         <td class="items-center">{{ article.slug }}</td>
                         <td class="w-64" v-html="article.excerpt"></td>
+                        <td class="text-center" v-html="article.is_public ? 'Publish': 'Private'"></td>
                         <td class="w-32">
                             <Time :interval="1" :time="article.created_at"/>
                         </td>

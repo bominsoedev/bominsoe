@@ -34,7 +34,7 @@
             <div class="w-full profile-dark border border-[#223c68] rounded" style="height: 815">
                 <div class="h-96 overflow-hidden relative p-3">
                     <div class="">
-                        <a target="_blank" :href="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover">
+                        <a :href="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover" target="_blank">
                             <img v-if="$page.props.auth.user.profile_cover"
                                  :src="'/storage/ProfileAttachment/' + $page.props.auth.user.profile_cover"
                                  alt=""
@@ -103,12 +103,30 @@
                             </div>
                             <div class="">
                                 <div class="-space-x-3">
-                                    <img :title="$page.props.auth.user.username" class="relative z-[60] inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
-                                    <img :title="$page.props.auth.user.username" class="relative z-50 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
-                                    <img :title="$page.props.auth.user.username" class="relative z-40 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
-                                    <img :title="$page.props.auth.user.username" class="relative z-30 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
-                                    <img :title="$page.props.auth.user.username" class="relative z-20 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
-                                    <img :title="$page.props.auth.user.username" class="relative z-10 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full" src="/Images/Icon/S.svg" alt="Profile image"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-[60] inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-50 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-40 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-30 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-20 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
+                                    <img :title="$page.props.auth.user.username"
+                                         alt="Profile image"
+                                         class="relative z-10 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
+                                         src="/Images/Icon/S.svg"/>
                                 </div>
                             </div>
                         </div>
@@ -199,6 +217,7 @@ import SidebarLink from "@/Components/SidebarLink.vue";
 import {Head, useForm} from "@inertiajs/vue3";
 import auth from "view-ui-plus/src/components/auth";
 import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
+import NavLink from "@/Components/NavLink.vue";
 import TabLink from "@/Components/TabLink.vue";
 
 export default {
@@ -207,7 +226,7 @@ export default {
             return auth
         }
     },
-    components: {TabLink, BlueBadgeIcon, AuthenticatedLayout, Sidebar, SidebarLink, Head},
+    components: {TabLink, NavLink, BlueBadgeIcon, AuthenticatedLayout, Sidebar, SidebarLink, Head},
     data() {
         return {
             isProfile: {
