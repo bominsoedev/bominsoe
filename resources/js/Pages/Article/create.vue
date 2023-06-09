@@ -136,7 +136,7 @@
                 </div>
                 <div class="mt-3">
                     <div class="flex items-center justify-center w-1/2">
-                        <label
+                        <InputLabel
                             class="flex flex-col items-center justify-center w-full h-32 border duration-300 rounded cursor-pointer bg-panel-800 hover:bg-panel-700 transition-colors hover:border-gray-500"
                             for="attachment">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -153,9 +153,9 @@
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
                                 </p>
                             </div>
-                            <input id="attachment" class="hidden" type="file"
+                            <TextInput id="attachment" class="hidden" type="file"
                                    @input="form.attachment = $event.target.files[0]"/>
-                        </label>
+                        </InputLabel>
                     </div>
                 </div>
                 <div class="mt-3 bg-panel-800 p-3 rounded-lg text-end">
