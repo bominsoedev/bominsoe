@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Article;
+use App\Models\ArticleCategories;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -128,62 +129,63 @@ class ArticleService
 
     public function update($request, $article, $articleCategories, $attachment)
     {
-//        $attachment_file = $request->hasFile('attachment');
-
         try {
-
-            DB::beginTransaction();
-            $article_param = [
-                'uuid' => Str::uuid()->toString(),
-                'title' => $request->article_title,
-                'slug' => Str::slug($request->article_title),
-                'description' => $request->description,
-                'excerpt' => Str::words($request->article_body, 30, '.....'),
-                'body' => $request->article_body,
-                'user_id' => auth()->id(),
-            ];
-            $articleUpdate = $article->update($article_param);
-
-
-            $attachment_file = $request->hasFile('attachment');
-
-            if ($attachment_file) {
-                $deleteArticlePhoto = $article->article_photo()->first();
-                Storage::delete('public/ArticleAttachment/' . $deleteArticlePhoto->unique_name);
-                $deleteArticlePhoto->delete();
-                $request->validate([
-                    'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
-                ]);
-                $unique_name = uniqid() . "_articleAttachmentPhoto_" . $request->file('attachment')->getClientOriginalName();
-                $org_name = $request->file('attachment')->getClientOriginalName();
-                $extension = $request->file('attachment')->extension();
-                $path = 'public/ArticleAttachment/';
-                $attachment_param = [
-                    'uuid' => Str::uuid()->toString(),
-                    'user_id' => auth()->id(),
-                    'article_id' => $articleUpdate->id,
-                    'org_name' => $org_name,
-                    'unique_name' => $unique_name,
-                    'extension' => $extension,
-                    'path' => $path,
-                    'status' => 'article_photo'
-                ];
-                $attachment_file->storeAs($path, $unique_name);
-                $attachment->create($attachment_param);
-            }
+//            DB::beginTransaction();
+//            $article_param = [
+//                'uuid' => Str::uuid()->toString(),
+//                'title' => $request->article_title,
+//                'slug' => Str::slug($request->article_title),
+//                'description' => $request->description,
+//                'excerpt' => Str::words($request->article_body, 30, '.....'),
+//                'body' => $request->article_body,
+//                'user_id' => auth()->id(),
+//            ];
+//             $article->update($article_param);
+//
+//            $attachment_file = $request->attachment;
+//            if ($attachment_file) {
+//                $deleteArticlePhoto = $article->article_photo()->first();
+//                Storage::delete('public/ArticleAttachment/' . $deleteArticlePhoto->unique_name);
+//                $deleteArticlePhoto->delete();
+//                $request->validate([
+//                    'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
+//                ]);
+//                $unique_name = uniqid() . "_articleAttachmentPhoto_" . $request->file('attachment')->getClientOriginalName();
+//                $org_name = $request->file('attachment')->getClientOriginalName();
+//                $extension = $request->file('attachment')->extension();
+//                $path = 'public/ArticleAttachment/';
+////                dd($article->toArray());
+//                $attachment_param = [
+//                    'uuid' => Str::uuid()->toString(),
+//                    'user_id' => auth()->id(),
+//                    'article_id' => $article->id,
+//                    'org_name' => $org_name,
+//                    'unique_name' => $unique_name,
+//                    'extension' => $extension,
+//                    'path' => $path,
+//                    'status' => 'article_photo'
+//                ];
+//                $attachment_file->storeAs($path, $unique_name);
+//                $attachment->create($attachment_param);
+//            }
 
 
             $categories = $request->article_category_id;
             foreach ($categories as $c) {
-                $articleCategories->update([
+                $articleCategories->update(
+                    [
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $article->id,
                     'category_id' => $c,
-                ]);
+                ]
+                );
             }
+            dd($articleCategories);
             return 'success';
         } catch (QueryException $queryException) {
-            return $queryException;
+            dd($queryException);
+            return null;
+
         }
     }
 
