@@ -54,7 +54,7 @@
             </SidebarLink>
         </template>
         <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
-            <form method="post" @submit.prevent="submit(article)">
+            <form @submit.prevent="submit(article)">
                 <div class="flex">
                     <div class="mt-4 flex w-1/2 flex-col mr-2">
                         <InputLabel for="article_title" value="Article Title"/>
@@ -102,27 +102,26 @@
                 </div>
                 <div class="mt-3 flex w-full flex-wrap">
                     <div class="flex flex-col w-1/2">
-                            <label
-                                class="flex flex-col items-center justify-center w-full h-full border duration-300 rounded-lg cursor-pointer bg-panel-800 hover:bg-panel-700 transition-colors hover:border-gray-500"
-                                for="attachment">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
-                                         stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2">
-                                        </path>
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                        class="font-semibold">Click
+                        <InputLabel
+                            class="flex flex-col items-center justify-center w-full h-32 border duration-300 rounded cursor-pointer bg-panel-800 hover:bg-panel-700 transition-colors hover:border-gray-500"
+                            for="attachment">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+                                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2">
+                                    </path>
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
                                         to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
-                                    </p>
-                                </div>
-                                <input id="attachment" class="hidden" type="file"
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
+                                </p>
+                            </div>
+                            <TextInput id="attachment" class="hidden" type="file"
                                        @input="form.attachment = $event.target.files[0]"/>
-                            </label>
+                        </InputLabel>
                     </div>
                     <div class="flex flex-col w-1/2 pl-2">
                         <div class="relative overflow-hidden rounded-xl" style="width: 100%; height: 250px;">
@@ -210,18 +209,15 @@ export default {
                 theme: 'snow',
             },
             mounting: false,
-            form: new useForm({
+            form:  useForm({
                 article_title: this.article.title,
                 article_category_id: [],
                 description: this.article.description,
                 article_body: this.article.body,
                 editor: ClassicEditor,
                 editorConfig: {},
-                attachment : [],
+                attachment : '',
                 old_attachment: [this.article.article_photo.unique_name],
-
-
-
             }),
         }
     },
@@ -236,7 +232,7 @@ export default {
     },
     methods: {
         submit(article) {
-            this.form.put(route('article.update',article)
+            this.form.post(route('article.update',article)
                 , {
                     onSuccess: () => this.form.reset(),
                 }
