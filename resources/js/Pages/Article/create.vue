@@ -54,6 +54,11 @@
             </SidebarLink>
         </template>
         <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
+            <div class="mt-2 flex space-x-3">
+                <i-switch @on-change="form.is_public = !form.is_public"></i-switch>
+                <InputLabel :value="form.is_public ? 'Public' : 'Private'"/>
+            </div>
+            <InputError :message="form.errors.form_frameworks" class="mt-2"/>
             <form method="post" @submit.prevent="submit">
                 <div class="flex">
                     <div class="mt-4 flex w-2/4 flex-col mr-2">
@@ -94,7 +99,7 @@
                     <div class="mt-4 flex w-1/4 flex-col mr-2">
                         <InputLabel value="Color Gradient Form Left"/>
                         <div class="mt-2 flex flex-col">
-                            <ColorPicker type="primary" :model-value="form.gradient_left" v-model="form.gradient_left"/>
+                            <ColorPicker v-model="form.gradient_left" :model-value="form.gradient_left" type="primary"/>
                         </div>
                         <InputError :message="form.errors.gradient_left" class="mt-2"/>
                     </div>
@@ -102,14 +107,6 @@
                         <InputLabel value="Color Gradient To Right"/>
                         <div class="mt-2 flex flex-col">
                             <ColorPicker v-model="form.form_frameworks"/>
-                        </div>
-                        <InputError :message="form.errors.form_frameworks" class="mt-2"/>
-                    </div>
-                    <div class="mt-4 flex items-center w-1/4 flex-col ml-2">
-                        <InputLabel value="Article Public"/>
-                        <div class="mt-2 flex space-x-3">
-                            <i-switch @on-change="form.is_public = !form.is_public"></i-switch>
-                            <InputLabel :value="form.is_public ? 'Public' : 'Private'"/>
                         </div>
                         <InputError :message="form.errors.form_frameworks" class="mt-2"/>
                     </div>
@@ -131,7 +128,8 @@
                                  v-model:content="form.article_body"
                                  class="rounded border border-gray-700"
                                  contentType="html"
-                                 toolbar="full" style="border: --tw-border-opacity: 1;border-color: rgb(55 65 81 / var(--tw-border-opacity));"/>
+                                 style="border: --tw-border-opacity: 1;border-color: rgb(55 65 81 / var(--tw-border-opacity));"
+                                 toolbar="full"/>
                     <InputError :message="form.errors.article_body" class="mt-2"/>
                 </div>
                 <div class="mt-3">
@@ -154,7 +152,7 @@
                                 </p>
                             </div>
                             <TextInput id="attachment" class="hidden" type="file"
-                                   @input="form.attachment = $event.target.files[0]"/>
+                                       @input="form.attachment = $event.target.files[0]"/>
                         </InputLabel>
                     </div>
                 </div>
@@ -236,7 +234,7 @@ export default {
             },
             mounting: false,
             form: new useForm({
-                is_public:false,
+                is_public: false,
                 article_title: '',
                 article_category_id: [],
                 article_tag_id: [],
@@ -370,6 +368,7 @@ export default {
     border-bottom-left-radius: 0.375rem !important;
     border-bottom-right-radius: 0.375rem !important;
 }
+
 .ivu-input {
     --tw-bg-opacity: 1;
     background-color: rgba(21 31 50 1 / var(--tw-bg-opacity));

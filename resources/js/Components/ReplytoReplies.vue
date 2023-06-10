@@ -1,5 +1,5 @@
 <template>
-    <div class="reply-with-responses">
+    <div  class="reply-with-responses">
         <article
             class="forum-comment is-reply mb-3 rounded-xl px-0 py-0 transition-colors duration-300 dark bg-blue/7 hover:bg-panel-700 text-white">
             <div class="flex px-6 py-4 lg:p-5">

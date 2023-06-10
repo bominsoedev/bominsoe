@@ -237,25 +237,37 @@
                                                     :reacted="reactedBy"
                                     >
                                         <ArticleReply v-for="comment in comment.replies"
-                                                      key="comment.uuid"
+                                                      :key="comment.uuid"
                                                       :author="article.author"
                                                       :comment="comment"
                                                       :reacted="reactedBy"
                                         >
                                             <ReplytoReplies v-for="comment in comment.replies"
-                                                            key="comment.uuid"
+                                                            :key="comment.uuid"
                                                             :author="article.author"
                                                             :comment="comment"
                                                             :reacted="reactedBy"
                                             >
-                                                <ReplytoReplies v-for="comment in comment.replies"
-                                                                key="comment.uuid"
-                                                                :author="article.author"
-                                                                :comment="comment"
-                                                                :reacted="reactedBy"
+                                                <ArticleReply v-for="comment in comment.replies"
+                                                              :key="comment.uuid"
+                                                              :author="article.author"
+                                                              :comment="comment"
+                                                              :reacted="reactedBy"
                                                 >
-
-                                                </ReplytoReplies>
+                                                    <ReplytoReplies v-for="comment in comment.replies"
+                                                                    :key="comment.uuid"
+                                                                    :author="article.author"
+                                                                    :comment="comment"
+                                                                    :reacted="reactedBy"
+                                                    >
+                                                        <ArticleReply v-for="comment in comment.replies"
+                                                                      :key="comment.uuid"
+                                                                      :author="article.author"
+                                                                      :comment="comment"
+                                                                      :reacted="reactedBy"
+                                                        ></ArticleReply>
+                                                    </ReplytoReplies>
+                                                </ArticleReply>
                                             </ReplytoReplies>
                                         </ArticleReply>
                                     </ArticleComment>
@@ -265,7 +277,8 @@
                         </section>
                     </div>
                 </main>
-                <div class="mx-auto max-w-[500px] flex-shrink-0 sticky top-[80px] self-start w-[315px] bg-[#18273f] p-3 rounded">
+                <div
+                    class="mx-auto max-w-[500px] flex-shrink-0 sticky top-[80px] self-start w-[315px] bg-[#18273f] p-3 rounded">
                     <div
                         class="space-y-3 transition-all duration-500">
                         <div class="text-center">
@@ -444,8 +457,8 @@ const form = useForm({});
 
 
 const like = (param) => {
-    form.post(route('article.store_reaction', param),{
-        onSuccess:form.wasSuccessful,
+    form.post(route('article.store_reaction', param), {
+        onSuccess: form.wasSuccessful,
         preserveScroll: true
     });
 };

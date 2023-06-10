@@ -19,9 +19,11 @@
                             </div>
                             <div v-else
                                  aria-hidden="true"
-                                 class="mr-2 flex items-center uppercase justify-center rounded-full bg-blue-50 text-blue-700 dark:border-gray-400 border-none"
-                                 height="30" width="30">
+                                 class="relative mr-2 flex items-center uppercase justify-center rounded-full bg-blue-50 text-blue-700 dark:border-gray-400 border-none h-[30px] w-[30px]"
+                                 >
+<!--                                                        <json-viewer :value="article.author"></json-viewer>-->
                                 {{ article.author.username.split("")[0] }}
+                                <span :class=" article.author ? 'absolute bottom-0 right-0 inline-block w-3 h-3 bg-gray-400 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100' : 'absolute top-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100'"></span>
                             </div>
                             {{ article.author.username }}
                             <BlueBadgeIcon/>

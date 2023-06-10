@@ -38,6 +38,8 @@ const observer = new IntersectionObserver((entries) => {
     rootMargin: '0px 0px 200px 0px'
 });
 
+console.log(article)
+
 const article_mark = ref(null);
 
 onMounted(() => {
