@@ -67,8 +67,8 @@
                             <InputError :message="form.errors.article_title" class="mt-2"/>
                         </div>
                     </div>
-<!--                    <json-viewer :value="article"></json-viewer>-->
-                    <div class="mt-4 flex w-1/2 flex-col">
+                    <!--                    <json-viewer :value="article"></json-viewer>-->
+                    <div class="mt-4 flex w-1/2 flex-col mr-2">
                         <InputLabel for="article_category" value="Category"/>
                         <div class="mt-2 flex flex-col">
                             <Select v-model="form.article_category_id" multiple placeholder="Select Category">
@@ -79,6 +79,18 @@
                             </Select>
                         </div>
                         <InputError :message="form.errors.article_category_id" class="mt-2"/>
+                    </div>
+                    <div class="mt-4 flex w-1/2 flex-col">
+                        <InputLabel for="article_category" value="Category"/>
+                        <div class="mt-2 flex flex-col">
+                            <Select v-model="form.article_tag_id" multiple placeholder="Select Tag">
+                                <Option v-for="(t, i) in tags" :key="i"
+                                        :value="t.id">
+                                    {{ t.name }}
+                                </Option>
+                            </Select>
+                        </div>
+                        <InputError :message="form.errors.article_tag_id" class="mt-2"/>
                     </div>
                 </div>
                 <div class="my-3">
@@ -94,7 +106,7 @@
                     <InputError :message="form.errors.description" class="mt-2"/>
                 </div>
                 <div class="">
-                    <QuillEditor ref="myQuillEditor"
+                     <QuillEditor ref="myQuillEditor"
                                  v-model:content="form.article_body"
                                  contentType="html"
                                  toolbar="full"/>
@@ -195,10 +207,10 @@ export default {
     props: {
         article: Object,
         categories: [],
+        tags: [],
     },
     data: function () {
         return {
-            category_id: [],
             options: {
                 debug: 'info',
                 placeholder: 'Aa',
@@ -209,15 +221,16 @@ export default {
                 theme: 'snow',
             },
             mounting: false,
-            form:  useForm({
+            form: useForm({
                 article_title: this.article.title,
                 article_category_id: [],
+                article_tag_id: [],
                 description: this.article.description,
                 article_body: this.article.body,
                 editor: ClassicEditor,
                 editorConfig: {},
-                attachment : '',
-                old_attachment: [this.article.article_photo.unique_name],
+                attachment: '',
+                old_attachment: [this.article.article_photo ? this.article.article_photo.unique_name : ''],
             }),
         }
     },
@@ -232,7 +245,7 @@ export default {
     },
     methods: {
         submit(article) {
-            this.form.post(route('article.update',article)
+            this.form.post(route('article.update', article)
                 , {
                     onSuccess: () => this.form.reset(),
                 }
@@ -252,9 +265,9 @@ export default {
         for (let cat of this.article.category) {
             this.form.article_category_id.push(cat.id)
         }
-        // for (let att of this.article.article_photo) {
-        //     this.form.attachment.push(att)
-        // }
+        for (let tag of this.article.tag) {
+            this.form.article_tag_id.push(tag.id)
+        }
     }
 }
 </script>

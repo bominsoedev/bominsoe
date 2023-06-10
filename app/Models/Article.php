@@ -71,7 +71,6 @@ class Article extends Model
         return $this->belongsToMany(Category::class, 'article_categories');
     }
 
-
     public function reactionBy(User $user)
     {
         return $this->reactions->contains('user_id', $user->id);
@@ -89,7 +88,7 @@ class Article extends Model
 
     public function article_photo(): HasOne
     {
-        return $this->hasOne(Attachment::class)->where('status', 'article_photo');
+        return $this->hasOne(Attachment::class)->where('status', 'article_photo')->latest();
     }
 
     public function comments_count(): HasMany
@@ -101,12 +100,6 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
-
-    public function comment(): HasOne
-    {
-        return $this->hasOne(Comment::class);
-    }
-
     public function tag(): BelongsToMany
     {
         return $this->belongsToMany(\App\Models\Tag::class, 'article_tags', 'article_id');

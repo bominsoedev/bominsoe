@@ -54,11 +54,11 @@ class ArticleRepository implements ArticleInterface
         if (!is_null($update)) {
             DB::commit();
 
-            return redirect()->route('article.index')->with('message', 'Article Updated Successfully.');
+            return redirect()->route('article.lists')->with('message', 'Article Updated Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.index')->with('error', 'Something want wrong.');
+            return redirect()->route('article.lists')->with('error', 'Something want wrong.');
         }
     }
 
