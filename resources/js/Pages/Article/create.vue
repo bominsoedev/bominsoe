@@ -96,16 +96,16 @@
                     </div>
                 </div>
                 <div class="flex">
-                    <div class="mt-4 flex w-1/4 flex-col mr-2">
+                    <div class="mt-4 flex flex-col mr-2">
                         <InputLabel value="Color Gradient Form Left"/>
-                        <div class="mt-2 flex flex-col">
+                        <div class="mt-2 flex">
                             <ColorPicker v-model="form.gradient_left" :model-value="form.gradient_left" type="primary"/>
                         </div>
                         <InputError :message="form.errors.gradient_left" class="mt-2"/>
                     </div>
-                    <div class="mt-4 flex w-1/4 flex-col">
+                    <div class="mt-4 flex flex-col">
                         <InputLabel value="Color Gradient To Right"/>
-                        <div class="mt-2 flex flex-col">
+                        <div class="mt-2 flex">
                             <ColorPicker v-model="form.form_frameworks"/>
                         </div>
                         <InputError :message="form.errors.form_frameworks" class="mt-2"/>
@@ -238,8 +238,8 @@ export default {
                 article_title: '',
                 article_category_id: [],
                 article_tag_id: [],
-                gradient_left: '',
-                form_frameworks: '',
+                gradient_left: '1B487EBF',
+                form_frameworks: '1B487EBF',
                 description: '',
                 article_body: '',
                 editor: ClassicEditor,

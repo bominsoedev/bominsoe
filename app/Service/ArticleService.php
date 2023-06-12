@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ArticleService
 {
-    public function index()
+    public function index(): Response
     {
         $articles = Article::latest()
             ->with([
@@ -35,7 +36,7 @@ class ArticleService
         ]);
     }
 
-    public function lists()
+    public function lists(): Response
     {
         $articles = Article::latest()
             ->with(['category:uuid,name,slug', 'tag:uuid,name,slug', 'author:id,uuid,username'])
@@ -49,7 +50,7 @@ class ArticleService
         ]);
     }
 
-    public function create($category, $tag)
+    public function create($category, $tag): Response
     {
         return Inertia::render('Article/create', [
             'categories' => $category->where('user_id', auth()->id())->get(),
@@ -57,7 +58,7 @@ class ArticleService
         ]);
     }
 
-    public function store($request, $article, $articleCategories, $attachment, $articleTag)
+    public function store($request, $article, $articleCategories, $attachment, $articleTag): string|null
     {
         try {
             DB::beginTransaction();
@@ -121,7 +122,7 @@ class ArticleService
         }
     }
 
-    public function edit($article, $category)
+    public function edit($article, $category): Response
     {
         return Inertia::render('Article/edit', [
             'article' => $article,
@@ -130,7 +131,7 @@ class ArticleService
         ]);
     }
 
-    public function update($request, $article, $articleCategories, $attachment)
+    public function update($request, $article, $articleCategories, $attachment): string|null
     {
         try {
             DB::beginTransaction();
@@ -167,7 +168,7 @@ class ArticleService
                 $attachment_file->storeAs($path, $unique_name);
                 $attachment->create($attachment_param);
             }
-            $articleCategories->where('article_id',$article->id)->delete();
+            $articleCategories->where('article_id', $article->id)->delete();
             $categories = $request->article_category_id;
             foreach ($categories as $c) {
                 $articleCategories->create(
@@ -178,7 +179,7 @@ class ArticleService
                     ]
                 );
             }
-            ArticleTag::where('article_id',$article->id)->delete();
+            ArticleTag::where('article_id', $article->id)->delete();
             $tags = $request->article_tag_id;
             foreach ($tags as $t) {
                 ArticleTag::create([
@@ -194,7 +195,7 @@ class ArticleService
         }
     }
 
-    public function show($article)
+    public function show($article): Response
     {
         $reacted = $article->reactionBy(request()->user());
         $liked_count = $article->reactions()->count();
@@ -212,7 +213,7 @@ class ArticleService
         ]);
     }
 
-    public function store_reaction($article, $reaction)
+    public function store_reaction($article, $reaction): string|null
     {
         try {
             DB::beginTransaction();
@@ -228,7 +229,7 @@ class ArticleService
         }
     }
 
-    public function destroy_reaction($article, $reaction)
+    public function destroy_reaction($article, $reaction): string|null
     {
         try {
             DB::beginTransaction();
