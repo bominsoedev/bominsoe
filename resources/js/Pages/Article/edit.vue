@@ -81,7 +81,7 @@
                         <InputError :message="form.errors.article_category_id" class="mt-2"/>
                     </div>
                     <div class="mt-4 flex w-1/2 flex-col">
-                        <InputLabel for="article_category" value="Category"/>
+                        <InputLabel for="article_category" value="Tag"/>
                         <div class="mt-2 flex flex-col">
                             <Select v-model="form.article_tag_id" multiple placeholder="Select Tag">
                                 <Option v-for="(t, i) in tags" :key="i"

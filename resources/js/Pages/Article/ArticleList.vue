@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 import SidebarLink from "@/Components/SidebarLink.vue";
 import MasterTable from "@/Components/MasterTable.vue";
 import {Breadcrumb, BreadcrumbItem} from "view-ui-plus";
@@ -70,7 +70,7 @@ const ths = [
         <div class="rounded-lg px-3 py-2 text-sm border border-gray-800">
             <main class="mx-auto space-y-6">
                 <MasterTable :table_head="ths">
-                    <tr v-for="article in articles.data"
+                    <tr v-for="article in articles.data" :key="article.id"
                         class="items-center divide-y divide-gray-700 h-36">
                         <td class="items-center"></td>
                         <td class="p-5 h-5">
@@ -86,14 +86,14 @@ const ths = [
                             </div>
                         </td>
                         <td class="items-center">{{ article.slug }}</td>
-                        <td class="w-64" v-html="article.excerpt"></td>
+                        <td class=" w-52" v-html="article.excerpt"></td>
                         <td class="text-center" v-html="article.is_public ? 'Publish': 'Private'"></td>
                         <td class="w-32">
                             <Time :interval="1" :time="article.created_at"/>
                         </td>
                         <td class="items-center">{{ article.author.username }}</td>
                         <td class="text-center">
-                            <a :href="route('article.edit', article)" class="inline-block">
+                            <Link :href="route('article.edit', article)" class="inline-block">
                                 <svg class="bi bi-pencil-square text-gray-400 hover:text-sky-500 duration-300"
                                      fill="currentColor" height="16" viewBox="0 0 16 16"
                                      width="16"
@@ -104,7 +104,14 @@ const ths = [
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                                         fill-rule="evenodd"/>
                                 </svg>
-                            </a>
+                            </Link>
+                            <Link :href="route('article.destroy', article)" class="inline-block" method="delete"  type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                </svg>
+                            </Link>
                         </td>
                     </tr>
                 </MasterTable>
