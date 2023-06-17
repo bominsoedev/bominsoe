@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->integer('visit_count')->nullable();
             $table->integer('share_count')->nullable();
             $table->dateTime('article_create_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

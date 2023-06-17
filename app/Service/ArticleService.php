@@ -212,6 +212,19 @@ class ArticleService
             'canRegister' => Route::has('register'),
         ]);
     }
+    public function destroy($article)
+    {
+
+        try {
+            DB::beginTransaction();
+            $article->delete();
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            dd($queryException);
+        }
+
+    }
 
     public function store_reaction($article, $reaction): string|null
     {
