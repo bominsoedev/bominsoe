@@ -273,7 +273,9 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-panel-800 h-72 w-full mt-6">Article Trash</div>
+            <div class="bg-panel-800 h-72 w-full mt-6">
+                <json-viewer :value="articles"></json-viewer>
+            </div>
         </div>
         <!-- Photo Upload Modal -->
         <div
@@ -389,6 +391,9 @@ import BlueBadgeIcon from '@/Components/BlueBadgeIcon.vue';
 import TabLink from '@/Components/TabLink.vue';
 
 export default {
+    props: {
+        articles: Array,
+    },
     computed: {
         auth() {
             return auth;
