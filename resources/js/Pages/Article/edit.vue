@@ -609,8 +609,8 @@
                             class="mt-2"
                         />
                     </div>
-                    <div class="mt-4 flex w-1/4 flex-col">
-                        <InputLabel for="article_category" value="Tags" />
+                    <div class="mt-4 flex w-1/2 flex-col">
+                        <InputLabel for="article_category" value="Tags"/>
                         <div class="mt-2 flex flex-col">
                             <Select v-model="form.article_tag_id" multiple>
                                 <Option

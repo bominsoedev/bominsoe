@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
@@ -27,17 +28,11 @@ class Article extends Model
         'visit_count'
     ];
 
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $guarded = [];
-    protected $with = [
-        'author',
-        'reactions',
-        'category',
-        'comments',
-        'article_photo',
-        'tag'
-    ];
+    protected $with = ['author', 'reactions', 'category', 'comments', 'article_photo', 'tag'];
+    protected $dates = ['deleted_at'];
 
     public function scopeFilter($query, array $filters)
     {

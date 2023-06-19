@@ -17,7 +17,12 @@ interface ArticleInterface
     public function update( $request,$article,$articleCategories, $attachment);
     public function show($article);
 
+    public function destroy($article);
+
+    public function showTrash();
+
     public function store_reaction($article, $reaction);
 
     public function destroy_reaction($article, $reaction);
+
 }

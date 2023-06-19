@@ -175,6 +175,31 @@ class ArticleService
             'canRegister' => Route::has('register')
         ]);
     }
+    public function destroy($article)
+    {
+
+        try {
+            DB::beginTransaction();
+            $article->delete();
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            dd($queryException);
+        }
+
+    }
+//$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
+//return view('showTrash', ["contacts" => $contacts]);
+
+    public function showTrash()
+    {
+
+        $article=Article::onlyTrashed()->get();
+        return Inertia::render('Article/ShowTrash', [
+            'article' => $article
+
+        ]);
+    }
 
     public function store_reaction($article, $reaction): string|null
     {

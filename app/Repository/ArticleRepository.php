@@ -67,6 +67,26 @@ class ArticleRepository implements ArticleInterface
         return $this->articleService->show($article);
     }
 
+
+    public function destroy($article)
+    {
+        $delete = $this->articleService->destroy($article );
+        if (!is_null($delete)) {
+            DB::commit();
+
+            return redirect()->route('article.lists')->with('message', 'Article Delete Successfully.');
+        } else {
+            DB::rollBack();
+
+            return redirect()->route('article.lists')->with('error', 'Something want wrong.');
+        }
+    }
+
+    public function showTrash()
+    {
+        return $this->articleService->showTrash();
+    }
+
     public function store_reaction($article, $reaction)
     {
         $store_reaction = $this->articleService->store_reaction($article, $reaction);
