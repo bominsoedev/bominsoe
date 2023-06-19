@@ -177,7 +177,6 @@ class ArticleService
     }
     public function destroy($article)
     {
-
         try {
             DB::beginTransaction();
             $article->delete();
@@ -186,18 +185,16 @@ class ArticleService
         } catch (QueryException $queryException) {
             dd($queryException);
         }
-
     }
-//$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
-//return view('showTrash', ["contacts" => $contacts]);
+    //$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
+    //return view('showTrash', ["contacts" => $contacts]);
 
     public function showTrash()
     {
-
-        $article=Article::onlyTrashed()->get();
-        return Inertia::render('Article/ShowTrash', [
-            'article' => $article
-
+        $article = Article::onlyTrashed()->get();
+        dd($article);
+        return Inertia::render('Profile/Trash', [
+            'articles' => $article
         ]);
     }
 
