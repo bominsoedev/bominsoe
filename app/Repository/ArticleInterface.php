@@ -19,6 +19,8 @@ interface ArticleInterface
 
     public function destroy($article);
 
+    public function showTrash();
+
     public function store_reaction($article, $reaction);
 
     public function destroy_reaction($article, $reaction);
