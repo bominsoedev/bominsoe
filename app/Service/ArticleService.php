@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Tag;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -176,6 +175,7 @@ class ArticleService
             'canRegister' => Route::has('register')
         ]);
     }
+
     public function destroy($article)
     {
         try {
@@ -192,26 +192,55 @@ class ArticleService
 
     public function showTrash(): Response
     {
+        DB::enableQueryLog();
+        //        $article = DB::table(['articles', 'reactions'])
+        //            ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
+        //            ->whereNotNull('deleted_at')
+        //            ->select([
+        //                'uuid',
+        //                'title',
+        //                'slug',
+        //                'excerpt',
+        //                'description',
+        //                'body',
+        //                'user_id',
+        //                'form_frameworks',
+        //                'gradient_left',
+        //                'share_count',
+        //                'article_create_date',
+        //                'is_public',
+        //                'visit_count',
+        //                DB::raw(
+        //                    'DATE_FORMAT(articles.deleted_at, "%Y-%m-%d") as deleted_date'
+        //                )
+        //            ])
+        //            ->orderBy('deleted_date', 'desc')
+        //            ->get()
+        //            ->groupBy('deleted_date');
         $article = Article::onlyTrashed()
-            //            ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
-            //            ->select(
-            //                'reactions.id',
-            //                'articles.id',
-            //                'articles.title',
-            //                'articles.slug',
-            //                'articles.article_create_date',
-            //                'articles.is_public',
-            //                'articles.description',
-            //                'articles.excerpt',
-            //                'articles.body',
-            //                'articles.user_id',
-            //                'articles.visit_count',
-            //                'articles.deleted_at',
-            //                'articles.updated_at',
-            //                'articles.created_at'
-            //            )
-            ->get();
-        //        dd($article->toArray());
+            ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
+            ->select([
+                'reactions.id',
+                'articles.id',
+                'articles.title',
+                'articles.slug',
+                'articles.article_create_date',
+                'articles.is_public',
+                'articles.description',
+                'articles.excerpt',
+                'articles.body',
+                'articles.user_id',
+                'articles.visit_count',
+                'articles.deleted_at',
+                'articles.updated_at',
+                'articles.created_at',
+                DB::raw(
+                    'DATE_FORMAT(articles.deleted_at, "%Y-%m-%d") as deleted_date'
+                )
+            ])
+            ->orderBy('deleted_date', 'desc')
+            ->get()
+            ->groupBy('deleted_date');
         return Inertia::render('Profile/Trash', [
             'articles' => $article
         ]);
