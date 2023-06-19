@@ -310,6 +310,10 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     --tw-bg-opacity: 1;
     background-color: rgb(25 48 78/var(--tw-bg-opacity));
 }
+.hover\:bg-panel-500:hover {
+    --tw-bg-opacity: 1;
+    background-image: radial-gradient(rgb(18, 114, 150), rgb(28, 72, 104) 0%);
+}
 .bg-white\/10 {
     background-color: hsla(0,0%,100%,.1);
 }
@@ -317,8 +321,14 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
     --tw-bg-opacity: 1;
     background-color: rgb(25 48 78/var(--tw-bg-opacity));
 }
+
+.bg-panel-500 {
+    --tw-bg-opacity: 1;
+    background-image: radial-gradient(rgb(18, 114, 150), rgb(28, 72, 104) 0%);
+}
 .home-dark {
-    background-color: #151f32;
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 39 63/var(--tw-bg-opacity));
     background-image: url("/public/Images/gradient.svg");
     background-repeat: no-repeat;
     background-size: 0%;

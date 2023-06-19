@@ -10,11 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class ArticleTag extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'uuid',
-        'tag_id',
-        'article_id',
-    ];
+    protected $fillable = ['uuid', 'tag_id', 'article_id'];
 
     public function Article(): BelongsTo
     {

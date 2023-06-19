@@ -23,26 +23,18 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $articles = Article::
-    where('is_public', '1')
+    $articles = Article::where('is_public', 'public')
         ->latest()
-        ->with([
-            'reactions:id,uuid,article_id',
-            'category:uuid,name,slug',
-            'author:id,uuid,username,photo',
-            'article_photo:id,uuid,unique_name,article_id',
-            'comments_count'
-        ])
         ->filter(request(['search', 'category', 'author']))
         ->orderBy('id', 'desc')
-        ->paginate(20);
+        ->paginate(20)
+        ->withQueryString();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'articles' => $articles,
+        'articles' => $articles
     ]);
 })->name('home');
-
 Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('session.dashboard');
     Route::get('profile/edit/{user:uuid}', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -1,18 +1,15 @@
 <template>
     <!-- Sidebar starts -->
-    <nav class="w-1/6 space-y-2 pr-2">
-        <slot/>
+    <nav class="w-1/6 space-y-2 p-2 bg-blue/7 mr-2 rounded">
+        <slot />
     </nav>
     <!-- Sidebar ends -->
 </template>
 
 <script>
-
 export default {
-    name: "Sidebar.vue",
-}
+    name: 'Sidebar.vue',
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

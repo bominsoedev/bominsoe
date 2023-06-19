@@ -13,17 +13,20 @@
                         <div class="flex items-center">
                             <a :href="route('profile.information',article.author)"
                                class="flex items-center text-white">
-                                <div v-if="article.author.photo" class="">
+                                <div v-if="article.author.photo" class="relative">
                                     <img :src="'/storage/ProfileAttachment/' + article.author.photo" alt=""
                                          class="mr-2 lazy object-cover lazyloaded rounded-full"
                                          loading="lazy" style="height: 28px" width="30">
+                                    <span :class=" article.author.online ? 'absolute bottom-0 right-0 inline-block w-3 h-3 bg-gray-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100' : 'absolute top-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100'"></span>
                                 </div>
                                 <div v-else
                                      aria-hidden="true"
-                                     class="mr-2 flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
+                                     class="relative mr-2 flex h-8 w-8 items-center uppercase justify-center rounded-full border-2 border-gray-200 bg-blue-50 text-blue-700 dark:border-gray-400 h-[30px] w-[30px] border-none"
                                      height="30" width="30">
+                                    <span :class=" article.author.online ? 'absolute bottom-0 right-0 inline-block w-3 h-3 bg-gray-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100' : 'absolute top-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white/70 rounded-full opacity-90 hover:opacity-100'"></span>
                                     {{ article.author.username.split("")[0] }}
                                 </div>
+<!--                                <json-viewer :value="article.author.online"></json-viewer>-->
                                 {{ article.author.username }}
                             </a>
                             <BlueBadgeIcon/>
