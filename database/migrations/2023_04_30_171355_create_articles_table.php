@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->longText('excerpt');
             $table->string('form_frameworks');
             $table->string('gradient_left');
-            $table->integer('is_public')->nullable();
+            $table->string('is_public')->nullable();
             $table->integer('visit_count')->nullable();
             $table->integer('share_count')->nullable();
             $table->dateTime('article_create_date');

@@ -24,13 +24,20 @@ class Article extends Model
         'share_count',
         'article_create_date',
         'is_public',
-        'visit_count',
+        'visit_count'
     ];
 
     use HasFactory;
 
     protected $guarded = [];
-    protected $with = ['author', 'reactions', 'category', 'comments', 'article_photo', 'tag'];
+    protected $with = [
+        'author',
+        'reactions',
+        'category',
+        'comments',
+        'article_photo',
+        'tag'
+    ];
 
     public function scopeFilter($query, array $filters)
     {
@@ -86,9 +93,15 @@ class Article extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function publish(): HasMany
+    {
+        return $this->hasMany(Article::class)->where('is_public', 'public');
+    }
     public function article_photo(): HasOne
     {
-        return $this->hasOne(Attachment::class)->where('status', 'article_photo')->latest();
+        return $this->hasOne(Attachment::class)
+            ->where('status', 'article_photo')
+            ->latest();
     }
 
     public function comments_count(): HasMany
@@ -102,11 +115,18 @@ class Article extends Model
     }
     public function tag(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\Tag::class, 'article_tags', 'article_id');
+        return $this->belongsToMany(
+            \App\Models\Tag::class,
+            'article_tags',
+            'article_id'
+        );
     }
 
     public function profile_photo(): HasMany
     {
-        return $this->hasMany(Attachment::class)->where('status', 'profile_photo');
+        return $this->hasMany(Attachment::class)->where(
+            'status',
+            'profile_photo'
+        );
     }
 }

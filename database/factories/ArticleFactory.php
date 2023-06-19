@@ -23,12 +23,12 @@ class ArticleFactory extends Factory
             'slug' => fake()->slug,
             'description' => fake()->word(), // password
             'body' => $this->faker->word(),
-            'is_public' => 1,
+            'is_public' => 'public',
             'form_frameworks' => fake()->hexColor(),
             'gradient_left' => fake()->hexColor(),
             'article_create_date' => now(),
             'excerpt' => fake()->sentence(),
-            'user_id' => 1,
+            'user_id' => 1
         ];
     }
 }
