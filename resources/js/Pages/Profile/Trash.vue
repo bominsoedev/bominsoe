@@ -82,11 +82,11 @@
                 <div class="h-96 overflow-hidden relative p-3">
                     <div class="">
                         <a
+                            target="_blank"
                             :href="
                                 '/storage/ProfileAttachment/' +
                                 $page.props.auth.user.profile_cover
                             "
-                            target="_blank"
                         >
                             <img
                                 v-if="$page.props.auth.user.profile_cover"
@@ -141,7 +141,7 @@
                 <div class="flex space-x-2">
                     <div class="flex p-3 items-center gap-5 relative pl-7">
                         <div
-                            class="ring-4 ring-[#3e4042] w-38 h-38 -mt-12 rounded-full"
+                            class="w-38 h-38 -mt-12 rounded-full"
                             style="padding: 1px"
                         >
                             <img
@@ -152,7 +152,7 @@
                                     $page.props.auth.user.photo
                                 "
                                 alt=""
-                                class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition ring-4 ring-[#0f8dea]"
+                                class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition ring-offset-indigo-100 ring-2 ring-[#0f8dea]"
                                 loading="lazy"
                                 @click="goFile()"
                             />
@@ -160,7 +160,7 @@
                                 v-else
                                 id="show"
                                 alt=""
-                                class="w-32 h-32 cursor-pointer rounded-full object-cover duration-300 ease-in-out hover:opacity-100 opacity-90 transition"
+                                class="w-32 h-32 cursor-pointer rounded-full duration-300 hover:opacity-100 opacity-90 transition ring ring-2 ring-offset-2 ring-offset-transparent"
                                 loading="lazy"
                                 src="/Images/Icon/S.svg"
                                 @click="goFile()"
@@ -189,39 +189,39 @@
                                 <div class="-space-x-3">
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-[60] inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-50 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-40 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-30 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-20 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                     <img
                                         :title="$page.props.auth.user.username"
-                                        alt="Profile image"
                                         class="relative z-10 inline object-cover w-8 h-8 border-2 border-[#3e4042] hover:border-gray-500 duration-500 transition rounded-full"
                                         src="/Images/Icon/S.svg"
+                                        alt="Profile image"
                                     />
                                 </div>
                             </div>
@@ -273,7 +273,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-panel-800 h-72 w-full mt-6"></div>
+            <div class="bg-panel-800 h-72 w-full mt-6">Article Trash</div>
         </div>
         <!-- Photo Upload Modal -->
         <div
@@ -320,7 +320,7 @@
                 </div>
                 <div
                     class="flex w-full justify-start px-5 pb-5 space-x-4"
-                    data-v-2836fdb5-s=""
+                    :data-value="$page.props.auth.user.uuid"
                 >
                     <div class="" data-v-2836fdb5-s="">
                         <button
@@ -386,7 +386,6 @@ import SidebarLink from '@/Components/SidebarLink.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import auth from 'view-ui-plus/src/components/auth';
 import BlueBadgeIcon from '@/Components/BlueBadgeIcon.vue';
-import NavLink from '@/Components/NavLink.vue';
 import TabLink from '@/Components/TabLink.vue';
 
 export default {
@@ -397,7 +396,6 @@ export default {
     },
     components: {
         TabLink,
-        NavLink,
         BlueBadgeIcon,
         AuthenticatedLayout,
         Sidebar,

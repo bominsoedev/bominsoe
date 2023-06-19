@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -177,7 +178,6 @@ class ArticleService
     }
     public function destroy($article)
     {
-
         try {
             DB::beginTransaction();
             $article->delete();
@@ -186,18 +186,34 @@ class ArticleService
         } catch (QueryException $queryException) {
             dd($queryException);
         }
-
     }
-//$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
-//return view('showTrash', ["contacts" => $contacts]);
+    //$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
+    //return view('showTrash', ["contacts" => $contacts]);
 
-    public function showTrash()
+    public function showTrash(): Response
     {
-
-        $article=Article::onlyTrashed()->get();
-        return Inertia::render('Article/ShowTrash', [
-            'article' => $article
-
+        $article = Article::onlyTrashed()
+            //            ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
+            //            ->select(
+            //                'reactions.id',
+            //                'articles.id',
+            //                'articles.title',
+            //                'articles.slug',
+            //                'articles.article_create_date',
+            //                'articles.is_public',
+            //                'articles.description',
+            //                'articles.excerpt',
+            //                'articles.body',
+            //                'articles.user_id',
+            //                'articles.visit_count',
+            //                'articles.deleted_at',
+            //                'articles.updated_at',
+            //                'articles.created_at'
+            //            )
+            ->get();
+        //        dd($article->toArray());
+        return Inertia::render('Profile/Trash', [
+            'articles' => $article
         ]);
     }
 

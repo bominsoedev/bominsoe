@@ -29,17 +29,32 @@ class ArticleRepository implements ArticleInterface
         return $this->articleService->create($category, $tag);
     }
 
-    public function store($request, $article, $articleCategories, $attachment, $articleTag)
-    {
-        $store = $this->articleService->store($request, $article, $articleCategories, $attachment, $articleTag);
+    public function store(
+        $request,
+        $article,
+        $articleCategories,
+        $attachment,
+        $articleTag
+    ) {
+        $store = $this->articleService->store(
+            $request,
+            $article,
+            $articleCategories,
+            $attachment,
+            $articleTag
+        );
         if (!is_null($store)) {
             DB::commit();
 
-            return redirect()->route('article.index')->with('message', 'Article Created Successfully.');
+            return redirect()
+                ->route('article.index')
+                ->with('message', 'Article Created Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.index')->with('error', 'Something want wrong.');
+            return redirect()
+                ->route('article.index')
+                ->with('error', 'Something want wrong.');
         }
     }
 
@@ -50,15 +65,24 @@ class ArticleRepository implements ArticleInterface
 
     public function update($request, $article, $articleCategories, $attachment)
     {
-        $update = $this->articleService->update($request, $article, $articleCategories,$attachment );
+        $update = $this->articleService->update(
+            $request,
+            $article,
+            $articleCategories,
+            $attachment
+        );
         if (!is_null($update)) {
             DB::commit();
 
-            return redirect()->route('article.lists')->with('message', 'Article Updated Successfully.');
+            return redirect()
+                ->route('article.lists')
+                ->with('message', 'Article Updated Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.lists')->with('error', 'Something want wrong.');
+            return redirect()
+                ->route('article.lists')
+                ->with('error', 'Something want wrong.');
         }
     }
 
@@ -67,50 +91,67 @@ class ArticleRepository implements ArticleInterface
         return $this->articleService->show($article);
     }
 
-
     public function destroy($article)
     {
-        $delete = $this->articleService->destroy($article );
+        $delete = $this->articleService->destroy($article);
         if (!is_null($delete)) {
             DB::commit();
 
-            return redirect()->route('article.lists')->with('message', 'Article Delete Successfully.');
+            return redirect()
+                ->route('article.lists')
+                ->with('message', 'Article Delete Successfully.');
         } else {
             DB::rollBack();
 
-            return redirect()->route('article.lists')->with('error', 'Something want wrong.');
+            return redirect()
+                ->route('article.lists')
+                ->with('error', 'Something want wrong.');
         }
     }
 
-    public function showTrash()
+    public function trash()
     {
         return $this->articleService->showTrash();
     }
 
     public function store_reaction($article, $reaction)
     {
-        $store_reaction = $this->articleService->store_reaction($article, $reaction);
+        $store_reaction = $this->articleService->store_reaction(
+            $article,
+            $reaction
+        );
         if (!is_null($store_reaction)) {
             DB::commit();
 
-            return redirect()->back()->with('message', 'Liked.');
+            return redirect()
+                ->back()
+                ->with('message', 'Liked.');
         } else {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Something want wrong.');
+            return redirect()
+                ->back()
+                ->with('error', 'Something want wrong.');
         }
     }
     public function destroy_reaction($article, $reaction)
     {
-        $destroy_reaction = $this->articleService->destroy_reaction($article, $reaction);
+        $destroy_reaction = $this->articleService->destroy_reaction(
+            $article,
+            $reaction
+        );
         if (!is_null($destroy_reaction)) {
             DB::commit();
 
-            return redirect()->back()->with('message', 'UnLiked.');
+            return redirect()
+                ->back()
+                ->with('message', 'UnLiked.');
         } else {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Something want wrong.');
+            return redirect()
+                ->back()
+                ->with('error', 'Something want wrong.');
         }
     }
 }

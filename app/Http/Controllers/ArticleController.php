@@ -46,9 +46,20 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request, Article $article, ArticleCategories $articleCategories, Attachment $attachment, ArticleTag $articleTag)
-    {
-        return $this->articleInterface->store($request, $article, $articleCategories, $attachment, $articleTag);
+    public function store(
+        StoreArticleRequest $request,
+        Article $article,
+        ArticleCategories $articleCategories,
+        Attachment $attachment,
+        ArticleTag $articleTag
+    ) {
+        return $this->articleInterface->store(
+            $request,
+            $article,
+            $articleCategories,
+            $attachment,
+            $articleTag
+        );
     }
 
     /**
@@ -84,9 +95,18 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article, ArticleCategories $articleCategories, Attachment $attachment)
-    {
-        return $this->articleInterface->update($request,$article, $articleCategories, $attachment);
+    public function update(
+        UpdateArticleRequest $request,
+        Article $article,
+        ArticleCategories $articleCategories,
+        Attachment $attachment
+    ) {
+        return $this->articleInterface->update(
+            $request,
+            $article,
+            $articleCategories,
+            $attachment
+        );
     }
 
     /**
@@ -95,11 +115,5 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         return $this->articleInterface->destroy($article);
-    }
-
-    public function showTrash()
-    {
-        dd('asss');
-        return $this->articleInterface->showTrash();
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreUserFollowerRequest;
 use App\Http\Requests\UpdateUserFollowerRequest;
 use App\Models\User;
 use App\Models\UserFollower;
+use App\Repository\ArticleInterface;
 use Inertia\Inertia;
 
 class UserFollowerController extends Controller
@@ -22,7 +23,6 @@ class UserFollowerController extends Controller
             ]
         ]);
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -58,8 +58,10 @@ class UserFollowerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserFollowerRequest $request, UserFollower $userFollower)
-    {
+    public function update(
+        UpdateUserFollowerRequest $request,
+        UserFollower $userFollower
+    ) {
         //
     }
 
