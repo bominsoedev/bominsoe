@@ -96,4 +96,10 @@ class ArticleController extends Controller
     {
         return $this->articleInterface->destroy($article);
     }
+
+    public function showTrash()
+    {
+        dd('asss');
+        return $this->articleInterface->showTrash();
+    }
 }

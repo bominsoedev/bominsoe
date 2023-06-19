@@ -64,9 +64,11 @@ Route::middleware(['auth', 'verified'])->prefix('session/')->group(function () {
     Route::post('articles/article_store', [ArticleController::class, 'store'])->name('article.store');
     Route::get('articles/article_edit/{article:slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::post('articles/article_edit/{article:uuid}', [ArticleController::class, 'update'])->name('article.update');
-//    Route::delete('articles/article_destroy/{article:uuid}', [ArticleController::class, 'destroy'])->name('article.destroy');
     Route::get('articles/{article:uuid}', [ArticleController::class, 'show'])->name('article.show');
     Route::delete('articles/article_destroy/{article:uuid}', [ArticleController::class, 'destroy'])->name('article.destroy');
+
+    //Article SoftDelete
+    Route::get('articles/article_showTrash', [ArticleController::class, 'showTrash'])->name('article.trashed');
 
     //Article Reaction Route
 

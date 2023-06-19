@@ -68,7 +68,7 @@ class ArticleRepository implements ArticleInterface
     }
 
 
-    public function destroy($article,)
+    public function destroy($article)
     {
         $delete = $this->articleService->destroy($article );
         if (!is_null($delete)) {
@@ -80,6 +80,11 @@ class ArticleRepository implements ArticleInterface
 
             return redirect()->route('article.lists')->with('error', 'Something want wrong.');
         }
+    }
+
+    public function showTrash()
+    {
+        return $this->articleService->showTrash();
     }
 
     public function store_reaction($article, $reaction)
