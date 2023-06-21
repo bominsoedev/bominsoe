@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\User;
 use App\Repository\ArticleInterface;
 use Illuminate\Http\Request;
 
@@ -17,8 +19,12 @@ class TrashController extends Controller
     {
         return $this->articleInterface->trash();
     }
-    public function restore()
-    {
-        return $this->articleInterface->restore();
+    public function restoreArticle(
+        Article $article,
+        User $user,
+        Request $request
+    ) {
+        dd($article);
+        return $this->articleInterface->restore($article);
     }
 }

@@ -28,10 +28,17 @@ class Article extends Model
         'visit_count'
     ];
 
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-    protected $with = ['author', 'reactions', 'category', 'comments', 'article_photo', 'tag'];
+    protected $with = [
+        'author',
+        'reactions',
+        'category',
+        'comments',
+        'article_photo',
+        'tag'
+    ];
     protected $dates = ['deleted_at'];
 
     public function scopeFilter($query, array $filters)
@@ -102,6 +109,11 @@ class Article extends Model
     public function comments_count(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function comments(): HasMany

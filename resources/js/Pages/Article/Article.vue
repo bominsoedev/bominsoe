@@ -447,11 +447,11 @@
                                         </ArticleReply>
                                     </ArticleComment>
                                 </div>
-                                <ArticleCommentForm
-                                    :article="article"
-                                    :can-login="canLogin"
-                                ></ArticleCommentForm>
                             </div>
+                            <ArticleCommentForm
+                                :article="article"
+                                :can-login="canLogin"
+                            ></ArticleCommentForm>
                         </section>
                     </div>
                 </main>

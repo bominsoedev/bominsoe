@@ -114,9 +114,9 @@ class ArticleRepository implements ArticleInterface
         return $this->articleService->showTrash();
     }
 
-    public function restore()
+    public function restore($article)
     {
-        return $this->articleService->articleRestore();
+        return $this->articleService->restore($article);
     }
 
     public function store_reaction($article, $reaction)
