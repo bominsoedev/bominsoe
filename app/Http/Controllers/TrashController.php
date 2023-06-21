@@ -17,4 +17,8 @@ class TrashController extends Controller
     {
         return $this->articleInterface->trash();
     }
+    public function restore()
+    {
+        return $this->articleInterface->restore();
+    }
 }

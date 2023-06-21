@@ -246,6 +246,11 @@ class ArticleService
         ]);
     }
 
+    public function articleRestore(): Response
+    {
+
+    }
+
     public function store_reaction($article, $reaction): string|null
     {
         try {

@@ -273,7 +273,9 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-panel-800 h-72 w-full mt-6"></div>
+            <div class="bg-panel-800 h-72 w-full mt-6">
+
+            </div>
         </div>
         <!-- Photo Upload Modal -->
         <div

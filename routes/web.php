@@ -80,6 +80,10 @@ Route::middleware(['auth', 'verified'])
                 TrashController::class,
                 'trash'
             ])->name('user.trash');
+            Route::get('/{user:username}/restore', [
+                TrashController::class,
+                'restore'
+            ])->name('user.restore');
 
             //Article Route
             Route::get('articles/my_articles', [

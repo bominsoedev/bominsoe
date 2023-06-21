@@ -27,6 +27,8 @@ interface ArticleInterface
 
     public function trash();
 
+    public function restore();
+
     public function store_reaction($article, $reaction);
 
     public function destroy_reaction($article, $reaction);
