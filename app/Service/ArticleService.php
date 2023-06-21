@@ -246,9 +246,9 @@ class ArticleService
         ]);
     }
 
-    public function articleRestore(): Response
+    public function restore($article)
     {
-
+        dd($article);
     }
 
     public function store_reaction($article, $reaction): string|null

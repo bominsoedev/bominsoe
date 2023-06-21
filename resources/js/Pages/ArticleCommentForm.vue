@@ -13,7 +13,7 @@
         <!--            </button>-->
         <!--        </div>-->
         <div
-            class="panel relative transition-colors duration-300 dark text-white bg-panel-800 hover:bg-panel-700 px-8 rounded-xl mt-6 border border-dashed border-blue-400 py-0 text-sm hover:border-blue"
+            class="panel max-h-screen relative transition-colors duration-300 dark text-white bg-panel-800 hover:bg-panel-700 px-8 rounded-xl mt-6 border border-dashed border-blue-400 py-0 text-sm hover:border-blue"
         >
             <button
                 :aria-controls="article.uuid"
@@ -23,7 +23,7 @@
                 type="button"
                 class="inherits-color block flex w-full items-center p-6"
             >
-                Write a reply.
+                Reply Article.
             </button>
         </div>
 
