@@ -26,7 +26,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $articles = Article::where('is_public', 'public')
         ->latest()
-        ->filter(request(['search', 'category', 'author']))
+        ->filter(request(['search', 'category', 'author', 'tag']))
         ->orderBy('id', 'desc')
         ->paginate(20)
         ->withQueryString();
@@ -80,10 +80,12 @@ Route::middleware(['auth', 'verified'])
                 TrashController::class,
                 'trash'
             ])->name('user.trash');
-            Route::get('/{user:username}/{article:slug}/restore', [
+            Route::post('/{user:username}/{article}/restore', [
                 TrashController::class,
                 'restoreArticle'
-            ])->name('article.restore');
+            ])
+                ->name('article.restore')
+                ->withTrashed();
 
             //Article Route
             Route::get('articles/my_articles', [

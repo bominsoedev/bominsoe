@@ -116,7 +116,20 @@ class ArticleRepository implements ArticleInterface
 
     public function restore($article)
     {
-        return $this->articleService->restore($article);
+        $result = $this->articleService->restore($article);
+        if (!is_null($result)) {
+            DB::commit();
+
+            return redirect()
+                ->back()
+                ->with('message', 'Successfully Restored Article.');
+        } else {
+            DB::rollBack();
+
+            return redirect()
+                ->back()
+                ->with('error', 'Something want wrong.');
+        }
     }
 
     public function store_reaction($article, $reaction)
@@ -139,6 +152,7 @@ class ArticleRepository implements ArticleInterface
                 ->with('error', 'Something want wrong.');
         }
     }
+
     public function destroy_reaction($article, $reaction)
     {
         $destroy_reaction = $this->articleService->destroy_reaction(

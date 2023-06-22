@@ -281,22 +281,6 @@
                     class="w-full max-w-full border border-[#223c68] rounded-lg shadow p-3"
                 >
                     <div class="flex items-center justify-between mb-4">
-                        <div class="flex">
-                            <div class="flex items-center mr-4">
-                                <input
-                                    id="disabled-checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                    disabled
-                                    type="checkbox"
-                                    value=""
-                                />
-                                <label
-                                    class="ml-2 text-sm font-medium text-gray-400 dark:text-gray-500"
-                                    for="disabled-checkbox"
-                                    >Select All</label
-                                >
-                            </div>
-                        </div>
                         <div>
                             <!--                           <h5 class="text-xl font-bold leading-none  dark:text-white">Latest Customers</h5>-->
                             <a
@@ -318,17 +302,8 @@
                         </h3>
                         <ul class="divide-y divide-gray-700" role="list">
                             <li v-for="a in article" class="py-2">
-                                <json-viewer :value="a"></json-viewer>
+                                <!--                                <json-viewer  :value="a"></json-viewer>-->
                                 <div class="flex items-center space-x-4">
-                                    <div class="flex items-center mb-4">
-                                        <input
-                                            id="disabled-checkbox"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                            disabled
-                                            type="checkbox"
-                                            value=""
-                                        />
-                                    </div>
                                     <div class="flex-shrink-0">
                                         <img
                                             :src="
@@ -360,12 +335,12 @@
                                         :data-dropdown-toggle="
                                             'dropdownDotsHorizontal' + a.slug
                                         "
-                                        class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        class="inline-flex items-center duration-300 p-2 text-sm font-medium text-center rounded-full text-white bg-panel-700 hover:bg-[#223c68]"
                                         type="button"
                                     >
                                         <svg
                                             aria-hidden="true"
-                                            class="w-6 h-6"
+                                            class="w-3 h-3"
                                             fill="currentColor"
                                             viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -379,14 +354,14 @@
                                     <!-- Dropdown menu -->
                                     <div
                                         :id="'dropdownDotsHorizontal' + a.slug"
-                                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                                        class="z-10 hidden p-1 rounded-lg shadow w-44 bg-[#223c68]"
                                     >
                                         <ul
                                             :aria-labelledby="
                                                 'dropdownMenuIconHorizontalButton' +
                                                 a.slug
                                             "
-                                            class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                            class="text-sm text-gray-700 dark:text-gray-200"
                                         >
                                             <li>
                                                 <Link
@@ -399,16 +374,18 @@
                                                             }
                                                         )
                                                     "
-                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    method="post"
+                                                    type="button"
+                                                    class="block px-4 py-2 text-sm hover:bg-panel-500 text-gray-200 rounded hover:text-[#0f8dea]"
                                                     >Restore</Link
                                                 >
                                             </li>
                                         </ul>
-                                        <div class="py-2">
+                                        <div class="">
                                             <a
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                                class="block px-4 py-2 text-sm rounded hover:bg-panel-500 text-gray-200 hover:text-[#0f8dea]"
                                                 href="#"
-                                                >Separated link</a
+                                                >Delete</a
                                             >
                                         </div>
                                     </div>
@@ -540,7 +517,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Sidebar from '@/Components/Sidebar.vue';
 import SidebarLink from '@/Components/SidebarLink.vue';
-import { Head, router, useForm } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import auth from 'view-ui-plus/src/components/auth';
 import BlueBadgeIcon from '@/Components/BlueBadgeIcon.vue';
 import TabLink from '@/Components/TabLink.vue';
@@ -555,6 +532,7 @@ export default {
         },
     },
     components: {
+        Link,
         TabLink,
         BlueBadgeIcon,
         AuthenticatedLayout,
