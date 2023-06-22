@@ -1,14 +1,14 @@
 <script setup>
-import {Head, router, usePage} from '@inertiajs/vue3';
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import ToastList from "@/Components/ToastList.vue";
-import Sidebar from "@/Components/Sidebar.vue";
-import ArticleGrid from "@/Components/ArticleGrid.vue";
-import MasterPagination from "@/Components/MasterPagination.vue";
-import {onMounted, ref} from "vue";
-import ArticleCard from "@/Components/ArticleCard.vue";
-import ArticleFeaturedCard from "@/Components/ArticleFeaturedCard.vue";
-import {useInfiniteScroll} from "@/Composables/useInfiniteScroll";
+import { Head, router, usePage } from '@inertiajs/vue3';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import ToastList from '@/Components/ToastList.vue';
+import Sidebar from '@/Components/Sidebar.vue';
+import ArticleGrid from '@/Components/ArticleGrid.vue';
+import MasterPagination from '@/Components/MasterPagination.vue';
+import { onMounted, ref } from 'vue';
+import ArticleCard from '@/Components/ArticleCard.vue';
+import ArticleFeaturedCard from '@/Components/ArticleFeaturedCard.vue';
+import { useInfiniteScroll } from '@/Composables/useInfiniteScroll';
 
 const props = defineProps({
     canLogin: {
@@ -19,26 +19,29 @@ const props = defineProps({
     },
     articles: {
         type: Object,
-        required: true
+        required: true,
     },
     navStatus: {
-        type: Boolean
+        type: Boolean,
+    },
+});
+
+const { article, loadMoreItems } = useInfiniteScroll('articles');
+
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                loadMoreItems();
+            }
+        });
+    },
+    {
+        rootMargin: '0px 0px 200px 0px',
     }
-});
+);
 
-const {article,loadMoreItems} = useInfiniteScroll('articles');
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            loadMoreItems();
-        }
-    });
-}, {
-    rootMargin: '0px 0px 200px 0px'
-});
-
-console.log(article)
+console.log(article);
 
 const article_mark = ref(null);
 
@@ -48,16 +51,21 @@ onMounted(() => {
 </script>
 
 <template>
-    <Head title="Home"/>
+    <Head title="Home" />
     <GuestLayout :can-login="canLogin" :can-register="canRegister">
-        <template #header>
-        </template>
-        <div class="rounded-xl px-3 py-2 text-sm border border-gray-800">
+        <template #header> </template>
+        <div class="rounded-xl px-3 py-2 text-sm border border-[#223c68]">
             <main class="mx-auto space-y-6">
-                <ArticleFeaturedCard v-if="article.length" :article="article[0]"/>
+                <ArticleFeaturedCard
+                    v-if="article.length"
+                    :article="article[0]"
+                />
                 <div class="grid gap-6 grid-cols-3">
-                    <article-card v-for="article in [article].shift()" :article="article"
-                                  class="group relative col-span-1"/>
+                    <article-card
+                        v-for="article in [article].shift()"
+                        :article="article"
+                        class="group relative col-span-1"
+                    />
                 </div>
             </main>
         </div>
@@ -65,6 +73,4 @@ onMounted(() => {
     </GuestLayout>
 </template>
 
-<style>
-
-</style>
+<style></style>

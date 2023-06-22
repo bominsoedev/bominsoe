@@ -2,9 +2,9 @@
     <Head :title="article.title" />
     <AuthenticatedLayout :classes="'min-w-screen-xl'" :side-status="false">
         <main class="min-w-4xl mt-6" style="min-width: 1200px">
-            <article class="flex gap-x-10 text-white">
+            <article class="flex gap-x-5 text-white">
                 <div
-                    class="mx-auto max-w-[300px] flex-shrink-0 sticky top-[80px] self-start w-[315px]"
+                    class="mx-auto max-w-[400px] flex-shrink-0 sticky top-[80px] p-2 self-start w-[315px] rounded border border-[#223c68]"
                 >
                     <figure>
                         <div
@@ -50,20 +50,22 @@
                         <div
                             class="text-white/70 bg-panel-800 hover:bg-panel-700 transition-colors duration-300 p-3 my-4 rounded-xl"
                         >
-                            <h4
-                                class="mt-2 font-poppins text-2xl font-bold leading-none"
-                            >
-                                {{ article.author.username }}
-                                <span
-                                    v-if="article.author.nickname"
-                                    class="text-lg"
+                            <div class="">
+                                <h4
+                                    class="mt-2 font-poppins text-2xl font-bold leading-none"
                                 >
-                                    ( {{ article.author.nickname }} )
-                                </span>
-                                <div class="inline-block">
-                                    <BlueBadgeIcon />
-                                </div>
-                            </h4>
+                                    {{ article.author.username }}
+                                    <span
+                                        v-if="article.author.nickname"
+                                        class="text-lg"
+                                    >
+                                        ( {{ article.author.nickname }} )
+                                    </span>
+                                    <div class="inline-block">
+                                        <BlueBadgeIcon />
+                                    </div>
+                                </h4>
+                            </div>
                             <div class="my-2 flex items-center gap-x-3">
                                 <a
                                     v-if="article.author.facebook"
@@ -128,13 +130,13 @@
                                         />
                                     </svg>
                                 </a>
+                                <p class="content mt-3 text-[13px] lg:pr-8">
+                                    {{ article.author.bio }}
+                                </p>
                             </div>
-                            <p class="content mt-3 text-[13px] lg:pr-8">
-                                {{ article.author.bio }}
-                            </p>
                         </div>
                     </figcaption>
-                    <div class="col-span-4">
+                    <div class="w-full">
                         <div
                             class="panel relative text-white/70 bg-panel-800 hover:bg-panel-700 transition-colors duration-300 px-4 rounded-xl py-3"
                         >
@@ -153,11 +155,11 @@
                         </div>
                     </div>
                 </div>
-                <main class="">
-                    <div class="col-span-12">
+                <main class="w-full">
+                    <div class="">
                         <section class="p-0 flex-1 mb-3">
                             <div
-                                class="flex-shrink-0 sticky flex justify-between mb-3 text-white/70 bg-panel-800 hover:bg-panel-700 transition-colors duration-300 py-3 px-2 rounded"
+                                class="flex-shrink-0 sticky flex justify-between mb-3 text-white/70 bg-panel-700 transition-colors duration-300 py-3 px-2 rounded"
                             >
                                 <div class="flex">
                                     <GoBack />
@@ -200,7 +202,7 @@
                             </div>
                         </section>
                         <div
-                            class="text-white/70 bg-panel-800 py-6 px-4 rounded"
+                            class="text-white/70 bg-panel-800 py-6 px-4 rounded border border-[#223c68]"
                         >
                             <section
                                 class="container"
@@ -391,7 +393,7 @@
                             </section>
                         </div>
                         <section
-                            class="mt-3 py-6 px-4 text-white/70 bg-[#151f32] rounded"
+                            class="mt-3 py-6 px-4 text-white/70 border border-[#223c68] rounded"
                         >
                             <div id="replies">
                                 <div
@@ -456,7 +458,7 @@
                     </div>
                 </main>
                 <div
-                    class="mx-auto max-w-[400px] flex-shrink-0 sticky top-[80px] self-start w-[315px] bg-[#18273f] p-3 rounded"
+                    class="mx-auto max-w-[400px] flex-shrink-0 sticky top-[80px] self-start w-[315px] bg-[#18273f] p-3 rounded border border-[#223c68]"
                 >
                     <div class="space-y-3 transition-all duration-500">
                         <div class="text-center">

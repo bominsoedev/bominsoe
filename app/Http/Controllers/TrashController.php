@@ -19,12 +19,8 @@ class TrashController extends Controller
     {
         return $this->articleInterface->trash();
     }
-    public function restoreArticle(
-        Article $article,
-        User $user,
-        Request $request
-    ) {
-        dd($article);
+    public function restoreArticle(User $user, Article $article)
+    {
         return $this->articleInterface->restore($article);
     }
 }

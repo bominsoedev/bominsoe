@@ -13,7 +13,7 @@
         <!--            </button>-->
         <!--        </div>-->
         <div
-            class="panel max-h-screen relative transition-colors duration-300 dark text-white bg-panel-800 hover:bg-panel-700 px-8 rounded-xl mt-6 border border-dashed border-blue-400 py-0 text-sm hover:border-blue"
+            class="panel relative transition-colors duration-300 dark text-white bg-panel-800 hover:bg-panel-700 px-8 rounded-xl mt-6 border border-dashed border-blue-400 py-0 text-sm hover:border-blue"
         >
             <button
                 :aria-controls="article.uuid"
@@ -31,7 +31,7 @@
         <div
             :id="article.uuid"
             :aria-labelledby="article.uuid"
-            class="fixed forum-comment bottom-0 left-0 right-0 z-40 w-5/12 mx-auto p-4 rounded-lg overflow-y-auto transition-transform bg-panel-700 transform-none"
+            class="fixed forum-comment bottom-0 left-0 right-0 z-[10000] w-5/12 mx-auto p-4 rounded-lg overflow-y-auto transition-transform bg-panel-700 transform-none"
             tabindex="-1"
         >
             <h5

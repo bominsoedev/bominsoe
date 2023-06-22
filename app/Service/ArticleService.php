@@ -71,7 +71,7 @@ class ArticleService
                 'form_frameworks' => $request->form_frameworks,
                 'gradient_left' => $request->gradient_left,
                 'article_create_date' => now(),
-                'is_public' => $request->is_public,
+                'is_public' => $request->is_public ? 'public' : 'private',
                 'description' => $request->description,
                 'excerpt' => Str::words($request->article_body, 30, '.....'),
                 'body' => $request->article_body,
@@ -126,7 +126,7 @@ class ArticleService
                 'form_frameworks' => $request->form_frameworks,
                 'gradient_left' => $request->gradient_left,
                 'article_create_date' => now(),
-                'is_public' => $request->is_public,
+                'is_public' => $request->is_public ? 'public' : 'private',
                 'description' => $request->description,
                 'excerpt' => Str::words($request->article_body, 30, '.....'),
                 'body' => $request->article_body,
@@ -193,30 +193,6 @@ class ArticleService
     public function showTrash(): Response
     {
         DB::enableQueryLog();
-        //        $article = DB::table(['articles', 'reactions'])
-        //            ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
-        //            ->whereNotNull('deleted_at')
-        //            ->select([
-        //                'uuid',
-        //                'title',
-        //                'slug',
-        //                'excerpt',
-        //                'description',
-        //                'body',
-        //                'user_id',
-        //                'form_frameworks',
-        //                'gradient_left',
-        //                'share_count',
-        //                'article_create_date',
-        //                'is_public',
-        //                'visit_count',
-        //                DB::raw(
-        //                    'DATE_FORMAT(articles.deleted_at, "%Y-%m-%d") as deleted_date'
-        //                )
-        //            ])
-        //            ->orderBy('deleted_date', 'desc')
-        //            ->get()
-        //            ->groupBy('deleted_date');
         $article = Article::onlyTrashed()
             ->leftJoin('reactions', 'reactions.article_id', '=', 'articles.id')
             ->select([
@@ -248,7 +224,14 @@ class ArticleService
 
     public function restore($article)
     {
-        dd($article);
+        try {
+            DB::beginTransaction();
+            $article->restore();
+
+            return 'success';
+        } catch (QueryException $queryException) {
+            return null;
+        }
     }
 
     public function store_reaction($article, $reaction): string|null
