@@ -178,32 +178,33 @@
                             class="mt-2"
                         />
                     </div>
-                </div>
-                <div class="my-3">
-                    <InputLabel for="article_category" value="Description" />
-                    <div class="mt-1">
-                        <textarea
-                            id="description"
-                            v-model="form.description"
-                            class="w-full border border-gray-700 text-gray-300 text-sm bg-transparent focus:border-sky-600 focus:ring-sky-600 rounded"
-                            placeholder="Aa"
-                            rows="1"
-                        ></textarea>
+                    <div class="mt-4 flex flex-col w-full">
+                        <InputLabel
+                            for="article_category"
+                            value="Description"
+                        />
+                        <div class="mt-2">
+                            <textarea
+                                id="description"
+                                v-model="form.description"
+                                class="w-full border border-gray-700 text-gray-300 text-sm bg-transparent focus:border-sky-600 focus:ring-sky-600 rounded"
+                                placeholder="Aa"
+                                rows="1"
+                            ></textarea>
+                        </div>
+                        <InputError
+                            :message="form.errors.description"
+                            class="mt-2"
+                        />
                     </div>
-                    <InputError
-                        :message="form.errors.description"
-                        class="mt-2"
-                    />
                 </div>
                 <div class="">
-                    <QuillEditor
-                        ref="myQuillEditor"
-                        v-model:content="form.article_body"
-                        class="rounded border border-gray-700"
-                        contentType="html"
-                        style="border: --tw-border-opacity: 1;border-color: rgb(55 65 81 / var(--tw-border-opacity));"
-                        toolbar="full"
-                    />
+                    <v-md-editor
+                        id="comment"
+                        v-model="form.article_body"
+                        height="500px"
+                        name="comment"
+                    ></v-md-editor>
                     <InputError
                         :message="form.errors.article_body"
                         class="mt-2"
@@ -286,26 +287,6 @@ import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 import { mapGetters } from 'vuex';
-
-var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-    ['blockquote', 'code-block'],
-    ['link', 'image'],
-    [{ header: 1 }, { header: 2 }], // custom button values
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-    [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-    [{ direction: 'rtl' }], // text direction
-
-    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ font: [] }],
-    [{ align: [] }],
-
-    ['clean'], // remove formatting button
-];
 export default {
     components: {
         AuthenticatedLayout,
@@ -319,7 +300,6 @@ export default {
         Breadcrumb,
         BreadcrumbItem,
         Upload,
-        QuillEditor,
     },
     props: {
         categories: [],
@@ -327,15 +307,6 @@ export default {
     },
     data: function () {
         return {
-            options: {
-                debug: 'info',
-                placeholder: 'Aa',
-                modules: {
-                    toolbar: toolbarOptions,
-                },
-                readOnly: false,
-                theme: 'snow',
-            },
             mounting: false,
             form: new useForm({
                 is_public: false,
@@ -346,23 +317,10 @@ export default {
                 form_frameworks: '1B487EBF',
                 description: '',
                 article_body: '',
-                editor: ClassicEditor,
                 editorConfig: {},
                 attachment: null,
             }),
         };
-    },
-    watch: {
-        content(val) {
-            if (!this.mounting) {
-                this.$store.commit(
-                    'setDelta',
-                    this.$refs.myQuillEditor.quill.getContents()
-                );
-            }
-            this.$store.commit('setContent', val);
-            this.mounting = false;
-        },
     },
     methods: {
         submit() {
