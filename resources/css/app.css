@@ -1,7 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body
+{
+    overflow-inline: scroll;
+}
 .transition-transform {
     transition-duration: .15s;
     transition-property: transform;
@@ -435,4 +438,101 @@ abbr, address, article, aside, audio, b, blockquote, body, body div, caption, ci
 }
 .content {
     line-height: 1.6;
+}
+
+.v-md-editor__toolbar-item {
+    position: relative;
+    height: 28px;
+    padding: 0 6px;
+    color: #0ca5e9;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    -webkit-transition: all 0.2s linear 0s;
+    transition: all 0.2s linear 0s;
+}
+
+.v-md-editor__main {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+
+.v-md-editor--editable .v-md-editor__editor-wrapper {
+    border-right: 1px solid #223c68;
+}
+
+.v-md-textarea-editor textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: #192f4b;
+}
+
+.v-md-textarea-editor pre,
+.v-md-textarea-editor textarea {
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: menlo, Ubuntu Mono, consolas, Courier New, Microsoft Yahei,
+    Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+    line-height: 1.5;
+    word-break: break-all;
+}
+
+.v-md-editor__toolbar {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px;
+    border-bottom: 1px solid #223c68;
+}
+
+.v-md-editor {
+    color: white;
+    max-height: 1000px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    background-color: transparent !important;
+    border-radius: 4px;
+    overflow-inline: scroll;
+}
+
+.vuepress-markdown-body:not(.custom) {
+    padding: 2px;
+    width: 750px;
+}
+
+.vuepress-markdown-body {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: transparent !important;
+}
+
+.v-md-editor__left-area,
+.v-md-editor__right-area {
+    width: 100%;
 }

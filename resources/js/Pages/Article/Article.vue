@@ -385,10 +385,10 @@
                                 <div
                                     class="content user-content text-[13px] text-grey-100"
                                 >
-                                    <div
-                                        class="content user-content"
-                                        v-html="article.body"
-                                    ></div>
+                                    <v-md-editor
+                                        :model-value="article.body"
+                                        mode="preview"
+                                    ></v-md-editor>
                                 </div>
                             </section>
                         </div>
@@ -399,6 +399,7 @@
                                 <div
                                     v-for="comment in article.comments"
                                     class="reply-with-responses"
+                                    style="max-width: 800px"
                                 >
                                     <ArticleComment
                                         :key="comment.uuid"
