@@ -3,8 +3,8 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TrashController;
@@ -31,10 +31,11 @@ Route::get('/', function () {
         ->orderBy('id', 'desc')
         ->paginate(20)
         ->withQueryString();
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'articles' => $articles
+        'articles' => $articles,
     ]);
 })->name('home');
 Route::middleware(['auth', 'verified'])
@@ -43,47 +44,47 @@ Route::middleware(['auth', 'verified'])
         callback: function () {
             Route::get('dashboard', [
                 DashboardController::class,
-                'index'
+                'index',
             ])->name('session.dashboard');
             Route::get('profile/edit/{user:uuid}', [
                 ProfileController::class,
-                'edit'
+                'edit',
             ])->name('profile.edit');
             Route::get('profile/information/{user:uuid}', [
                 ProfileController::class,
-                'information'
+                'information',
             ])->name('profile.information');
             Route::patch('profile/update/{user:uuid}', [
                 ProfileController::class,
-                'update'
+                'update',
             ])->name('profile.update');
             Route::post('profile/upload_profile/{user:uuid}', [
                 ProfileController::class,
-                'upload_profile'
+                'upload_profile',
             ])->name('profile.upload_profile');
             Route::post('profile/profile.upload_cover/{user:uuid}', [
                 ProfileController::class,
-                'upload_cover'
+                'upload_cover',
             ])->name('profile.upload_cover');
             Route::delete('profile/destroy', [
                 ProfileController::class,
-                'destroy'
+                'destroy',
             ])->name('profile.destroy');
 
             // User Following
 
             Route::get('/{user:username}/followings', [
                 UserFollowerController::class,
-                'index'
+                'index',
             ])->name('user.index');
 
             Route::get('/{user:username}/trash', [
                 TrashController::class,
-                'trash'
+                'trash',
             ])->name('user.trash');
             Route::post('/{user:username}/{article}/restore', [
                 TrashController::class,
-                'restoreArticle'
+                'restoreArticle',
             ])
                 ->name('article.restore')
                 ->withTrashed();
@@ -91,99 +92,99 @@ Route::middleware(['auth', 'verified'])
             //Article Route
             Route::get('articles/my_articles', [
                 ArticleController::class,
-                'index'
+                'index',
             ])->name('article.index');
             Route::get('articles/article_lists', [
                 ArticleController::class,
-                'lists'
+                'lists',
             ])->name('article.lists');
             Route::get('articles/article_create', [
                 ArticleController::class,
-                'create'
+                'create',
             ])->name('article.create');
             Route::post('articles/article_store', [
                 ArticleController::class,
-                'store'
+                'store',
             ])->name('article.store');
             Route::get('articles/article_edit/{article:slug}', [
                 ArticleController::class,
-                'edit'
+                'edit',
             ])->name('article.edit');
             Route::post('articles/article_edit/{article:uuid}', [
                 ArticleController::class,
-                'update'
+                'update',
             ])->name('article.update');
             Route::get('articles/{article:uuid}', [
                 ArticleController::class,
-                'show'
+                'show',
             ])->name('article.show');
             Route::delete('articles/article_destroy/{article:uuid}', [
                 ArticleController::class,
-                'destroy'
+                'destroy',
             ])->name('article.destroy');
 
             //Article Reaction Route
 
             Route::post('article/reaction/like/{article:uuid}', [
                 ArticleController::class,
-                'store_reaction'
+                'store_reaction',
             ])->name('article.store_reaction');
             Route::delete('article/reaction/unlike/{article:uuid}', [
                 ArticleController::class,
-                'destroy_reaction'
+                'destroy_reaction',
             ])->name('article.destroy_reaction');
 
             //Article Comment
             Route::post('articles/comment/{article:slug}', [
                 CommentController::class,
-                'store'
+                'store',
             ])->name('comment.store');
             Route::put('articles/comment/update/{comment:uuid}', [
                 CommentController::class,
-                'update'
+                'update',
             ])->name('comment.update');
             Route::post('articles/comment/replies/{comment:uuid}', [
                 CommentController::class,
-                'replies'
+                'replies',
             ])->name('comment.replies');
 
             //Comment Reaction Route
 
             Route::get('comment/reaction/like/{comment:uuid}', [
                 CommentController::class,
-                'store_reaction'
+                'store_reaction',
             ])->name('comment.store_reaction');
             Route::get('comment/reaction/unlike/{comment:uuid}', [
                 CommentController::class,
-                'destroy_reaction'
+                'destroy_reaction',
             ])->name('comment.destroy_reaction');
 
             //Categories Route
             Route::get('categories', [
                 CategoryController::class,
-                'index'
+                'index',
             ])->name('category.index');
             Route::post('categories/store', [
                 CategoryController::class,
-                'store'
+                'store',
             ])->name('category.store');
             Route::get('categories/edit/{category:uuid}', [
                 CategoryController::class,
-                'edit'
+                'edit',
             ])->name('category.edit');
             Route::put('categories/edit/{category:uuid}', [
                 CategoryController::class,
-                'update'
+                'update',
             ])->name('category.update');
             Route::delete('categories/destroy/{category:uuid}', [
                 CategoryController::class,
-                'destroy'
+                'destroy',
             ])->name('category.destroy');
 
             //Forum Route
             Route::get('forum', [
                 ForumController::class,
-                'index'
+                'index',
             ])->name('forum.index');
             //Tag Route
             Route::get('tags', [TagController::class, 'index'])->name(
@@ -191,20 +192,20 @@ Route::middleware(['auth', 'verified'])
             );
             Route::get('tags/edit/{tag:uuid}', [
                 TagController::class,
-                'edit'
+                'edit',
             ])->name('tag.edit');
             Route::post('tags/store', [TagController::class, 'store'])->name(
                 'tag.store'
             );
             Route::put('tags/update/{tag:uuid}', [
                 TagController::class,
-                'update'
+                'update',
             ])->name('tag.update');
             Route::delete('tags/destroy/{tag:uuid}', [
                 TagController::class,
-                'destroy'
+                'destroy',
             ])->name('tag.destroy');
         }
     );
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

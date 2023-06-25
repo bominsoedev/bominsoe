@@ -23,9 +23,10 @@ class ArticleService
             ->orderBy('id', 'desc')
             ->paginate(51)
             ->withQueryString();
+
         return Inertia::render('Article/Index', [
             'articles' => $articles,
-            'filters' => Request::only('search')
+            'filters' => Request::only('search'),
         ]);
     }
 
@@ -35,23 +36,16 @@ class ArticleService
             ->with([
                 'category:uuid,name,slug',
                 'tag:uuid,name,slug',
-                'author:id,uuid,username'
+                'author:id,uuid,username',
             ])
             ->filter(request(['search', 'category', 'author', 'tag']))
             ->where('user_id', auth()->id())
             ->orderBy('id', 'desc')
             ->paginate(50)
             ->withQueryString();
-        return Inertia::render('Article/ArticleList', [
-            'articles' => $articles
-        ]);
-    }
 
-    public function create($category, $tag): Response
-    {
-        return Inertia::render('Article/create', [
-            'categories' => $category->where('user_id', auth()->id())->get(),
-            'tags' => $tag->where('user_id', auth()->id())->get()
+        return Inertia::render('Article/ArticleList', [
+            'articles' => $articles,
         ]);
     }
 
@@ -73,9 +67,9 @@ class ArticleService
                 'article_create_date' => now(),
                 'is_public' => $request->is_public ? 'public' : 'private',
                 'description' => $request->description,
-                'excerpt' => Str::words($request->article_body, 30, '.....'),
+                'excerpt' => Str::words($request->description, 30, '.....'),
                 'body' => $request->article_body,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ];
             $articleStore = $article->create($article_param);
             $this->extracted($request, $articleStore, $attachment);
@@ -84,7 +78,7 @@ class ArticleService
                 $articleCategories->create([
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $articleStore->id,
-                    'category_id' => $c
+                    'category_id' => $c,
                 ]);
             }
 
@@ -93,13 +87,53 @@ class ArticleService
                 $articleTag->create([
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $articleStore->id,
-                    'tag_id' => $t
+                    'tag_id' => $t,
                 ]);
             }
+
             return 'success';
         } catch (QueryException $queryException) {
             dd($queryException);
         }
+    }
+
+    public function create($category, $tag): Response
+    {
+        return Inertia::render('Article/create', [
+            'categories' => $category->where('user_id', auth()->id())->get(),
+            'tags' => $tag->where('user_id', auth()->id())->get(),
+        ]);
+    }
+
+    public function extracted($request, $article, $attachment): string
+    {
+        $attachment_file = $request->attachment;
+        if ($attachment_file) {
+            $request->validate([
+                'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048',
+            ]);
+            $unique_name =
+                uniqid().
+                '_articleAttachmentPhoto_'.
+                $request->file('attachment')->getClientOriginalName();
+            $org_name = $request->file('attachment')->getClientOriginalName();
+            $extension = $request->file('attachment')->extension();
+            $path = 'public/ArticleAttachment/';
+            $attachment_param = [
+                'uuid' => Str::uuid()->toString(),
+                'user_id' => auth()->id(),
+                'article_id' => $article->id,
+                'org_name' => $org_name,
+                'unique_name' => $unique_name,
+                'extension' => $extension,
+                'path' => $path,
+                'status' => 'article_photo',
+            ];
+            $attachment_file->storeAs($path, $unique_name);
+            $attachment->create($attachment_param);
+        }
+
+        return 'success';
     }
 
     public function edit($article, $category): Response
@@ -107,7 +141,26 @@ class ArticleService
         return Inertia::render('Article/edit', [
             'article' => $article,
             'categories' => $category->where('user_id', auth()->id())->get(),
-            'tags' => Tag::where('user_id', auth()->id())->get()
+            'tags' => Tag::where('user_id', auth()->id())->get(),
+        ]);
+    }
+
+    public function show($article): Response
+    {
+        $reacted = $article->reactionBy(request()->user());
+        $liked_count = $article->reactions()->count();
+        if ($article->user_id != auth()->id()) {
+            $article->update([
+                'visit_count' => $article->visit_count + 1,
+            ]);
+        }
+
+        return Inertia::render('Article/Article', [
+            'article' => $article,
+            'reacted' => $reacted,
+            'reaction_count' => $liked_count,
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
         ]);
     }
 
@@ -130,7 +183,7 @@ class ArticleService
                 'description' => $request->description,
                 'excerpt' => Str::words($request->article_body, 30, '.....'),
                 'body' => $request->article_body,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ];
             $article->update($article_param);
             $this->extracted($request, $article, $attachment);
@@ -140,7 +193,7 @@ class ArticleService
                 $articleCategories->create([
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $article->id,
-                    'category_id' => $c
+                    'category_id' => $c,
                 ]);
             }
             ArticleTag::where('article_id', $article->id)->delete();
@@ -149,32 +202,17 @@ class ArticleService
                 ArticleTag::create([
                     'uuid' => Str::uuid()->toString(),
                     'article_id' => $article->id,
-                    'tag_id' => $t
+                    'tag_id' => $t,
                 ]);
             }
+
             return 'success';
         } catch (QueryException $queryException) {
             return null;
         }
     }
-
-    public function show($article): Response
-    {
-        $reacted = $article->reactionBy(request()->user());
-        $liked_count = $article->reactions()->count();
-        if ($article->user_id != auth()->id()) {
-            $article->update([
-                'visit_count' => $article->visit_count + 1
-            ]);
-        }
-        return Inertia::render('Article/Article', [
-            'article' => $article,
-            'reacted' => $reacted,
-            'reaction_count' => $liked_count,
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register')
-        ]);
-    }
+    //$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
+    //return view('showTrash', ["contacts" => $contacts]);
 
     public function destroy($article)
     {
@@ -187,8 +225,6 @@ class ArticleService
             dd($queryException);
         }
     }
-    //$contacts = Contact::onlyTrashed()->where("user_id", auth()->user()->id)->get();
-    //return view('showTrash', ["contacts" => $contacts]);
 
     public function showTrash(): Response
     {
@@ -212,13 +248,14 @@ class ArticleService
                 'articles.created_at',
                 DB::raw(
                     'DATE_FORMAT(articles.deleted_at, "%Y-%m-%d") as deleted_date'
-                )
+                ),
             ])
             ->orderBy('deleted_date', 'desc')
             ->get()
             ->groupBy('deleted_date');
+
         return Inertia::render('Profile/Trash', [
-            'articles' => $article
+            'articles' => $article,
         ]);
     }
 
@@ -241,7 +278,7 @@ class ArticleService
             $reaction->create([
                 'uuid' => Str::uuid()->toString(),
                 'article_id' => $article->id,
-                'user_id' => auth()->id()
+                'user_id' => auth()->id(),
             ]);
 
             return 'success';
@@ -264,41 +301,5 @@ class ArticleService
         } catch (QueryException $queryException) {
             return null;
         }
-    }
-
-    /**
-     * @param $request
-     * @param $article
-     * @param $attachment
-     * @return string
-     */
-    public function extracted($request, $article, $attachment): string
-    {
-        $attachment_file = $request->attachment;
-        if ($attachment_file) {
-            $request->validate([
-                'attachment' => 'image|mimes:png,jpg,gif,jpeg|max:2048'
-            ]);
-            $unique_name =
-                uniqid() .
-                '_articleAttachmentPhoto_' .
-                $request->file('attachment')->getClientOriginalName();
-            $org_name = $request->file('attachment')->getClientOriginalName();
-            $extension = $request->file('attachment')->extension();
-            $path = 'public/ArticleAttachment/';
-            $attachment_param = [
-                'uuid' => Str::uuid()->toString(),
-                'user_id' => auth()->id(),
-                'article_id' => $article->id,
-                'org_name' => $org_name,
-                'unique_name' => $unique_name,
-                'extension' => $extension,
-                'path' => $path,
-                'status' => 'article_photo'
-            ];
-            $attachment_file->storeAs($path, $unique_name);
-            $attachment->create($attachment_param);
-        }
-        return 'success';
     }
 }
