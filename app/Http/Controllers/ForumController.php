@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repository\ForumInterface;
 
-
 class ForumController extends Controller
 {
     public $forumInterface;
@@ -13,10 +12,9 @@ class ForumController extends Controller
     {
         $this->forumInterface = $forumInterface;
     }
+
     public function index()
     {
         return $this->forumInterface->index();
     }
-
-
 }

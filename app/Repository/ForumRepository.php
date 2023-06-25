@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-
 use App\Service\ForumService;
 
 class ForumRepository implements ForumInterface
@@ -18,6 +17,4 @@ class ForumRepository implements ForumInterface
     {
         return $this->forumService->index();
     }
-
-
 }
