@@ -367,45 +367,45 @@
 <!--    </AuthenticatedLayout>-->
 <!--</template>-->
 
-<!--<script setup>-->
+<script setup>
 
-<!--import CategoryBotton from "@/Components/CategoryBotton.vue";-->
-<!--import ArticleComment from "@/Components/ArticleComment.vue";-->
-<!--import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";-->
-<!--import moment from "moment-timezone";-->
-<!--import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";-->
-<!--import {Head, useForm} from "@inertiajs/vue3";-->
-<!--import ArticleReply from "@/Components/ArticleReply.vue";-->
-<!--import {Button} from "view-ui-plus";-->
-<!--import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";-->
-<!--import GoBack from "@/Components/GoBack.vue";-->
+import CategoryBotton from "@/Components/CategoryBotton.vue";
+import ArticleComment from "@/Components/ArticleComment.vue";
+import ArticleCommentForm from "@/Pages/ArticleCommentForm.vue";
+import moment from "moment-timezone";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import {Head, useForm} from "@inertiajs/vue3";
+import ArticleReply from "@/Components/ArticleReply.vue";
+import {Button} from "view-ui-plus";
+import BlueBadgeIcon from "@/Components/BlueBadgeIcon.vue";
+import GoBack from "@/Components/GoBack.vue";
 
-<!--const props = defineProps({-->
-<!--    article: {},-->
-<!--    reacted: {-->
-<!--        type: Boolean-->
-<!--    }, reactedBy: {-->
-<!--        type: Boolean-->
-<!--    },-->
-<!--    canLogin: {-->
-<!--        type: Boolean,-->
-<!--    },-->
-<!--    canRegister: {-->
-<!--        type: Boolean,-->
-<!--    },-->
-<!--})-->
+const props = defineProps({
+    article: {},
+    reacted: {
+        type: Boolean
+    }, reactedBy: {
+        type: Boolean
+    },
+    canLogin: {
+        type: Boolean,
+    },
+    canRegister: {
+        type: Boolean,
+    },
+})
 
-<!--const form = useForm({});-->
+const form = useForm({});
 
 
-<!--const like = (param) => {-->
-<!--    form.post(route('article.store_reaction', param));-->
-<!--};-->
-<!--const unlike = (param) => {-->
-<!--    form.delete(route('article.destroy_reaction', param), {-->
-<!--        onSuccess: form.wasSuccessful,-->
-<!--    });-->
-<!--};-->
-<!--</script>-->
+const like = (param) => {
+    form.post(route('article.store_reaction', param));
+};
+const unlike = (param) => {
+    form.delete(route('article.destroy_reaction', param), {
+        onSuccess: form.wasSuccessful,
+    });
+};
+</script>
 
-<!--<style lang="scss" scoped></style>-->
+<style lang="scss" scoped></style>

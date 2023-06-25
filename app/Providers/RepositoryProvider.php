@@ -10,6 +10,8 @@ use App\Repository\CommentInterface;
 use App\Repository\CommentRepository;
 use App\Repository\DashboardInterface;
 use App\Repository\DashboardRepository;
+use App\Repository\ForumInterface;
+use App\Repository\ForumRepository;
 use App\Repository\TagsInterface;
 use App\Repository\TagsRepository;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +30,10 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(
             CategoriesInterface::class,
             CategoriesRepository::class,
+        );
+        $this->app->bind(
+            ForumInterface::class,
+            ForumRepository::class,
         );
         $this->app->bind(
             DashboardInterface::class,
