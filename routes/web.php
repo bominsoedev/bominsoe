@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
@@ -179,7 +180,12 @@ Route::middleware(['auth', 'verified'])
                 'destroy'
             ])->name('category.destroy');
 
-            //Categories Route
+            //Forum Route
+            Route::get('forum', [
+                ForumController::class,
+                'index'
+            ])->name('forum.index');
+            //Tag Route
             Route::get('tags', [TagController::class, 'index'])->name(
                 'tag.index'
             );
